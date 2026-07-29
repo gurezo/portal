@@ -2,7 +2,12 @@
   "name": "@portal/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx build site",
+    "build:firebase": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/",
+    "deploy": "firebase deploy --only hosting:gurezo-portal --project gurezo-portal",
+    "deploy:firebase": "npm run build:firebase && npm run deploy"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~22.0.4",
