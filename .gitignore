@@ -47,3 +47,7 @@ Thumbs.db
 .angular
 
 vitest.config.*.timestamp*
+
+# firebase
+firebase-public
+.firebase
