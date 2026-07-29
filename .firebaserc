@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "gurezo-portal"
+  },
+  "targets": {
+    "gurezo-portal": {
+      "hosting": {
+        "gurezo-portal": ["gurezo-portal"]
+      }
+    }
+  }
+}

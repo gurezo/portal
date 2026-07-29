@@ -2,7 +2,12 @@
   "name": "@portal/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx build site",
+    "build:firebase": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/",
+    "deploy": "firebase deploy --only hosting:gurezo-portal --project gurezo-portal",
+    "deploy:firebase": "npm run build:firebase && npm run deploy"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~22.0.4",
@@ -11,6 +16,7 @@
     "@angular/forms": "~22.0.4",
     "@angular/platform-browser": "~22.0.4",
     "@angular/router": "~22.0.4",
+    "firebase": "12.16.0",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
@@ -46,6 +52,7 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-playwright": "^1.6.2",
+    "firebase-tools": "^14.14.0",
     "jsdom": "^27.1.0",
     "nx": "23.1.0",
     "postcss": "^8.5.24",
