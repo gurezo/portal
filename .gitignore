@@ -1,32 +1,49 @@
-# Dependencies
-node_modules/
-.npm
+# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# Build outputs
-dist/
-tmp/
+# compiled output
+dist
+tmp
+out-tsc
 
-# Nx
-.nx/cache
-.nx/workspace-data
+# dependencies
+node_modules
 
-# IDE
-.idea/
-*.swp
-*.swo
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
 !.vscode/extensions.json
 
-# OS
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
 .DS_Store
 Thumbs.db
 
-# Env
-.env
-.env.local
+.nx/cache
+.nx/workspace-data
+.nx/migrate-runs
+.claude/worktrees
+.claude/settings.local.json
 
-# Angular
-.angular/
+.angular
 
-# Misc
-*.log
+vitest.config.*.timestamp*
