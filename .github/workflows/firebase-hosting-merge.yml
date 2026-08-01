@@ -14,8 +14,14 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout
+      - name: Checkout portal
         uses: actions/checkout@v4
+
+      - name: Checkout web-serial-rxjs
+        uses: actions/checkout@v4
+        with:
+          repository: gurezo/web-serial-rxjs
+          path: tmp/web-serial-rxjs
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -23,23 +29,32 @@ jobs:
           node-version: 24
           cache: npm
 
-      - name: Install dependencies
+      - name: Install portal dependencies
         run: npm ci
 
-      - name: Require cross-repo artifact token
-        env:
-          CROSS_REPO_ACTIONS_TOKEN: ${{ secrets.CROSS_REPO_ACTIONS_TOKEN }}
-        run: |
-          if [ -z "${CROSS_REPO_ACTIONS_TOKEN}" ]; then
-            echo "error: repository secret CROSS_REPO_ACTIONS_TOKEN is required" >&2
-            echo "Create a PAT with actions:read on gurezo/web-serial-rxjs and add it as CROSS_REPO_ACTIONS_TOKEN." >&2
-            exit 1
-          fi
+      - name: Build portal site into firebase-public
+        run: npm run build:firebase:site
 
-      - name: Build Firebase public directory
-        env:
-          GH_TOKEN: ${{ secrets.CROSS_REPO_ACTIONS_TOKEN }}
-        run: npm run build:firebase
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js for web-serial-rxjs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: tmp/web-serial-rxjs/pnpm-lock.yaml
+
+      - name: Build and import web-serial-rxjs static fragment
+        working-directory: tmp/web-serial-rxjs
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run docs
+          test -f dist/portal/web-serial-rxjs/index.html
+          rm -rf "${GITHUB_WORKSPACE}/firebase-public/web-serial-rxjs"
+          cp -a dist/portal/web-serial-rxjs "${GITHUB_WORKSPACE}/firebase-public/web-serial-rxjs"
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

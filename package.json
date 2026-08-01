@@ -5,7 +5,8 @@
   "scripts": {
     "build": "nx build site",
     "import:web-serial-rxjs": "bash scripts/import-web-serial-rxjs-static.sh",
-    "build:firebase": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/ && npm run import:web-serial-rxjs",
+    "build:firebase:site": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/",
+    "build:firebase": "npm run build:firebase:site && npm run import:web-serial-rxjs",
     "deploy": "firebase deploy --only hosting:gurezo-portal --project gurezo-portal",
     "deploy:firebase": "npm run build:firebase && npm run deploy"
   },
