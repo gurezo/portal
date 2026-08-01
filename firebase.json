@@ -2,10 +2,724 @@
   "hosting": {
     "target": "gurezo-portal",
     "public": "firebase-public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "cleanUrls": true,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "cleanUrls": false,
     "trailingSlash": true,
     "redirects": [
+      {
+        "source": "/web-serial-rxjs/guide/index.html",
+        "destination": "/web-serial-rxjs/",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/api/:path*",
+        "destination": "/web-serial-rxjs/api/:path*",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/hierarchy/",
+        "destination": "/web-serial-rxjs/api/hierarchy.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/hierarchy",
+        "destination": "/web-serial-rxjs/api/hierarchy.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/README/",
+        "destination": "/web-serial-rxjs/guide/en/README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/README",
+        "destination": "/web-serial-rxjs/guide/en/README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/advanced-usage/",
+        "destination": "/web-serial-rxjs/guide/en/advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/advanced-usage",
+        "destination": "/web-serial-rxjs/guide/en/advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/archive/migration-phase5/",
+        "destination": "/web-serial-rxjs/guide/en/archive/migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/archive/migration-phase5",
+        "destination": "/web-serial-rxjs/guide/en/archive/migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/concepts/",
+        "destination": "/web-serial-rxjs/guide/en/concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/concepts",
+        "destination": "/web-serial-rxjs/guide/en/concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/migration-v2/",
+        "destination": "/web-serial-rxjs/guide/en/migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/migration-v2",
+        "destination": "/web-serial-rxjs/guide/en/migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/migration-v3/",
+        "destination": "/web-serial-rxjs/guide/en/migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/migration-v3",
+        "destination": "/web-serial-rxjs/guide/en/migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/migration-v4/",
+        "destination": "/web-serial-rxjs/guide/en/migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/migration-v4",
+        "destination": "/web-serial-rxjs/guide/en/migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/overview/",
+        "destination": "/web-serial-rxjs/guide/en/overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/overview",
+        "destination": "/web-serial-rxjs/guide/en/overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/quick-start/",
+        "destination": "/web-serial-rxjs/guide/en/quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/en/quick-start",
+        "destination": "/web-serial-rxjs/guide/en/quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/README/",
+        "destination": "/web-serial-rxjs/guide/ja/README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/README",
+        "destination": "/web-serial-rxjs/guide/ja/README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/advanced-usage/",
+        "destination": "/web-serial-rxjs/guide/ja/advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/advanced-usage",
+        "destination": "/web-serial-rxjs/guide/ja/advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/archive/migration-phase5/",
+        "destination": "/web-serial-rxjs/guide/ja/archive/migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/archive/migration-phase5",
+        "destination": "/web-serial-rxjs/guide/ja/archive/migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/concepts/",
+        "destination": "/web-serial-rxjs/guide/ja/concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/concepts",
+        "destination": "/web-serial-rxjs/guide/ja/concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/migration-v2/",
+        "destination": "/web-serial-rxjs/guide/ja/migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/migration-v2",
+        "destination": "/web-serial-rxjs/guide/ja/migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/migration-v3/",
+        "destination": "/web-serial-rxjs/guide/ja/migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/migration-v3",
+        "destination": "/web-serial-rxjs/guide/ja/migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/migration-v4/",
+        "destination": "/web-serial-rxjs/guide/ja/migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/migration-v4",
+        "destination": "/web-serial-rxjs/guide/ja/migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/overview/",
+        "destination": "/web-serial-rxjs/guide/ja/overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/overview",
+        "destination": "/web-serial-rxjs/guide/ja/overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/quick-start/",
+        "destination": "/web-serial-rxjs/guide/ja/quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/guide/ja/quick-start",
+        "destination": "/web-serial-rxjs/guide/ja/quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/classes/index.SerialError/",
+        "destination": "/web-serial-rxjs/api/classes/index.SerialError.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/classes/index.SerialError",
+        "destination": "/web-serial-rxjs/api/classes/index.SerialError.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_README/",
+        "destination": "/web-serial-rxjs/api/documents/en_README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_README",
+        "destination": "/web-serial-rxjs/api/documents/en_README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_advanced-usage/",
+        "destination": "/web-serial-rxjs/api/documents/en_advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_advanced-usage",
+        "destination": "/web-serial-rxjs/api/documents/en_advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_archive_migration-phase5/",
+        "destination": "/web-serial-rxjs/api/documents/en_archive_migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_archive_migration-phase5",
+        "destination": "/web-serial-rxjs/api/documents/en_archive_migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_concepts/",
+        "destination": "/web-serial-rxjs/api/documents/en_concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_concepts",
+        "destination": "/web-serial-rxjs/api/documents/en_concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_migration-v2/",
+        "destination": "/web-serial-rxjs/api/documents/en_migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_migration-v2",
+        "destination": "/web-serial-rxjs/api/documents/en_migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_migration-v3/",
+        "destination": "/web-serial-rxjs/api/documents/en_migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_migration-v3",
+        "destination": "/web-serial-rxjs/api/documents/en_migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_migration-v4/",
+        "destination": "/web-serial-rxjs/api/documents/en_migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_migration-v4",
+        "destination": "/web-serial-rxjs/api/documents/en_migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_overview/",
+        "destination": "/web-serial-rxjs/api/documents/en_overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_overview",
+        "destination": "/web-serial-rxjs/api/documents/en_overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_quick-start/",
+        "destination": "/web-serial-rxjs/api/documents/en_quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/en_quick-start",
+        "destination": "/web-serial-rxjs/api/documents/en_quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_README/",
+        "destination": "/web-serial-rxjs/api/documents/ja_README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_README",
+        "destination": "/web-serial-rxjs/api/documents/ja_README.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_advanced-usage/",
+        "destination": "/web-serial-rxjs/api/documents/ja_advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_advanced-usage",
+        "destination": "/web-serial-rxjs/api/documents/ja_advanced-usage.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_archive_migration-phase5/",
+        "destination": "/web-serial-rxjs/api/documents/ja_archive_migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_archive_migration-phase5",
+        "destination": "/web-serial-rxjs/api/documents/ja_archive_migration-phase5.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_concepts/",
+        "destination": "/web-serial-rxjs/api/documents/ja_concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_concepts",
+        "destination": "/web-serial-rxjs/api/documents/ja_concepts.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_migration-v2/",
+        "destination": "/web-serial-rxjs/api/documents/ja_migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_migration-v2",
+        "destination": "/web-serial-rxjs/api/documents/ja_migration-v2.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_migration-v3/",
+        "destination": "/web-serial-rxjs/api/documents/ja_migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_migration-v3",
+        "destination": "/web-serial-rxjs/api/documents/ja_migration-v3.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_migration-v4/",
+        "destination": "/web-serial-rxjs/api/documents/ja_migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_migration-v4",
+        "destination": "/web-serial-rxjs/api/documents/ja_migration-v4.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_overview/",
+        "destination": "/web-serial-rxjs/api/documents/ja_overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_overview",
+        "destination": "/web-serial-rxjs/api/documents/ja_overview.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_quick-start/",
+        "destination": "/web-serial-rxjs/api/documents/ja_quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/documents/ja_quick-start",
+        "destination": "/web-serial-rxjs/api/documents/ja_quick-start.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.createSerialSession/",
+        "destination": "/web-serial-rxjs/api/functions/index.createSerialSession.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.createSerialSession",
+        "destination": "/web-serial-rxjs/api/functions/index.createSerialSession.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.createTerminalBuffer/",
+        "destination": "/web-serial-rxjs/api/functions/index.createTerminalBuffer.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.createTerminalBuffer",
+        "destination": "/web-serial-rxjs/api/functions/index.createTerminalBuffer.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.isConnectedSessionState/",
+        "destination": "/web-serial-rxjs/api/functions/index.isConnectedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.isConnectedSessionState",
+        "destination": "/web-serial-rxjs/api/functions/index.isConnectedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.isWebSerialSupported/",
+        "destination": "/web-serial-rxjs/api/functions/index.isWebSerialSupported.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.isWebSerialSupported",
+        "destination": "/web-serial-rxjs/api/functions/index.isWebSerialSupported.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.resolveSerialSessionOptions/",
+        "destination": "/web-serial-rxjs/api/functions/index.resolveSerialSessionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/functions/index.resolveSerialSessionOptions",
+        "destination": "/web-serial-rxjs/api/functions/index.resolveSerialSessionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.ConnectedSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.ConnectedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.ConnectedSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.ConnectedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.ConnectingSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.ConnectingSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.ConnectingSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.ConnectingSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.DisconnectingSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.DisconnectingSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.DisconnectingSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.DisconnectingSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.DisposedSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.DisposedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.DisposedSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.DisposedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.ErrorSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.ErrorSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.ErrorSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.ErrorSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.IdleSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.IdleSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.IdleSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.IdleSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.LineBufferOptions/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.LineBufferOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.LineBufferOptions",
+        "destination": "/web-serial-rxjs/api/interfaces/index.LineBufferOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialErrorContextMap/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialErrorContextMap.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialErrorContextMap",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialErrorContextMap.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialSession/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialSession.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialSession",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialSession.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialSessionFeatureOptions/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialSessionFeatureOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialSessionFeatureOptions",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialSessionFeatureOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialSessionOptions/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialSessionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.SerialSessionOptions",
+        "destination": "/web-serial-rxjs/api/interfaces/index.SerialSessionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.TerminalBuffer/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.TerminalBuffer.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.TerminalBuffer",
+        "destination": "/web-serial-rxjs/api/interfaces/index.TerminalBuffer.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.TerminalBufferOptions/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.TerminalBufferOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.TerminalBufferOptions",
+        "destination": "/web-serial-rxjs/api/interfaces/index.TerminalBufferOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.UnsupportedSessionState/",
+        "destination": "/web-serial-rxjs/api/interfaces/index.UnsupportedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/interfaces/index.UnsupportedSessionState",
+        "destination": "/web-serial-rxjs/api/interfaces/index.UnsupportedSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.ResolvedSerialSessionOptions/",
+        "destination": "/web-serial-rxjs/api/types/index.ResolvedSerialSessionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.ResolvedSerialSessionOptions",
+        "destination": "/web-serial-rxjs/api/types/index.ResolvedSerialSessionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialConnectionOptions/",
+        "destination": "/web-serial-rxjs/api/types/index.SerialConnectionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialConnectionOptions",
+        "destination": "/web-serial-rxjs/api/types/index.SerialConnectionOptions.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialErrorCauseContext/",
+        "destination": "/web-serial-rxjs/api/types/index.SerialErrorCauseContext.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialErrorCauseContext",
+        "destination": "/web-serial-rxjs/api/types/index.SerialErrorCauseContext.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialErrorCode/",
+        "destination": "/web-serial-rxjs/api/types/index.SerialErrorCode.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialErrorCode",
+        "destination": "/web-serial-rxjs/api/types/index.SerialErrorCode.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialPayload/",
+        "destination": "/web-serial-rxjs/api/types/index.SerialPayload.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialPayload",
+        "destination": "/web-serial-rxjs/api/types/index.SerialPayload.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialSessionState/",
+        "destination": "/web-serial-rxjs/api/types/index.SerialSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialSessionState",
+        "destination": "/web-serial-rxjs/api/types/index.SerialSessionState.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialSessionStatus/",
+        "destination": "/web-serial-rxjs/api/types/index.SerialSessionStatus.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.SerialSessionStatus",
+        "destination": "/web-serial-rxjs/api/types/index.SerialSessionStatus.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.ValidationErrorConstraint/",
+        "destination": "/web-serial-rxjs/api/types/index.ValidationErrorConstraint.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.ValidationErrorConstraint",
+        "destination": "/web-serial-rxjs/api/types/index.ValidationErrorConstraint.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.ValidationErrorContext/",
+        "destination": "/web-serial-rxjs/api/types/index.ValidationErrorContext.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/types/index.ValidationErrorContext",
+        "destination": "/web-serial-rxjs/api/types/index.ValidationErrorContext.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.DEFAULT_LINE_BUFFER_OPTIONS/",
+        "destination": "/web-serial-rxjs/api/variables/index.DEFAULT_LINE_BUFFER_OPTIONS.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.DEFAULT_LINE_BUFFER_OPTIONS",
+        "destination": "/web-serial-rxjs/api/variables/index.DEFAULT_LINE_BUFFER_OPTIONS.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.DEFAULT_TERMINAL_BUFFER_OPTIONS/",
+        "destination": "/web-serial-rxjs/api/variables/index.DEFAULT_TERMINAL_BUFFER_OPTIONS.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.DEFAULT_TERMINAL_BUFFER_OPTIONS",
+        "destination": "/web-serial-rxjs/api/variables/index.DEFAULT_TERMINAL_BUFFER_OPTIONS.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.SerialErrorCode/",
+        "destination": "/web-serial-rxjs/api/variables/index.SerialErrorCode.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.SerialErrorCode",
+        "destination": "/web-serial-rxjs/api/variables/index.SerialErrorCode.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.SerialSessionStatus/",
+        "destination": "/web-serial-rxjs/api/variables/index.SerialSessionStatus.html",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/api/variables/index.SerialSessionStatus",
+        "destination": "/web-serial-rxjs/api/variables/index.SerialSessionStatus.html",
+        "type": 301
+      },
       {
         "source": "/web-serial-rxjs/angular",
         "destination": "/web-serial-rxjs/examples/angular",
