@@ -26,7 +26,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Require cross-repo artifact token
+        env:
+          CROSS_REPO_ACTIONS_TOKEN: ${{ secrets.CROSS_REPO_ACTIONS_TOKEN }}
+        run: |
+          if [ -z "${CROSS_REPO_ACTIONS_TOKEN}" ]; then
+            echo "error: repository secret CROSS_REPO_ACTIONS_TOKEN is required" >&2
+            echo "Create a PAT with actions:read on gurezo/web-serial-rxjs and add it as CROSS_REPO_ACTIONS_TOKEN." >&2
+            exit 1
+          fi
+
       - name: Build Firebase public directory
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_ACTIONS_TOKEN }}
         run: npm run build:firebase
 
       - name: Deploy to Firebase Hosting
