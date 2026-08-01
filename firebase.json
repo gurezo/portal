@@ -4,6 +4,32 @@
     "public": "firebase-public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
-    "trailingSlash": false
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/web-serial-rxjs/examples/angular/**",
+        "destination": "/web-serial-rxjs/examples/angular/index.html"
+      },
+      {
+        "source": "/web-serial-rxjs/examples/react/**",
+        "destination": "/web-serial-rxjs/examples/react/index.html"
+      },
+      {
+        "source": "/web-serial-rxjs/examples/svelte/**",
+        "destination": "/web-serial-rxjs/examples/svelte/index.html"
+      },
+      {
+        "source": "/web-serial-rxjs/examples/vanilla-js/**",
+        "destination": "/web-serial-rxjs/examples/vanilla-js/index.html"
+      },
+      {
+        "source": "/web-serial-rxjs/examples/vanilla-ts/**",
+        "destination": "/web-serial-rxjs/examples/vanilla-ts/index.html"
+      },
+      {
+        "source": "/web-serial-rxjs/examples/vue/**",
+        "destination": "/web-serial-rxjs/examples/vue/index.html"
+      }
+    ]
   }
 }
