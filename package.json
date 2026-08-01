@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "nx build site",
-    "build:firebase": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/",
+    "import:web-serial-rxjs": "bash scripts/import-web-serial-rxjs-static.sh",
+    "build:firebase": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/ && npm run import:web-serial-rxjs",
     "deploy": "firebase deploy --only hosting:gurezo-portal --project gurezo-portal",
     "deploy:firebase": "npm run build:firebase && npm run deploy"
   },
