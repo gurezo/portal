@@ -4,7 +4,69 @@
     "public": "firebase-public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "cleanUrls": true,
-    "trailingSlash": false,
+    "trailingSlash": true,
+    "redirects": [
+      {
+        "source": "/web-serial-rxjs/angular",
+        "destination": "/web-serial-rxjs/examples/angular",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/angular/:path*",
+        "destination": "/web-serial-rxjs/examples/angular/:path*",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/react",
+        "destination": "/web-serial-rxjs/examples/react",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/react/:path*",
+        "destination": "/web-serial-rxjs/examples/react/:path*",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/svelte",
+        "destination": "/web-serial-rxjs/examples/svelte",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/svelte/:path*",
+        "destination": "/web-serial-rxjs/examples/svelte/:path*",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/vanilla-js",
+        "destination": "/web-serial-rxjs/examples/vanilla-js",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/vanilla-js/:path*",
+        "destination": "/web-serial-rxjs/examples/vanilla-js/:path*",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/vanilla-ts",
+        "destination": "/web-serial-rxjs/examples/vanilla-ts",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/vanilla-ts/:path*",
+        "destination": "/web-serial-rxjs/examples/vanilla-ts/:path*",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/vue",
+        "destination": "/web-serial-rxjs/examples/vue",
+        "type": 301
+      },
+      {
+        "source": "/web-serial-rxjs/vue/:path*",
+        "destination": "/web-serial-rxjs/examples/vue/:path*",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "/web-serial-rxjs/examples/angular/**",
