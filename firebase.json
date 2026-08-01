@@ -3,7 +3,7 @@
     "target": "gurezo-portal",
     "public": "firebase-public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "cleanUrls": true,
+    "cleanUrls": false,
     "trailingSlash": true,
     "redirects": [
       {
