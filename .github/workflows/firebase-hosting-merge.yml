@@ -43,6 +43,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: 11
+          # Root package.json pins pnpm@11.24.0; read this repo's manifest so version: 11 does not conflict.
+          package_json_file: tmp/web-serial-rxjs/package.json
 
       - name: Setup Node.js for web-serial-rxjs
         uses: actions/setup-node@v4
