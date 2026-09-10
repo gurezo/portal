@@ -42,12 +42,12 @@ jobs:
       - name: Setup pnpm for web-serial-rxjs
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11
 
       - name: Setup Node.js for web-serial-rxjs
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
           cache-dependency-path: tmp/web-serial-rxjs/pnpm-lock.yaml
 
