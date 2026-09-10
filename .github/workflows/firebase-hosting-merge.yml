@@ -23,19 +23,23 @@ jobs:
           repository: gurezo/web-serial-rxjs
           path: tmp/web-serial-rxjs
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install portal dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build portal site into firebase-public
-        run: npm run build:firebase:site
+        run: pnpm run build:firebase:site
 
-      - name: Setup pnpm
+      - name: Setup pnpm for web-serial-rxjs
         uses: pnpm/action-setup@v4
         with:
           version: 9
