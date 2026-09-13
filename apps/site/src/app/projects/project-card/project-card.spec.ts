@@ -92,6 +92,40 @@ describe('ProjectCard', () => {
     );
   });
 
+  it('renders chirimen-lite-console links from project metadata', () => {
+    const chirimenLiteConsole = PROJECTS.find(
+      (project) => project.id === 'chirimen-lite-console',
+    );
+
+    expect(chirimenLiteConsole).toBeDefined();
+    if (!chirimenLiteConsole) {
+      return;
+    }
+
+    const compiled = render(chirimenLiteConsole);
+    const links = Array.from(compiled.querySelectorAll('a'));
+
+    expect(compiled.textContent).toContain('CHIRIMEN Lite Console');
+    expect(compiled.textContent).toContain('Web Application');
+    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).toContain('Angular');
+    expect(
+      links.map((link) => ({
+        href: link.getAttribute('href'),
+        label: link.textContent?.trim(),
+        target: link.getAttribute('target'),
+        rel: link.getAttribute('rel'),
+      })),
+    ).toEqual(
+      chirimenLiteConsole.links.map((link) => ({
+        href: link.url,
+        label: link.label,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      })),
+    );
+  });
+
   it('hides optional status, technologies, and links when they are absent', () => {
     const compiled = render(createProject());
 

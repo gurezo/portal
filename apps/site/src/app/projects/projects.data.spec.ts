@@ -6,6 +6,9 @@ describe('PROJECTS', () => {
   const webSerialRxjs = PROJECTS.find(
     (project) => project.id === 'web-serial-rxjs',
   );
+  const chirimenLiteConsole = PROJECTS.find(
+    (project) => project.id === 'chirimen-lite-console',
+  );
 
   it('includes web-serial-rxjs with the fields needed to render the portal listing', () => {
     expect(webSerialRxjs).toEqual(
@@ -49,6 +52,39 @@ describe('PROJECTS', () => {
         label: 'npm',
         url: 'https://www.npmjs.com/package/@gurezo/web-serial-rxjs',
         kind: 'npm',
+      },
+    ]);
+  });
+
+  it('includes chirimen-lite-console in CHIRIMEN Tools', () => {
+    expect(chirimenLiteConsole).toEqual(
+      expect.objectContaining<Partial<OssProject>>({
+        id: 'chirimen-lite-console',
+        name: 'CHIRIMEN Lite Console',
+        category: 'web-app',
+        group: 'chirimen-tools',
+        status: 'active',
+      }),
+    );
+    expect(chirimenLiteConsole?.description).toContain('CHIRIMEN Lite');
+    expect(chirimenLiteConsole?.featured).toBeUndefined();
+    expect(chirimenLiteConsole?.technologies).toEqual([
+      'Angular',
+      'Web Serial',
+    ]);
+  });
+
+  it('exposes chirimen-lite-console app and GitHub links', () => {
+    expect(chirimenLiteConsole?.links).toEqual([
+      {
+        label: 'Open App',
+        url: 'https://chirimen-lite-console.web.app/',
+        kind: 'app',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-lite-console',
+        kind: 'github',
       },
     ]);
   });
