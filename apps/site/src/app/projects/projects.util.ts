@@ -10,7 +10,7 @@ import {
 const CATEGORY_LABELS: Record<ProjectCategory, string> = {
   library: 'Library',
   'web-app': 'Web Application',
-  data: 'Data',
+  data: 'Data Repository',
   tool: 'Tool',
 };
 
