@@ -53,7 +53,7 @@ describe('ProjectCard', () => {
     );
 
     expect(second.textContent).toContain('chirimen-lite-console');
-    expect(second.textContent).toContain('Web App');
+    expect(second.textContent).toContain('Web Application');
     expect(second.textContent).toContain('Console description');
     expect(second.textContent).not.toContain('web-serial-rxjs');
     expect(second.textContent).not.toContain('Library description');
