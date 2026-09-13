@@ -160,7 +160,15 @@ describe('PROJECT_GROUP_SECTIONS', () => {
     for (const section of PROJECT_GROUP_SECTIONS) {
       expect(section.heading).toBe(groupLabel(section.id));
       expect(section.description.length).toBeGreaterThan(0);
+      expect(section.description).not.toContain(section.heading);
       expect(section.emptyTitle).toBe('Coming later');
     }
+
+    expect(PROJECT_GROUP_SECTIONS[0]?.description).toBe(
+      'Reusable libraries and documentation on this domain.',
+    );
+    expect(PROJECT_GROUP_SECTIONS[1]?.description).toBe(
+      'Browser tools and device data.',
+    );
   });
 });
