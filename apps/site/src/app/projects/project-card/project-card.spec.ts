@@ -65,8 +65,11 @@ describe('ProjectCard', () => {
     );
 
     expect(webSerialRxjs).toBeDefined();
+    if (!webSerialRxjs) {
+      return;
+    }
 
-    const compiled = render(webSerialRxjs!);
+    const compiled = render(webSerialRxjs);
     const links = Array.from(compiled.querySelectorAll('a'));
 
     expect(compiled.textContent).toContain('web-serial-rxjs');
