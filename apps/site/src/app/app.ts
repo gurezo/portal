@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { PROJECTS } from './projects/projects.data';
-import {
-  categoryLabel,
-  featuredProject,
-  projectLink,
-  statusLabel,
-} from './projects/projects.util';
+import { ProjectCard } from './projects/project-card/project-card';
+import { featuredProject, projectLink } from './projects/projects.util';
 
 @Component({
   selector: 'app-root',
+  imports: [ProjectCard],
   templateUrl: './app.html',
 })
 export class App {
@@ -16,7 +13,5 @@ export class App {
   protected readonly projects = PROJECTS;
   protected readonly featured = featuredProject(PROJECTS);
 
-  protected readonly categoryLabel = categoryLabel;
-  protected readonly statusLabel = statusLabel;
   protected readonly projectLink = projectLink;
 }
