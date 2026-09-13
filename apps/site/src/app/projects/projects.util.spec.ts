@@ -2,6 +2,7 @@ import { OssProject } from './project.model';
 import {
   categoryLabel,
   featuredProject,
+  groupLabel,
   projectLink,
   projectsByGroup,
   statusLabel,
@@ -74,5 +75,10 @@ describe('projects.util', () => {
     expect(categoryLabel('library')).toBe('Library');
     expect(categoryLabel('web-app')).toBe('Web App');
     expect(statusLabel('active')).toBe('Active');
+  });
+
+  it('maps project groups to section headings', () => {
+    expect(groupLabel('libraries')).toBe('Libraries');
+    expect(groupLabel('chirimen-tools')).toBe('CHIRIMEN Tools');
   });
 });

@@ -1,5 +1,6 @@
 import { OssProject } from './project.model';
-import { PROJECTS } from './projects.data';
+import { PROJECT_GROUP_SECTIONS, PROJECTS } from './projects.data';
+import { groupLabel } from './projects.util';
 
 describe('PROJECTS', () => {
   const webSerialRxjs = PROJECTS.find(
@@ -50,5 +51,20 @@ describe('PROJECTS', () => {
         kind: 'npm',
       },
     ]);
+  });
+});
+
+describe('PROJECT_GROUP_SECTIONS', () => {
+  it('defines Libraries and CHIRIMEN Tools with headings that match group labels', () => {
+    expect(PROJECT_GROUP_SECTIONS.map((section) => section.id)).toEqual([
+      'libraries',
+      'chirimen-tools',
+    ]);
+
+    for (const section of PROJECT_GROUP_SECTIONS) {
+      expect(section.heading).toBe(groupLabel(section.id));
+      expect(section.description.length).toBeGreaterThan(0);
+      expect(section.emptyTitle).toBe('Coming later');
+    }
   });
 });
