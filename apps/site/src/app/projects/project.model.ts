@@ -31,3 +31,12 @@ export interface OssProject {
   technologies?: string[];
   links: ProjectLink[];
 }
+
+export interface ProjectGroupSection {
+  id: ProjectGroup;
+  heading: string;
+  description: string;
+  emptyEyebrow: string;
+  emptyTitle: string;
+  emptyDescription: string;
+}

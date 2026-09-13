@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { PROJECTS } from './projects/projects.data';
+import { PROJECTS, PROJECT_GROUP_SECTIONS } from './projects/projects.data';
 import { featuredProject, projectLink } from './projects/projects.util';
 
 describe('App', () => {
@@ -48,5 +48,31 @@ describe('App', () => {
     expect(
       compiled.querySelector(`a[href="${githubLink?.url}"]`)?.textContent,
     ).toContain('GitHub');
+  });
+
+  it('renders Libraries and CHIRIMEN Tools as separate groups', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const libraries = compiled.querySelector(
+      '[aria-labelledby="libraries-heading"]',
+    );
+    const chirimenTools = compiled.querySelector(
+      '[aria-labelledby="chirimen-tools-heading"]',
+    );
+    const librariesHeading = compiled.querySelector('#libraries-heading');
+    const chirimenHeading = compiled.querySelector('#chirimen-tools-heading');
+
+    expect(librariesHeading?.textContent?.trim()).toBe('Libraries');
+    expect(chirimenHeading?.textContent?.trim()).toBe('CHIRIMEN Tools');
+    expect(libraries?.textContent).toContain('web-serial-rxjs');
+    expect(libraries?.textContent).not.toContain('Coming later');
+    expect(chirimenTools?.textContent).toContain('Coming later');
+    expect(chirimenTools?.textContent).toContain(
+      PROJECT_GROUP_SECTIONS.find((section) => section.id === 'chirimen-tools')
+        ?.emptyDescription,
+    );
+    expect(chirimenTools?.querySelector('app-project-card')).toBeNull();
   });
 });
