@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { OssProject } from '../project.model';
+import { OssProject, ProjectLink } from '../project.model';
 import { categoryLabel, statusLabel } from '../projects.util';
 
 @Component({
@@ -14,4 +14,8 @@ export class ProjectCard {
 
   protected readonly categoryLabel = categoryLabel;
   protected readonly statusLabel = statusLabel;
+
+  protected linkAriaLabel(link: ProjectLink): string {
+    return `${this.project().name} ${link.label} (opens in a new tab)`;
+  }
 }
