@@ -30,12 +30,16 @@
         </p>
 
         <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <a
-            href="https://gurezo.net/web-serial-rxjs/"
-            class="inline-flex min-h-11 items-center justify-center rounded-full border border-sky-600 bg-sky-600 px-5 text-sm font-bold text-white shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition hover:-translate-y-0.5 hover:border-sky-700 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-          >
-            view web-serial-rxjs
-          </a>
+          @if (featured; as featuredProject) {
+            @if (projectLink(featuredProject, 'docs'); as docsLink) {
+              <a
+                [href]="docsLink.url"
+                class="inline-flex min-h-11 items-center justify-center rounded-full border border-sky-600 bg-sky-600 px-5 text-sm font-bold text-white shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition hover:-translate-y-0.5 hover:border-sky-700 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+              >
+                view {{ featuredProject.name }}
+              </a>
+            }
+          }
 
           <a
             href="https://lifewood.net/"
@@ -46,42 +50,35 @@
         </div>
       </div>
 
-      <aside
-        class="rounded-[2rem] border border-slate-200 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur lg:p-8"
-      >
-        <p class="mb-3 text-xs font-semibold tracking-[0.12em] text-sky-600">
-          Current focus
-        </p>
+      @if (featured; as featuredProject) {
+        <aside
+          class="rounded-[2rem] border border-slate-200 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur lg:p-8"
+        >
+          <p class="mb-3 text-xs font-semibold tracking-[0.12em] text-sky-600">
+            Current focus
+          </p>
 
-        <h2 class="text-2xl font-semibold tracking-[-0.025em] text-slate-950">
-          &#64;gurezo/web-serial-rxjs
-        </h2>
+          <h2 class="text-2xl font-semibold tracking-[-0.025em] text-slate-950">
+            {{ featuredProject.packageName ?? featuredProject.name }}
+          </h2>
 
-        <p class="mt-4 leading-7 text-slate-600">
-          Documentation and runnable examples for using the Web Serial API with
-          RxJS.
-        </p>
+          <p class="mt-4 leading-7 text-slate-600">
+            {{ featuredProject.summary ?? featuredProject.description }}
+          </p>
 
-        <div class="mt-6 flex flex-wrap gap-2">
-          <span
-            class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-          >
-            TypeScript
-          </span>
-
-          <span
-            class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-          >
-            RxJS
-          </span>
-
-          <span
-            class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-          >
-            Web Serial
-          </span>
-        </div>
-      </aside>
+          @if (featuredProject.technologies?.length) {
+            <div class="mt-6 flex flex-wrap gap-2">
+              @for (technology of featuredProject.technologies; track technology) {
+                <span
+                  class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
+                >
+                  {{ technology }}
+                </span>
+              }
+            </div>
+          }
+        </aside>
+      }
     </section>
 
     <section class="py-10 sm:py-14" aria-labelledby="projects-heading">
@@ -108,91 +105,69 @@
       </div>
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <article
-          class="rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur lg:col-span-2"
-        >
-          <div
-            class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+        @for (project of projects; track project.id) {
+          <article
+            class="rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur lg:col-span-2"
           >
-            <div>
-              <p
-                class="mb-2 text-xs font-semibold tracking-[0.12em] text-sky-600"
-              >
-                Library
-              </p>
+            <div
+              class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+            >
+              <div>
+                <p
+                  class="mb-2 text-xs font-semibold tracking-[0.12em] text-sky-600"
+                >
+                  {{ categoryLabel(project.category) }}
+                </p>
 
-              <h3
-                class="text-2xl font-semibold tracking-[-0.025em] text-slate-950"
-              >
-                web-serial-rxjs
-              </h3>
+                <h3
+                  class="text-2xl font-semibold tracking-[-0.025em] text-slate-950"
+                >
+                  {{ project.name }}
+                </h3>
+              </div>
+
+              @if (project.status) {
+                <span
+                  class="inline-flex min-h-7 w-fit items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
+                >
+                  {{ statusLabel(project.status) }}
+                </span>
+              }
             </div>
 
-            <span
-              class="inline-flex min-h-7 w-fit items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
-            >
-              Active
-            </span>
-          </div>
+            <p class="mt-5 max-w-2xl leading-7 text-slate-600">
+              {{ project.description }}
+            </p>
 
-          <p class="mt-5 max-w-2xl leading-7 text-slate-600">
-            A TypeScript library that makes the Web Serial API easier to use
-            with RxJS.
-          </p>
+            @if (project.technologies?.length) {
+              <ul class="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
+                @for (technology of project.technologies; track technology) {
+                  <li
+                    class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
+                  >
+                    {{ technology }}
+                  </li>
+                }
+              </ul>
+            }
 
-          <ul class="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
-            <li
-              class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-            >
-              TypeScript
-            </li>
-
-            <li
-              class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-            >
-              RxJS
-            </li>
-
-            <li
-              class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-            >
-              Web Serial
-            </li>
-          </ul>
-
-          <div
-            class="mt-6 flex flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
-            aria-label="web-serial-rxjs links"
-          >
-            <a
-              href="https://gurezo.net/web-serial-rxjs/"
-              class="font-bold text-sky-700 underline-offset-4 hover:underline"
-            >
-              Documentation
-            </a>
-
-            <a
-              href="https://gurezo.net/web-serial-rxjs/examples/"
-              class="font-bold text-sky-700 underline-offset-4 hover:underline"
-            >
-              Examples
-            </a>
-
-            <a
-              href="https://github.com/gurezo/web-serial-rxjs"
-              class="font-bold text-sky-700 underline-offset-4 hover:underline"
-            >
-              GitHub
-            </a>
-
-            <a
-              href="https://www.npmjs.com/package/@gurezo/web-serial-rxjs"
-              class="font-bold text-sky-700 underline-offset-4 hover:underline"
-            >
-              npm
-            </a>
-          </div>
-        </article>
+            @if (project.links.length) {
+              <div
+                class="mt-6 flex flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
+                [attr.aria-label]="project.name + ' links'"
+              >
+                @for (link of project.links; track link.url) {
+                  <a
+                    [href]="link.url"
+                    class="font-bold text-sky-700 underline-offset-4 hover:underline"
+                  >
+                    {{ link.label }}
+                  </a>
+                }
+              </div>
+            }
+          </article>
+        }
 
         <article
           class="rounded-[1.75rem] border border-dashed border-slate-300 bg-white/50 p-7"
