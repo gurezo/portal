@@ -106,67 +106,7 @@
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
         @for (project of projects; track project.id) {
-          <article
-            class="rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur lg:col-span-2"
-          >
-            <div
-              class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
-            >
-              <div>
-                <p
-                  class="mb-2 text-xs font-semibold tracking-[0.12em] text-sky-600"
-                >
-                  {{ categoryLabel(project.category) }}
-                </p>
-
-                <h3
-                  class="text-2xl font-semibold tracking-[-0.025em] text-slate-950"
-                >
-                  {{ project.name }}
-                </h3>
-              </div>
-
-              @if (project.status) {
-                <span
-                  class="inline-flex min-h-7 w-fit items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
-                >
-                  {{ statusLabel(project.status) }}
-                </span>
-              }
-            </div>
-
-            <p class="mt-5 max-w-2xl leading-7 text-slate-600">
-              {{ project.description }}
-            </p>
-
-            @if (project.technologies?.length) {
-              <ul class="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
-                @for (technology of project.technologies; track technology) {
-                  <li
-                    class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-                  >
-                    {{ technology }}
-                  </li>
-                }
-              </ul>
-            }
-
-            @if (project.links.length) {
-              <div
-                class="mt-6 flex flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
-                [attr.aria-label]="project.name + ' links'"
-              >
-                @for (link of project.links; track link.url) {
-                  <a
-                    [href]="link.url"
-                    class="font-bold text-sky-700 underline-offset-4 hover:underline"
-                  >
-                    {{ link.label }}
-                  </a>
-                }
-              </div>
-            }
-          </article>
+          <app-project-card class="lg:col-span-2" [project]="project" />
         }
 
         <article
