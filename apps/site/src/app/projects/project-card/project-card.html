@@ -1,29 +1,31 @@
 <article
-  class="rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur"
+  class="min-w-0 rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur"
 >
   <div
-    class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+    class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
   >
-    <div>
+    <div class="min-w-0">
       <p class="mb-2 text-xs font-semibold tracking-[0.12em] text-sky-600">
         {{ categoryLabel(project().category) }}
       </p>
 
-      <h3 class="text-2xl font-semibold tracking-[-0.025em] text-slate-950">
+      <h4
+        class="break-words text-2xl font-semibold tracking-[-0.025em] text-slate-950"
+      >
         {{ project().name }}
-      </h3>
+      </h4>
     </div>
 
     @if (project().status; as status) {
       <span
-        class="inline-flex min-h-7 w-fit items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
+        class="inline-flex min-h-7 w-fit shrink-0 items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
       >
         {{ statusLabel(status) }}
       </span>
     }
   </div>
 
-  <p class="mt-5 max-w-2xl leading-7 text-slate-600">
+  <p class="mt-5 max-w-2xl break-words leading-7 text-slate-600">
     {{ project().description }}
   </p>
 
@@ -41,15 +43,16 @@
 
   @if (project().links.length) {
     <div
-      class="mt-6 flex flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
+      class="mt-6 flex min-w-0 flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
       [attr.aria-label]="project().name + ' links'"
     >
       @for (link of project().links; track link.url) {
         <a
           [href]="link.url"
-          class="font-bold text-sky-700 underline-offset-4 hover:underline"
+          class="break-words rounded-sm font-bold text-sky-700 underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
           target="_blank"
           rel="noopener noreferrer"
+          [attr.aria-label]="linkAriaLabel(link)"
         >
           {{ link.label }}
         </a>

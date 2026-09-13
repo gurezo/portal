@@ -120,13 +120,13 @@
             </div>
 
             <div
-              class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
+              class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
             >
               @for (project of section.projects; track project.id) {
                 <app-project-card [project]="project" />
               } @empty {
                 <article
-                  class="rounded-[1.75rem] border border-dashed border-slate-300 bg-white/50 p-7"
+                  class="min-w-0 rounded-[1.75rem] border border-dashed border-slate-300 bg-white/50 p-7"
                 >
                   <p
                     class="mb-2 text-xs font-semibold tracking-[0.12em] text-slate-400"
@@ -163,14 +163,14 @@
       <nav class="flex flex-wrap gap-5" aria-label="Footer links">
         <a
           href="https://lifewood.net/"
-          class="font-bold text-sky-700 underline-offset-4 hover:underline"
+          class="rounded-sm font-bold text-sky-700 underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
         >
           about me
         </a>
 
         <a
           href="https://github.com/gurezo"
-          class="font-bold text-sky-700 underline-offset-4 hover:underline"
+          class="rounded-sm font-bold text-sky-700 underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
         >
           GitHub
         </a>

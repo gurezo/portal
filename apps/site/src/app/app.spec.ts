@@ -115,4 +115,100 @@ describe('App', () => {
       ),
     ).toBeNull();
   });
+
+  it('keeps a heading hierarchy of one h1, group h3s, and card h4s', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const headings = Array.from(compiled.querySelectorAll('h1, h2, h3, h4')).map(
+      (heading) => ({
+        tag: heading.tagName,
+        text: heading.textContent?.replace(/\s+/g, ' ').trim(),
+      }),
+    );
+
+    expect(compiled.querySelectorAll('h1')).toHaveLength(1);
+    expect(headings).toEqual(
+      expect.arrayContaining([
+        {
+          tag: 'H1',
+          text: 'Documentation and demos for OSS projects.',
+        },
+        { tag: 'H2', text: 'Available resources' },
+        { tag: 'H3', text: 'Libraries' },
+        { tag: 'H3', text: 'CHIRIMEN Tools' },
+        { tag: 'H4', text: 'web-serial-rxjs' },
+        { tag: 'H4', text: 'CHIRIMEN Lite Console' },
+        { tag: 'H4', text: 'CHIRIMEN Device Dashboard' },
+        { tag: 'H4', text: 'CHIRIMEN Certified Devices' },
+      ]),
+    );
+    expect(compiled.querySelectorAll('app-project-card h3')).toHaveLength(0);
+    expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(4);
+    expect(compiled.querySelector('#libraries-heading')?.tagName).toBe('H3');
+    expect(compiled.querySelector('#chirimen-tools-heading')?.tagName).toBe(
+      'H3',
+    );
+  });
+
+  it('exposes published project links with unique labels and visible focus', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const featured = featuredProject(PROJECTS);
+    const docsLink = featured ? projectLink(featured, 'docs') : undefined;
+    const publishedHrefs = [
+      'https://gurezo.net/web-serial-rxjs/',
+      'https://gurezo.net/web-serial-rxjs/examples/',
+      'https://github.com/gurezo/web-serial-rxjs',
+      'https://www.npmjs.com/package/@gurezo/web-serial-rxjs',
+      'https://github.com/gurezo/chirimen-lite-console',
+      'https://chirimen-lite-console.web.app/',
+      'https://github.com/gurezo/chirimen-device-dashboard',
+      'https://chirimen-device-dashboard.web.app/',
+      'https://github.com/gurezo/chirimen-certified-devices',
+    ];
+
+    expect(docsLink?.url).toBe('https://gurezo.net/web-serial-rxjs/');
+    expect(
+      compiled.querySelector(`a[href="${docsLink?.url}"]`)?.textContent,
+    ).toContain(`view ${featured?.name}`);
+
+    for (const href of publishedHrefs) {
+      const cardLink = compiled.querySelector(
+        `app-project-card a[href="${href}"]`,
+      );
+
+      expect(cardLink).not.toBeNull();
+      expect(cardLink?.getAttribute('target')).toBe('_blank');
+      expect(cardLink?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(cardLink?.className).toContain('focus:ring-2');
+      expect(cardLink?.className).toContain('break-words');
+      expect(cardLink?.getAttribute('aria-label')).toMatch(
+        / \(opens in a new tab\)$/,
+      );
+    }
+
+    const footerLinks = compiled.querySelectorAll('footer a');
+
+    expect(footerLinks.length).toBeGreaterThan(0);
+    footerLinks.forEach((link) => {
+      expect(link.className).toContain('focus:ring-2');
+      expect(link.className).toContain('focus:ring-sky-400');
+    });
+
+    expect(
+      compiled.querySelector(
+        'a[href="https://github.com/gurezo/chirimen-certified-devices/blob/main/generated/devices.json"]',
+      ),
+    ).toBeNull();
+    expect(
+      compiled
+        .querySelector('#libraries-heading')
+        ?.closest('section')
+        ?.querySelector('.grid')?.className,
+    ).toContain('min-w-0');
+  });
 });
