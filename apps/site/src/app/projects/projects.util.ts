@@ -18,6 +18,11 @@ const STATUS_LABELS: Record<ProjectStatus, string> = {
   active: 'Active',
 };
 
+const GROUP_LABELS: Record<ProjectGroup, string> = {
+  libraries: 'Libraries',
+  'chirimen-tools': 'CHIRIMEN Tools',
+};
+
 export function featuredProject(
   projects: readonly OssProject[],
 ): OssProject | undefined {
@@ -44,4 +49,8 @@ export function categoryLabel(category: ProjectCategory): string {
 
 export function statusLabel(status: ProjectStatus): string {
   return STATUS_LABELS[status];
+}
+
+export function groupLabel(group: ProjectGroup): string {
+  return GROUP_LABELS[group];
 }
