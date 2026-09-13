@@ -272,4 +272,44 @@ describe('App', () => {
         ?.querySelector('.grid')?.className,
     ).toContain('min-w-0');
   });
+
+  it('keeps Hero readable width while Projects uses a wider responsive grid', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const shell = compiled.querySelector('main > div:not([aria-hidden])');
+    const hero = compiled.querySelector('section');
+    const heading = hero?.querySelector('h1');
+    const lead = heading?.nextElementSibling;
+    const librariesGrid = compiled
+      .querySelector('#libraries-heading')
+      ?.closest('section')
+      ?.querySelector('.grid');
+    const chirimenGrid = compiled
+      .querySelector('#chirimen-tools-heading')
+      ?.closest('section')
+      ?.querySelector('.grid');
+    const footer = compiled.querySelector('footer');
+
+    expect(shell?.className).toContain('max-w-screen-2xl');
+    expect(shell?.className).not.toContain('max-w-7xl');
+    expect(hero?.querySelector('.max-w-4xl')).not.toBeNull();
+    expect(heading?.className).toContain('max-w-4xl');
+    expect(lead?.className).toContain('max-w-3xl');
+
+    for (const grid of [librariesGrid, chirimenGrid]) {
+      expect(grid?.className).toContain('min-w-0');
+      expect(grid?.className).toContain('grid-cols-1');
+      expect(grid?.className).toContain('md:grid-cols-2');
+      expect(grid?.className).toContain('xl:grid-cols-3');
+    }
+
+    expect(librariesGrid?.className).toContain('max-w-xl');
+    expect(librariesGrid?.className).toContain('md:max-w-2xl');
+    expect(chirimenGrid?.className).not.toContain('max-w-xl');
+    expect(chirimenGrid?.className).not.toContain('md:max-w-2xl');
+    expect(footer?.className).toContain('mt-4');
+    expect(footer?.className).not.toContain('mt-8');
+  });
 });
