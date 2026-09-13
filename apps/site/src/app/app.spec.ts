@@ -301,14 +301,16 @@ describe('App', () => {
     for (const grid of [librariesGrid, chirimenGrid]) {
       expect(grid?.className).toContain('min-w-0');
       expect(grid?.className).toContain('grid-cols-1');
-      expect(grid?.className).toContain('md:grid-cols-2');
-      expect(grid?.className).toContain('xl:grid-cols-3');
     }
 
     expect(librariesGrid?.className).toContain('max-w-xl');
     expect(librariesGrid?.className).toContain('md:max-w-2xl');
+    expect(librariesGrid?.className).not.toContain('md:grid-cols-2');
+    expect(librariesGrid?.className).not.toContain('xl:grid-cols-3');
     expect(chirimenGrid?.className).not.toContain('max-w-xl');
     expect(chirimenGrid?.className).not.toContain('md:max-w-2xl');
+    expect(chirimenGrid?.className).toContain('md:grid-cols-2');
+    expect(chirimenGrid?.className).toContain('xl:grid-cols-3');
     expect(footer?.className).toContain('mt-4');
     expect(footer?.className).not.toContain('mt-8');
   });
