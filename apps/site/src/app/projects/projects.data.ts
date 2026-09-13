@@ -57,4 +57,26 @@ export const PROJECTS: OssProject[] = [
       },
     ],
   },
+  {
+    id: 'chirimen-lite-console',
+    name: 'CHIRIMEN Lite Console',
+    category: 'web-app',
+    group: 'chirimen-tools',
+    status: 'active',
+    description:
+      'Browser-based development console for CHIRIMEN Lite.',
+    technologies: ['Angular', 'Web Serial'],
+    links: [
+      {
+        label: 'Open App',
+        url: 'https://chirimen-lite-console.web.app/',
+        kind: 'app',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-lite-console',
+        kind: 'github',
+      },
+    ],
+  },
 ];
