@@ -14,6 +14,26 @@ function createProject(overrides: Partial<OssProject> = {}): OssProject {
   };
 }
 
+function linkSnapshot(link: HTMLAnchorElement) {
+  return {
+    href: link.getAttribute('href'),
+    label: link.textContent?.trim(),
+    target: link.getAttribute('target'),
+    rel: link.getAttribute('rel'),
+    ariaLabel: link.getAttribute('aria-label'),
+  };
+}
+
+function expectedLinkSnapshots(project: OssProject) {
+  return project.links.map((link) => ({
+    href: link.url,
+    label: link.label,
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    ariaLabel: `${project.name} ${link.label} (opens in a new tab)`,
+  }));
+}
+
 describe('ProjectCard', () => {
   let fixture: ComponentFixture<ProjectCard>;
 
@@ -75,20 +95,8 @@ describe('ProjectCard', () => {
     expect(compiled.textContent).toContain('web-serial-rxjs');
     expect(compiled.textContent).toContain('Active');
     expect(compiled.textContent).toContain('TypeScript');
-    expect(
-      links.map((link) => ({
-        href: link.getAttribute('href'),
-        label: link.textContent?.trim(),
-        target: link.getAttribute('target'),
-        rel: link.getAttribute('rel'),
-      })),
-    ).toEqual(
-      webSerialRxjs?.links.map((link) => ({
-        href: link.url,
-        label: link.label,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      })),
+    expect(links.map((link) => linkSnapshot(link))).toEqual(
+      expectedLinkSnapshots(webSerialRxjs),
     );
   });
 
@@ -109,20 +117,8 @@ describe('ProjectCard', () => {
     expect(compiled.textContent).toContain('Web Application');
     expect(compiled.textContent).toContain('Active');
     expect(compiled.textContent).toContain('Angular');
-    expect(
-      links.map((link) => ({
-        href: link.getAttribute('href'),
-        label: link.textContent?.trim(),
-        target: link.getAttribute('target'),
-        rel: link.getAttribute('rel'),
-      })),
-    ).toEqual(
-      chirimenLiteConsole.links.map((link) => ({
-        href: link.url,
-        label: link.label,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      })),
+    expect(links.map((link) => linkSnapshot(link))).toEqual(
+      expectedLinkSnapshots(chirimenLiteConsole),
     );
   });
 
@@ -146,20 +142,8 @@ describe('ProjectCard', () => {
     expect(compiled.textContent).toContain(
       'Search and browse CHIRIMEN-supported devices.',
     );
-    expect(
-      links.map((link) => ({
-        href: link.getAttribute('href'),
-        label: link.textContent?.trim(),
-        target: link.getAttribute('target'),
-        rel: link.getAttribute('rel'),
-      })),
-    ).toEqual(
-      chirimenDeviceDashboard.links.map((link) => ({
-        href: link.url,
-        label: link.label,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      })),
+    expect(links.map((link) => linkSnapshot(link))).toEqual(
+      expectedLinkSnapshots(chirimenDeviceDashboard),
     );
   });
 
@@ -183,20 +167,8 @@ describe('ProjectCard', () => {
       'Device metadata, examples, drivers, images, schematics',
     );
     expect(compiled.querySelector('[aria-label="Technologies"]')).toBeNull();
-    expect(
-      links.map((link) => ({
-        href: link.getAttribute('href'),
-        label: link.textContent?.trim(),
-        target: link.getAttribute('target'),
-        rel: link.getAttribute('rel'),
-      })),
-    ).toEqual(
-      chirimenCertifiedDevices.links.map((link) => ({
-        href: link.url,
-        label: link.label,
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      })),
+    expect(links.map((link) => linkSnapshot(link))).toEqual(
+      expectedLinkSnapshots(chirimenCertifiedDevices),
     );
   });
 
@@ -256,10 +228,49 @@ describe('ProjectCard', () => {
 
     expect(linkRow).not.toBeNull();
     expect(linkRow?.className).toContain('flex-wrap');
+    expect(linkRow?.className).toContain('min-w-0');
     expect(compiled.querySelectorAll('a')).toHaveLength(6);
     expect(compiled.textContent).toContain('Documentation');
     expect(compiled.textContent).toContain('Web App');
     expect(compiled.textContent).toContain('GitHub');
     expect(compiled.textContent).toContain('Data');
+  });
+
+  it('uses an h4 heading with wrapping and visible focus styles', () => {
+    const compiled = render(
+      createProject({
+        name: 'VeryLongProjectNameWithoutSpacesThatMustWrap',
+        description: 'A verylongunbrokenwordthatmustwrapinsideanarrowcard.',
+        status: 'active',
+        links: [
+          {
+            label: 'GitHub',
+            url: 'https://github.com/gurezo/example',
+            kind: 'github',
+          },
+        ],
+      }),
+    );
+
+    const heading = compiled.querySelector('h4');
+    const description = compiled.querySelector('p.leading-7');
+    const link = compiled.querySelector('a');
+    const article = compiled.querySelector('article');
+
+    expect(compiled.className).toContain('min-w-0');
+    expect(article?.className).toContain('min-w-0');
+    expect(heading?.tagName).toBe('H4');
+    expect(heading?.className).toContain('break-words');
+    expect(heading?.textContent).toContain(
+      'VeryLongProjectNameWithoutSpacesThatMustWrap',
+    );
+    expect(compiled.querySelector('h3')).toBeNull();
+    expect(description?.className).toContain('break-words');
+    expect(link?.className).toContain('break-words');
+    expect(link?.className).toContain('focus:ring-2');
+    expect(link?.className).toContain('focus:ring-sky-400');
+    expect(link?.getAttribute('aria-label')).toBe(
+      'VeryLongProjectNameWithoutSpacesThatMustWrap GitHub (opens in a new tab)',
+    );
   });
 });
