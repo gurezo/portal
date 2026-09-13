@@ -94,7 +94,7 @@ describe('ProjectCard', () => {
     const links = Array.from(compiled.querySelectorAll('a'));
 
     expect(compiled.textContent).toContain('web-serial-rxjs');
-    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).not.toContain('Active');
     expect(compiled.textContent).toContain('TypeScript');
     expect(links.map((link) => linkSnapshot(link))).toEqual(
       expectedLinkSnapshots(webSerialRxjs),
@@ -116,7 +116,7 @@ describe('ProjectCard', () => {
 
     expect(compiled.textContent).toContain('CHIRIMEN Lite Console');
     expect(compiled.textContent).toContain('Web Application');
-    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).not.toContain('Active');
     expect(compiled.textContent).toContain('Angular');
     expect(links.map((link) => linkSnapshot(link))).toEqual(
       expectedLinkSnapshots(chirimenLiteConsole),
@@ -138,7 +138,7 @@ describe('ProjectCard', () => {
 
     expect(compiled.textContent).toContain('CHIRIMEN Device Dashboard');
     expect(compiled.textContent).toContain('Web Application');
-    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).not.toContain('Active');
     expect(compiled.textContent).toContain('Angular');
     expect(compiled.textContent).toContain(
       'Search and browse CHIRIMEN-supported devices.',
@@ -163,7 +163,7 @@ describe('ProjectCard', () => {
 
     expect(compiled.textContent).toContain('CHIRIMEN Certified Devices');
     expect(compiled.textContent).toContain('Data Repository');
-    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).not.toContain('Active');
     expect(compiled.textContent).toContain(
       'Device metadata, examples, drivers, images, schematics',
     );
@@ -318,23 +318,71 @@ describe('ProjectCard', () => {
       );
       expect(children[1]?.tagName).toBe('P');
       expect(children[1]?.textContent?.trim()).toBe(project.description);
-
-      let nextIndex = 2;
+      expect(children[2]?.tagName).toBe('DIV');
+      expect(children[2]?.className).toContain('min-h-8');
 
       if (project.technologies?.length) {
-        expect(children[nextIndex]?.tagName).toBe('UL');
-        expect(children[nextIndex]?.getAttribute('aria-label')).toBe(
+        expect(children[2]?.querySelector('ul')?.getAttribute('aria-label')).toBe(
           'Technologies',
         );
-        nextIndex += 1;
+      } else {
+        expect(children[2]?.querySelector('ul')).toBeNull();
       }
 
-      expect(children[nextIndex]?.getAttribute('aria-label')).toBe(
+      expect(children[3]?.getAttribute('aria-label')).toBe(
         `${project.name} links`,
       );
-      expect(children[nextIndex]?.className).toContain('mt-auto');
-      expect(children[nextIndex]?.className).toContain('border-t');
-      expect(children).toHaveLength(nextIndex + 1);
+      expect(children[3]?.className).toContain('mt-auto');
+      expect(children[3]?.className).toContain('border-t');
+      expect(children).toHaveLength(4);
     }
+  });
+
+  it('shows exceptional status badges and hides the default active status', () => {
+    const statuses = [
+      ['experimental', 'Experimental'],
+      ['maintenance', 'Maintenance'],
+      ['archived', 'Archived'],
+    ] as const;
+
+    for (const [status, label] of statuses) {
+      const compiled = render(createProject({ status }));
+
+      expect(compiled.textContent).toContain(label);
+      expect(compiled.textContent).not.toContain('Active');
+    }
+
+    const active = render(createProject({ status: 'active' }));
+
+    expect(active.textContent).not.toContain('Active');
+    expect(active.textContent).not.toContain('Experimental');
+    expect(active.textContent).not.toContain('Maintenance');
+    expect(active.textContent).not.toContain('Archived');
+  });
+
+  it('reserves a technology slot so missing tags do not drop the actions row', () => {
+    const compiled = render(
+      createProject({
+        links: [
+          {
+            label: 'GitHub',
+            url: 'https://github.com/gurezo/example',
+            kind: 'github',
+          },
+        ],
+      }),
+    );
+    const article = compiled.querySelector('article');
+    const children = Array.from(article?.children ?? []);
+    const slot = children[2];
+    const linkRow = compiled.querySelector(
+      '[aria-label="Sample Project links"]',
+    );
+
+    expect(slot?.className).toContain('mt-5');
+    expect(slot?.className).toContain('min-h-8');
+    expect(slot?.querySelector('[aria-label="Technologies"]')).toBeNull();
+    expect(linkRow).toBe(children[3]);
+    expect(linkRow?.className).toContain('mt-auto');
   });
 });

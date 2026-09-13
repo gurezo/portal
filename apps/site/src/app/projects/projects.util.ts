@@ -16,6 +16,9 @@ const CATEGORY_LABELS: Record<ProjectCategory, string> = {
 
 const STATUS_LABELS: Record<ProjectStatus, string> = {
   active: 'Active',
+  experimental: 'Experimental',
+  maintenance: 'Maintenance',
+  archived: 'Archived',
 };
 
 const GROUP_LABELS: Record<ProjectGroup, string> = {
@@ -43,6 +46,16 @@ export function categoryLabel(category: ProjectCategory): string {
 
 export function statusLabel(status: ProjectStatus): string {
   return STATUS_LABELS[status];
+}
+
+export function visibleProjectStatus(
+  status: ProjectStatus | undefined,
+): Exclude<ProjectStatus, 'active'> | undefined {
+  if (status === undefined || status === 'active') {
+    return undefined;
+  }
+
+  return status;
 }
 
 export function groupLabel(group: ProjectGroup): string {
