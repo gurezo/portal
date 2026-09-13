@@ -79,4 +79,41 @@ export const PROJECTS: OssProject[] = [
       },
     ],
   },
+  {
+    id: 'chirimen-device-dashboard',
+    name: 'CHIRIMEN Device Dashboard',
+    category: 'web-app',
+    group: 'chirimen-tools',
+    status: 'active',
+    description: 'Search and browse CHIRIMEN-supported devices.',
+    technologies: ['Angular'],
+    links: [
+      {
+        label: 'Open App',
+        url: 'https://chirimen-device-dashboard.web.app/',
+        kind: 'app',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-device-dashboard',
+        kind: 'github',
+      },
+    ],
+  },
+  {
+    id: 'chirimen-certified-devices',
+    name: 'CHIRIMEN Certified Devices',
+    category: 'data',
+    group: 'chirimen-tools',
+    status: 'active',
+    description:
+      'Device metadata, examples, drivers, images, schematics, and generated JSON data for CHIRIMEN projects.',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-certified-devices',
+        kind: 'github',
+      },
+    ],
+  },
 ];

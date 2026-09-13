@@ -69,10 +69,21 @@ describe('App', () => {
     expect(libraries?.textContent).toContain('web-serial-rxjs');
     expect(libraries?.textContent).not.toContain('Coming later');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Lite Console');
+    expect(libraries?.textContent).not.toContain('CHIRIMEN Device Dashboard');
+    expect(libraries?.textContent).not.toContain('CHIRIMEN Certified Devices');
     expect(chirimenTools?.textContent).toContain('CHIRIMEN Lite Console');
+    expect(chirimenTools?.textContent).toContain('CHIRIMEN Device Dashboard');
+    expect(chirimenTools?.textContent).toContain('CHIRIMEN Certified Devices');
     expect(chirimenTools?.textContent).toContain('Web Application');
+    expect(chirimenTools?.textContent).toContain('Data Repository');
+    expect(chirimenTools?.textContent).toContain(
+      'Search and browse CHIRIMEN-supported devices.',
+    );
+    expect(chirimenTools?.textContent).toContain(
+      'Device metadata, examples, drivers, images, schematics',
+    );
     expect(chirimenTools?.textContent).not.toContain('Coming later');
-    expect(chirimenTools?.querySelector('app-project-card')).not.toBeNull();
+    expect(chirimenTools?.querySelectorAll('app-project-card')).toHaveLength(3);
     expect(
       chirimenTools?.querySelector(
         'a[href="https://chirimen-lite-console.web.app/"]',
@@ -83,5 +94,25 @@ describe('App', () => {
         'a[href="https://github.com/gurezo/chirimen-lite-console"]',
       )?.textContent,
     ).toContain('GitHub');
+    expect(
+      chirimenTools?.querySelector(
+        'a[href="https://chirimen-device-dashboard.web.app/"]',
+      )?.textContent,
+    ).toContain('Open App');
+    expect(
+      chirimenTools?.querySelector(
+        'a[href="https://github.com/gurezo/chirimen-device-dashboard"]',
+      )?.textContent,
+    ).toContain('GitHub');
+    expect(
+      chirimenTools?.querySelector(
+        'a[href="https://github.com/gurezo/chirimen-certified-devices"]',
+      )?.textContent,
+    ).toContain('GitHub');
+    expect(
+      chirimenTools?.querySelector(
+        'a[href="https://github.com/gurezo/chirimen-certified-devices/blob/main/generated/devices.json"]',
+      ),
+    ).toBeNull();
   });
 });

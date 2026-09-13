@@ -9,6 +9,12 @@ describe('PROJECTS', () => {
   const chirimenLiteConsole = PROJECTS.find(
     (project) => project.id === 'chirimen-lite-console',
   );
+  const chirimenDeviceDashboard = PROJECTS.find(
+    (project) => project.id === 'chirimen-device-dashboard',
+  );
+  const chirimenCertifiedDevices = PROJECTS.find(
+    (project) => project.id === 'chirimen-certified-devices',
+  );
 
   it('includes web-serial-rxjs with the fields needed to render the portal listing', () => {
     expect(webSerialRxjs).toEqual(
@@ -84,6 +90,65 @@ describe('PROJECTS', () => {
       {
         label: 'GitHub',
         url: 'https://github.com/gurezo/chirimen-lite-console',
+        kind: 'github',
+      },
+    ]);
+  });
+
+  it('includes chirimen-device-dashboard in CHIRIMEN Tools', () => {
+    expect(chirimenDeviceDashboard).toEqual(
+      expect.objectContaining<Partial<OssProject>>({
+        id: 'chirimen-device-dashboard',
+        name: 'CHIRIMEN Device Dashboard',
+        category: 'web-app',
+        group: 'chirimen-tools',
+        status: 'active',
+      }),
+    );
+    expect(chirimenDeviceDashboard?.description).toContain(
+      'Search and browse CHIRIMEN-supported devices',
+    );
+    expect(chirimenDeviceDashboard?.featured).toBeUndefined();
+    expect(chirimenDeviceDashboard?.technologies).toEqual(['Angular']);
+  });
+
+  it('exposes chirimen-device-dashboard app and GitHub links', () => {
+    expect(chirimenDeviceDashboard?.links).toEqual([
+      {
+        label: 'Open App',
+        url: 'https://chirimen-device-dashboard.web.app/',
+        kind: 'app',
+      },
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-device-dashboard',
+        kind: 'github',
+      },
+    ]);
+  });
+
+  it('includes chirimen-certified-devices in CHIRIMEN Tools as data', () => {
+    expect(chirimenCertifiedDevices).toEqual(
+      expect.objectContaining<Partial<OssProject>>({
+        id: 'chirimen-certified-devices',
+        name: 'CHIRIMEN Certified Devices',
+        category: 'data',
+        group: 'chirimen-tools',
+        status: 'active',
+      }),
+    );
+    expect(chirimenCertifiedDevices?.description).toContain(
+      'Device metadata, examples, drivers, images, schematics',
+    );
+    expect(chirimenCertifiedDevices?.featured).toBeUndefined();
+    expect(chirimenCertifiedDevices?.technologies).toBeUndefined();
+  });
+
+  it('exposes chirimen-certified-devices GitHub link', () => {
+    expect(chirimenCertifiedDevices?.links).toEqual([
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-certified-devices',
         kind: 'github',
       },
     ]);
