@@ -9,76 +9,38 @@
   <div
     class="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 sm:px-8 lg:px-12 lg:py-12"
   >
-    <section
-      class="grid flex-1 items-center gap-12 py-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:py-20"
-    >
-      <div>
-        <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-sky-600">
-          gurezo.net
-        </p>
+    <section class="flex-1 py-12 lg:py-20">
+      <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-sky-600">
+        gurezo.net
+      </p>
 
-        <h1
-          class="max-w-4xl text-5xl font-bold leading-[1.14] tracking-[-0.035em] text-slate-950 sm:text-6xl lg:text-7xl"
+      <h1
+        class="max-w-4xl text-5xl font-bold leading-[1.14] tracking-[-0.035em] text-slate-950 sm:text-6xl lg:text-7xl"
+      >
+        Documentation and demos
+        <span class="block">for OSS projects.</span>
+      </h1>
+
+      <p class="mt-8 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
+        This domain hosts open-source documentation, runnable examples, and
+        demo applications by gurezo.
+      </p>
+
+      <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <a
+          href="#projects-heading"
+          class="inline-flex min-h-11 items-center justify-center rounded-full border border-sky-600 bg-sky-600 px-5 text-sm font-bold text-white shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition hover:-translate-y-0.5 hover:border-sky-700 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
         >
-          Documentation and demos
-          <span class="block">for OSS projects.</span>
-        </h1>
+          Browse projects
+        </a>
 
-        <p class="mt-8 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
-          This domain hosts open-source documentation, runnable examples, and
-          demo applications by gurezo.
-        </p>
-
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          @if (featured; as featuredProject) {
-            @if (projectLink(featuredProject, 'docs'); as docsLink) {
-              <a
-                [href]="docsLink.url"
-                class="inline-flex min-h-11 items-center justify-center rounded-full border border-sky-600 bg-sky-600 px-5 text-sm font-bold text-white shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition hover:-translate-y-0.5 hover:border-sky-700 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-              >
-                view {{ featuredProject.name }}
-              </a>
-            }
-          }
-
-          <a
-            href="https://lifewood.net/"
-            class="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 bg-white/75 px-5 text-sm font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-          >
-            about me
-          </a>
-        </div>
+        <a
+          href="https://lifewood.net/"
+          class="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 bg-white/75 px-5 text-sm font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+        >
+          about me
+        </a>
       </div>
-
-      @if (featured; as featuredProject) {
-        <aside
-          class="rounded-[2rem] border border-slate-200 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur lg:p-8"
-        >
-          <p class="mb-3 text-xs font-semibold tracking-[0.12em] text-sky-600">
-            Current focus
-          </p>
-
-          <h2 class="text-2xl font-semibold tracking-[-0.025em] text-slate-950">
-            {{ featuredProject.packageName ?? featuredProject.name }}
-          </h2>
-
-          <p class="mt-4 leading-7 text-slate-600">
-            {{ featuredProject.summary ?? featuredProject.description }}
-          </p>
-
-          @if (featuredProject.technologies?.length) {
-            <div class="mt-6 flex flex-wrap gap-2">
-              @for (technology of featuredProject.technologies; track technology) {
-                <span
-                  class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
-                >
-                  {{ technology }}
-                </span>
-              }
-            </div>
-          }
-        </aside>
-      }
     </section>
 
     <section class="py-10 sm:py-14" aria-labelledby="projects-heading">

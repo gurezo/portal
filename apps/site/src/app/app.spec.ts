@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { PROJECTS } from './projects/projects.data';
-import { featuredProject, projectLink } from './projects/projects.util';
+import { projectLink } from './projects/projects.util';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -15,39 +15,64 @@ describe('App', () => {
     expect(fixture.componentInstance['title']).toBe('gurezo portal site');
   });
 
+  it('describes the portal in Hero and links to Projects', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const hero = compiled.querySelector('section');
+    const browseProjects = compiled.querySelector('a[href="#projects-heading"]');
+
+    const heroText = hero?.textContent?.replace(/\s+/g, ' ') ?? '';
+
+    expect(heroText).toContain('gurezo.net');
+    expect(heroText).toContain(
+      'This domain hosts open-source documentation, runnable examples, and demo applications by gurezo.',
+    );
+    expect(heroText).not.toContain('Current focus');
+    expect(heroText).not.toContain('view web-serial-rxjs');
+    expect(hero?.querySelector('aside')).toBeNull();
+    expect(hero?.className).not.toContain('lg:grid-cols-');
+    expect(browseProjects?.textContent?.trim()).toBe('Browse projects');
+    expect(
+      compiled.querySelector('a[href="https://lifewood.net/"]')?.textContent,
+    ).toContain('about me');
+  });
+
   it('renders project metadata instead of hardcoded listing copy', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const featured = featuredProject(PROJECTS);
-    const docsLink = featured ? projectLink(featured, 'docs') : undefined;
-    const githubLink = PROJECTS[0]?.links.find((link) => link.kind === 'github');
-
-    expect(featured).toBeDefined();
-    expect(docsLink).toBeDefined();
-    expect(githubLink).toBeDefined();
-
-    const docsAnchors = Array.from(
-      compiled.querySelectorAll(`a[href="${docsLink?.url}"]`),
+    const webSerialRxjs = PROJECTS.find(
+      (project) => project.id === 'web-serial-rxjs',
+    );
+    const docsLink = webSerialRxjs
+      ? projectLink(webSerialRxjs, 'docs')
+      : undefined;
+    const githubLink = webSerialRxjs?.links.find(
+      (link) => link.kind === 'github',
+    );
+    const librariesCard = compiled.querySelector(
+      '[aria-labelledby="libraries-heading"] app-project-card',
     );
 
+    expect(webSerialRxjs).toBeDefined();
+    expect(docsLink).toBeDefined();
+    expect(githubLink).toBeDefined();
+    expect(librariesCard?.textContent).toContain(webSerialRxjs?.name ?? '');
+    expect(librariesCard?.textContent).toContain(
+      webSerialRxjs?.description ?? '',
+    );
     expect(
-      docsAnchors.some((anchor) =>
-        anchor.textContent?.includes(`view ${featured?.name}`),
-      ),
-    ).toBe(true);
+      librariesCard?.querySelector(`a[href="${docsLink?.url}"]`)?.textContent,
+    ).toContain('Documentation');
     expect(
-      docsAnchors.some((anchor) =>
-        anchor.textContent?.includes('Documentation'),
-      ),
-    ).toBe(true);
-
-    expect(compiled.textContent).toContain(featured?.packageName ?? '');
-    expect(compiled.textContent).toContain(PROJECTS[0].description);
-    expect(
-      compiled.querySelector(`a[href="${githubLink?.url}"]`)?.textContent,
+      librariesCard?.querySelector(`a[href="${githubLink?.url}"]`)?.textContent,
     ).toContain('GitHub');
+    expect(compiled.textContent).not.toContain(
+      webSerialRxjs?.summary ?? 'Documentation and runnable examples',
+    );
   });
 
   it('renders Libraries and CHIRIMEN Tools as separate groups', () => {
@@ -129,6 +154,7 @@ describe('App', () => {
     );
 
     expect(compiled.querySelectorAll('h1')).toHaveLength(1);
+    expect(compiled.querySelectorAll('h2')).toHaveLength(1);
     expect(headings).toEqual(
       expect.arrayContaining([
         {
@@ -144,6 +170,10 @@ describe('App', () => {
         { tag: 'H4', text: 'CHIRIMEN Certified Devices' },
       ]),
     );
+    expect(headings).not.toContainEqual({
+      tag: 'H2',
+      text: '@gurezo/web-serial-rxjs',
+    });
     expect(compiled.querySelectorAll('app-project-card h3')).toHaveLength(0);
     expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(4);
     expect(compiled.querySelector('#libraries-heading')?.tagName).toBe('H3');
@@ -157,8 +187,12 @@ describe('App', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const featured = featuredProject(PROJECTS);
-    const docsLink = featured ? projectLink(featured, 'docs') : undefined;
+    const webSerialRxjs = PROJECTS.find(
+      (project) => project.id === 'web-serial-rxjs',
+    );
+    const docsLink = webSerialRxjs
+      ? projectLink(webSerialRxjs, 'docs')
+      : undefined;
     const publishedHrefs = [
       'https://gurezo.net/web-serial-rxjs/',
       'https://gurezo.net/web-serial-rxjs/examples/',
@@ -173,8 +207,13 @@ describe('App', () => {
 
     expect(docsLink?.url).toBe('https://gurezo.net/web-serial-rxjs/');
     expect(
-      compiled.querySelector(`a[href="${docsLink?.url}"]`)?.textContent,
-    ).toContain(`view ${featured?.name}`);
+      compiled.querySelector(`app-project-card a[href="${docsLink?.url}"]`)
+        ?.textContent,
+    ).toContain('Documentation');
+    expect(
+      compiled.querySelector('footer a[href="https://github.com/gurezo"]')
+        ?.textContent,
+    ).toContain('GitHub');
 
     for (const href of publishedHrefs) {
       const cardLink = compiled.querySelector(
