@@ -2,7 +2,11 @@ export type ProjectCategory = 'library' | 'web-app' | 'data' | 'tool';
 
 export type ProjectGroup = 'libraries' | 'chirimen-tools';
 
-export type ProjectStatus = 'active';
+export type ProjectStatus =
+  | 'active'
+  | 'experimental'
+  | 'maintenance'
+  | 'archived';
 
 export type ProjectLinkKind =
   | 'docs'

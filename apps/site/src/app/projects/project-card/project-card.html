@@ -16,7 +16,7 @@
       </h4>
     </div>
 
-    @if (project().status; as status) {
+    @if (visibleProjectStatus(project().status); as status) {
       <span
         class="inline-flex min-h-7 w-fit shrink-0 items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
       >
