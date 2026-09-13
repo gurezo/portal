@@ -7,9 +7,9 @@
   ></div>
 
   <div
-    class="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col px-6 py-8 sm:px-8 lg:px-12 lg:py-12"
+    class="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col px-6 py-8 sm:px-8 lg:px-12 lg:py-10"
   >
-    <section class="flex-1 py-12 lg:py-20">
+    <section class="flex-1 py-10 lg:py-16">
       <div class="max-w-4xl">
         <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-sky-600">
           gurezo.net
@@ -45,7 +45,7 @@
       </div>
     </section>
 
-    <section class="py-10 sm:py-14" aria-labelledby="projects-heading">
+    <section class="py-8 sm:py-10" aria-labelledby="projects-heading">
       <div class="mb-8 max-w-3xl">
         <h2
           id="projects-heading"
@@ -59,7 +59,7 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-12">
+      <div class="flex flex-col gap-10">
         @for (section of groupSections; track section.id) {
           <section [attr.aria-labelledby]="section.id + '-heading'">
             <div class="mb-6 max-w-3xl">
@@ -110,7 +110,7 @@
     </section>
 
     <footer
-      class="mt-8 flex flex-col gap-4 border-t border-slate-200 py-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between"
+      class="mt-4 flex flex-col gap-4 border-t border-slate-200 py-6 text-sm text-slate-500 sm:mt-6 sm:flex-row sm:items-center sm:justify-between"
     >
       <p class="m-0 flex flex-wrap gap-2">
         <span class="font-semibold text-slate-700">gurezo.net</span>
