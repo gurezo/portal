@@ -23,12 +23,6 @@ const GROUP_LABELS: Record<ProjectGroup, string> = {
   'chirimen-tools': 'CHIRIMEN Tools',
 };
 
-export function featuredProject(
-  projects: readonly OssProject[],
-): OssProject | undefined {
-  return projects.find((project) => project.featured);
-}
-
 export function projectsByGroup(
   projects: readonly OssProject[],
   group: ProjectGroup,

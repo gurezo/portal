@@ -25,11 +25,9 @@ describe('PROJECTS', () => {
         category: 'library',
         group: 'libraries',
         status: 'active',
-        featured: true,
       }),
     );
     expect(webSerialRxjs?.description).toContain('Web Serial API');
-    expect(webSerialRxjs?.summary).toContain('Documentation and runnable examples');
     expect(webSerialRxjs?.technologies).toEqual([
       'TypeScript',
       'RxJS',
@@ -73,7 +71,6 @@ describe('PROJECTS', () => {
       }),
     );
     expect(chirimenLiteConsole?.description).toContain('CHIRIMEN Lite');
-    expect(chirimenLiteConsole?.featured).toBeUndefined();
     expect(chirimenLiteConsole?.technologies).toEqual([
       'Angular',
       'Web Serial',
@@ -108,7 +105,6 @@ describe('PROJECTS', () => {
     expect(chirimenDeviceDashboard?.description).toContain(
       'Search and browse CHIRIMEN-supported devices',
     );
-    expect(chirimenDeviceDashboard?.featured).toBeUndefined();
     expect(chirimenDeviceDashboard?.technologies).toEqual(['Angular']);
   });
 
@@ -140,7 +136,6 @@ describe('PROJECTS', () => {
     expect(chirimenCertifiedDevices?.description).toContain(
       'Device metadata, examples, drivers, images, schematics',
     );
-    expect(chirimenCertifiedDevices?.featured).toBeUndefined();
     expect(chirimenCertifiedDevices?.technologies).toBeUndefined();
   });
 

@@ -30,9 +30,6 @@ export const PROJECTS: OssProject[] = [
     status: 'active',
     description:
       'A TypeScript library that makes the Web Serial API easier to use with RxJS.',
-    summary:
-      'Documentation and runnable examples for using the Web Serial API with RxJS.',
-    featured: true,
     technologies: ['TypeScript', 'RxJS', 'Web Serial'],
     links: [
       {
