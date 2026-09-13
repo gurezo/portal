@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { PROJECTS, PROJECT_GROUP_SECTIONS } from './projects/projects.data';
+import { PROJECTS } from './projects/projects.data';
 import { featuredProject, projectLink } from './projects/projects.util';
 
 describe('App', () => {
@@ -68,11 +68,20 @@ describe('App', () => {
     expect(chirimenHeading?.textContent?.trim()).toBe('CHIRIMEN Tools');
     expect(libraries?.textContent).toContain('web-serial-rxjs');
     expect(libraries?.textContent).not.toContain('Coming later');
-    expect(chirimenTools?.textContent).toContain('Coming later');
-    expect(chirimenTools?.textContent).toContain(
-      PROJECT_GROUP_SECTIONS.find((section) => section.id === 'chirimen-tools')
-        ?.emptyDescription,
-    );
-    expect(chirimenTools?.querySelector('app-project-card')).toBeNull();
+    expect(libraries?.textContent).not.toContain('CHIRIMEN Lite Console');
+    expect(chirimenTools?.textContent).toContain('CHIRIMEN Lite Console');
+    expect(chirimenTools?.textContent).toContain('Web Application');
+    expect(chirimenTools?.textContent).not.toContain('Coming later');
+    expect(chirimenTools?.querySelector('app-project-card')).not.toBeNull();
+    expect(
+      chirimenTools?.querySelector(
+        'a[href="https://chirimen-lite-console.web.app/"]',
+      )?.textContent,
+    ).toContain('Open App');
+    expect(
+      chirimenTools?.querySelector(
+        'a[href="https://github.com/gurezo/chirimen-lite-console"]',
+      )?.textContent,
+    ).toContain('GitHub');
   });
 });
