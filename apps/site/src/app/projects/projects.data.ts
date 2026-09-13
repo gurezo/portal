@@ -100,4 +100,25 @@ export const PROJECTS: OssProject[] = [
       },
     ],
   },
+  {
+    id: 'chirimen-certified-devices',
+    name: 'CHIRIMEN Certified Devices',
+    category: 'data',
+    group: 'chirimen-tools',
+    status: 'active',
+    description:
+      'Device metadata, examples, drivers, images, schematics, and generated JSON data for CHIRIMEN projects.',
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/chirimen-certified-devices',
+        kind: 'github',
+      },
+      {
+        label: 'devices.json',
+        url: 'https://github.com/gurezo/chirimen-certified-devices/blob/main/generated/devices.json',
+        kind: 'data',
+      },
+    ],
+  },
 ];
