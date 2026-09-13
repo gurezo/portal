@@ -114,11 +114,6 @@ export const PROJECTS: OssProject[] = [
         url: 'https://github.com/gurezo/chirimen-certified-devices',
         kind: 'github',
       },
-      {
-        label: 'devices.json',
-        url: 'https://github.com/gurezo/chirimen-certified-devices/blob/main/generated/devices.json',
-        kind: 'data',
-      },
     ],
   },
 ];

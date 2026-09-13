@@ -112,7 +112,7 @@ describe('App', () => {
     expect(
       chirimenTools?.querySelector(
         'a[href="https://github.com/gurezo/chirimen-certified-devices/blob/main/generated/devices.json"]',
-      )?.textContent,
-    ).toContain('devices.json');
+      ),
+    ).toBeNull();
   });
 });

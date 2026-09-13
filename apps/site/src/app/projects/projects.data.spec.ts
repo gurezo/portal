@@ -144,17 +144,12 @@ describe('PROJECTS', () => {
     expect(chirimenCertifiedDevices?.technologies).toBeUndefined();
   });
 
-  it('exposes chirimen-certified-devices GitHub and devices.json links', () => {
+  it('exposes chirimen-certified-devices GitHub link', () => {
     expect(chirimenCertifiedDevices?.links).toEqual([
       {
         label: 'GitHub',
         url: 'https://github.com/gurezo/chirimen-certified-devices',
         kind: 'github',
-      },
-      {
-        label: 'devices.json',
-        url: 'https://github.com/gurezo/chirimen-certified-devices/blob/main/generated/devices.json',
-        kind: 'data',
       },
     ]);
   });
