@@ -88,6 +88,15 @@ describe('App', () => {
 
     expect(librariesHeading?.textContent?.trim()).toBe('Libraries');
     expect(chirimenHeading?.textContent?.trim()).toBe('CHIRIMEN Tools');
+    expect(librariesHeading?.nextElementSibling?.textContent?.trim()).toBe(
+      'Reusable libraries and documentation on this domain.',
+    );
+    expect(chirimenHeading?.nextElementSibling?.textContent?.trim()).toBe(
+      'Browser tools and device data.',
+    );
+    expect(chirimenHeading?.nextElementSibling?.textContent).not.toMatch(
+      /CHIRIMEN/i,
+    );
     expect(libraries?.textContent).toContain('web-serial-rxjs');
     expect(libraries?.textContent).not.toContain('Coming later');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Lite Console');
@@ -158,7 +167,7 @@ describe('App', () => {
           tag: 'H1',
           text: 'Documentation and demos for OSS projects.',
         },
-        { tag: 'H2', text: 'Available resources' },
+        { tag: 'H2', text: 'Projects' },
         { tag: 'H3', text: 'Libraries' },
         { tag: 'H3', text: 'CHIRIMEN Tools' },
         { tag: 'H4', text: 'web-serial-rxjs' },
@@ -169,14 +178,30 @@ describe('App', () => {
     );
     expect(headings).not.toContainEqual({
       tag: 'H2',
+      text: 'Available resources',
+    });
+    expect(headings).not.toContainEqual({
+      tag: 'H2',
       text: '@gurezo/web-serial-rxjs',
     });
+    expect(
+      headings.filter((heading) => heading.text === 'CHIRIMEN Tools'),
+    ).toEqual([{ tag: 'H3', text: 'CHIRIMEN Tools' }]);
     expect(compiled.querySelectorAll('app-project-card h3')).toHaveLength(0);
     expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(4);
+    expect(compiled.querySelector('#projects-heading')?.tagName).toBe('H2');
     expect(compiled.querySelector('#libraries-heading')?.tagName).toBe('H3');
     expect(compiled.querySelector('#chirimen-tools-heading')?.tagName).toBe(
       'H3',
     );
+
+    const projectsHeading = compiled.querySelector('#projects-heading');
+    const projectsLead = projectsHeading?.nextElementSibling;
+
+    expect(projectsLead?.textContent?.trim()).toBe(
+      'Open-source libraries, apps, and data linked from this domain.',
+    );
+    expect(projectsLead?.textContent).not.toMatch(/CHIRIMEN/i);
   });
 
   it('exposes published project links with unique labels and visible focus', () => {

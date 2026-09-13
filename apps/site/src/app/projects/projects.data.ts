@@ -4,8 +4,7 @@ export const PROJECT_GROUP_SECTIONS: ProjectGroupSection[] = [
   {
     id: 'libraries',
     heading: 'Libraries',
-    description:
-      'Reusable libraries and documentation hosted on this domain.',
+    description: 'Reusable libraries and documentation on this domain.',
     emptyEyebrow: 'More projects',
     emptyTitle: 'Coming later',
     emptyDescription: 'Additional OSS libraries can be added here.',
@@ -13,7 +12,7 @@ export const PROJECT_GROUP_SECTIONS: ProjectGroupSection[] = [
   {
     id: 'chirimen-tools',
     heading: 'CHIRIMEN Tools',
-    description: 'Browser tools and data for working with CHIRIMEN devices.',
+    description: 'Browser tools and device data.',
     emptyEyebrow: 'More projects',
     emptyTitle: 'Coming later',
     emptyDescription: 'Additional CHIRIMEN related OSS can be added here.',
