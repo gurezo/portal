@@ -55,3 +55,27 @@ Playwright end-to-end tests:
 ```sh
 pnpm nx e2e site-e2e
 ```
+
+## Project structure
+
+- `apps/site` — Angular portal application deployed to [gurezo.net](https://gurezo.net/)
+- `apps/site-e2e` — Playwright tests for the site
+- `scripts/import-web-serial-rxjs-static.sh` — downloads the `web-serial-rxjs` static docs/examples artifact into `firebase-public/web-serial-rxjs/`
+- `firebase.json` / `.firebaserc` — Firebase Hosting config for project and target `gurezo-portal`
+
+## Deployment
+
+The site is served with Firebase Hosting (`gurezo-portal`) at [gurezo.net](https://gurezo.net/).
+
+`web-serial-rxjs` documentation is imported into `firebase-public` at deploy time. CHIRIMEN web apps stay on their own Hosting sites and are linked from the portal.
+
+Local commands:
+
+```sh
+pnpm run build:firebase:site   # build the site into firebase-public
+pnpm run build:firebase        # site build plus web-serial-rxjs static import
+pnpm run deploy                # deploy firebase-public to Hosting
+pnpm run deploy:firebase       # build:firebase then deploy
+```
+
+On push to `main`, `.github/workflows/firebase-hosting-merge.yml` builds `firebase-public` and deploys it.
