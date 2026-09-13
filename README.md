@@ -1,101 +1,81 @@
-# Portal
+# portal
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[gurezo.net](https://gurezo.net/) is a portal for OSS projects, documentation, demos, and applications by gurezo.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+This repository hosts the Angular site deployed to that domain. External web apps are linked from the portal rather than copied into this repo.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Published projects
 
-## Run tasks
+Projects listed on [gurezo.net](https://gurezo.net/) are grouped as Libraries and CHIRIMEN Tools.
 
-To run the dev server for your app, use:
+### Libraries
 
-```sh
-npx nx serve site
-```
+- [`web-serial-rxjs`](https://github.com/gurezo/web-serial-rxjs) — TypeScript library for the Web Serial API with RxJS. Documentation and examples are hosted on this domain:
+  - [Documentation](https://gurezo.net/web-serial-rxjs/)
+  - [Examples](https://gurezo.net/web-serial-rxjs/examples/)
+  - [npm](https://www.npmjs.com/package/@gurezo/web-serial-rxjs)
 
-To create a production bundle:
+### CHIRIMEN Tools
 
-```sh
-npx nx build site
-```
+These projects are linked from the portal. Their web apps are not copied into this repository.
 
-To see all available targets to run for a project, run:
+- [`chirimen-lite-console`](https://github.com/gurezo/chirimen-lite-console) — browser console for CHIRIMEN Lite ([Open App](https://chirimen-lite-console.web.app/))
+- [`chirimen-device-dashboard`](https://github.com/gurezo/chirimen-device-dashboard) — search and browse CHIRIMEN-supported devices ([Open App](https://chirimen-device-dashboard.web.app/))
+- [`chirimen-certified-devices`](https://github.com/gurezo/chirimen-certified-devices) — data repository for device metadata, examples, images, and schematics. It generates `devices.json` for CHIRIMEN projects.
 
-```sh
-npx nx show project site
-```
+## Development
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
+This workspace uses [Nx](https://nx.dev) with pnpm. Node.js 24 is used in CI.
 
 ```sh
-npx nx g @nx/angular:app demo
+pnpm install
 ```
 
-To generate a new library, use:
+Start the local site:
 
 ```sh
-npx nx g @nx/angular:lib mylib
+pnpm nx serve site
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
+Create a production build:
 
 ```sh
-npx nx connect
+pnpm nx build site
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
+Lint and unit-test the site:
 
 ```sh
-npx nx g ci-workflow
+pnpm nx lint site
+pnpm nx test site
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Playwright end-to-end tests:
 
-## Install Nx Console
+```sh
+pnpm nx e2e site-e2e
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+## Project structure
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- `apps/site` — Angular portal application deployed to [gurezo.net](https://gurezo.net/)
+- `apps/site-e2e` — Playwright tests for the site
+- `scripts/import-web-serial-rxjs-static.sh` — downloads the `web-serial-rxjs` static docs/examples artifact into `firebase-public/web-serial-rxjs/`
+- `firebase.json` / `.firebaserc` — Firebase Hosting config for project and target `gurezo-portal`
 
-## Useful links
+## Deployment
 
-Learn more:
+The site is served with Firebase Hosting (`gurezo-portal`) at [gurezo.net](https://gurezo.net/).
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+`web-serial-rxjs` documentation is imported into `firebase-public` at deploy time. CHIRIMEN web apps stay on their own Hosting sites and are linked from the portal.
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Local commands:
+
+```sh
+pnpm run build:firebase:site   # build the site into firebase-public
+pnpm run build:firebase        # site build plus web-serial-rxjs static import
+pnpm run deploy                # deploy firebase-public to Hosting
+pnpm run deploy:firebase       # build:firebase then deploy
+```
+
+On push to `main`, `.github/workflows/firebase-hosting-merge.yml` builds `firebase-public` and deploys it.
