@@ -74,6 +74,7 @@ describe('projects.util', () => {
   it('maps category and status to display labels', () => {
     expect(categoryLabel('library')).toBe('Library');
     expect(categoryLabel('web-app')).toBe('Web Application');
+    expect(categoryLabel('data')).toBe('Data Repository');
     expect(statusLabel('active')).toBe('Active');
   });
 

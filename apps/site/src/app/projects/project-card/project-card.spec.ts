@@ -126,6 +126,80 @@ describe('ProjectCard', () => {
     );
   });
 
+  it('renders chirimen-device-dashboard links from project metadata', () => {
+    const chirimenDeviceDashboard = PROJECTS.find(
+      (project) => project.id === 'chirimen-device-dashboard',
+    );
+
+    expect(chirimenDeviceDashboard).toBeDefined();
+    if (!chirimenDeviceDashboard) {
+      return;
+    }
+
+    const compiled = render(chirimenDeviceDashboard);
+    const links = Array.from(compiled.querySelectorAll('a'));
+
+    expect(compiled.textContent).toContain('CHIRIMEN Device Dashboard');
+    expect(compiled.textContent).toContain('Web Application');
+    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).toContain('Angular');
+    expect(compiled.textContent).toContain(
+      'Search and browse CHIRIMEN-supported devices.',
+    );
+    expect(
+      links.map((link) => ({
+        href: link.getAttribute('href'),
+        label: link.textContent?.trim(),
+        target: link.getAttribute('target'),
+        rel: link.getAttribute('rel'),
+      })),
+    ).toEqual(
+      chirimenDeviceDashboard.links.map((link) => ({
+        href: link.url,
+        label: link.label,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      })),
+    );
+  });
+
+  it('renders chirimen-certified-devices links from project metadata', () => {
+    const chirimenCertifiedDevices = PROJECTS.find(
+      (project) => project.id === 'chirimen-certified-devices',
+    );
+
+    expect(chirimenCertifiedDevices).toBeDefined();
+    if (!chirimenCertifiedDevices) {
+      return;
+    }
+
+    const compiled = render(chirimenCertifiedDevices);
+    const links = Array.from(compiled.querySelectorAll('a'));
+
+    expect(compiled.textContent).toContain('CHIRIMEN Certified Devices');
+    expect(compiled.textContent).toContain('Data Repository');
+    expect(compiled.textContent).toContain('Active');
+    expect(compiled.textContent).toContain(
+      'Device metadata, examples, drivers, images, schematics',
+    );
+    expect(compiled.querySelector('[aria-label="Technologies"]')).toBeNull();
+    expect(
+      links.map((link) => ({
+        href: link.getAttribute('href'),
+        label: link.textContent?.trim(),
+        target: link.getAttribute('target'),
+        rel: link.getAttribute('rel'),
+      })),
+    ).toEqual(
+      chirimenCertifiedDevices.links.map((link) => ({
+        href: link.url,
+        label: link.label,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      })),
+    );
+  });
+
   it('hides optional status, technologies, and links when they are absent', () => {
     const compiled = render(createProject());
 
