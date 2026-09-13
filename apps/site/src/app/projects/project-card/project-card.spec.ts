@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OssProject } from '../project.model';
 import { PROJECTS } from '../projects.data';
+import { categoryLabel } from '../projects.util';
 import { ProjectCard } from './project-card';
 
 function createProject(overrides: Partial<OssProject> = {}): OssProject {
@@ -272,5 +273,68 @@ describe('ProjectCard', () => {
     expect(link?.getAttribute('aria-label')).toBe(
       'VeryLongProjectNameWithoutSpacesThatMustWrap GitHub (opens in a new tab)',
     );
+  });
+
+  it('stretches the card so action links sit at the bottom', () => {
+    const compiled = render(
+      createProject({
+        technologies: ['TypeScript'],
+        links: [
+          {
+            label: 'GitHub',
+            url: 'https://github.com/gurezo/example',
+            kind: 'github',
+          },
+        ],
+      }),
+    );
+
+    const article = compiled.querySelector('article');
+    const linkRow = compiled.querySelector('[aria-label="Sample Project links"]');
+
+    expect(compiled.className).toContain('block');
+    expect(compiled.className).toContain('h-full');
+    expect(article?.className).toContain('h-full');
+    expect(article?.className).toContain('flex');
+    expect(article?.className).toContain('flex-col');
+    expect(linkRow?.className).toContain('mt-auto');
+    expect(linkRow?.className).toContain('border-t');
+  });
+
+  it('keeps the same content order for every published project', () => {
+    expect(PROJECTS).toHaveLength(4);
+
+    for (const project of PROJECTS) {
+      const compiled = render(project);
+      const article = compiled.querySelector('article');
+      const children = Array.from(article?.children ?? []);
+
+      expect(article).not.toBeNull();
+      expect(children[0]?.textContent).toContain(
+        categoryLabel(project.category),
+      );
+      expect(children[0]?.querySelector('h4')?.textContent?.trim()).toBe(
+        project.name,
+      );
+      expect(children[1]?.tagName).toBe('P');
+      expect(children[1]?.textContent?.trim()).toBe(project.description);
+
+      let nextIndex = 2;
+
+      if (project.technologies?.length) {
+        expect(children[nextIndex]?.tagName).toBe('UL');
+        expect(children[nextIndex]?.getAttribute('aria-label')).toBe(
+          'Technologies',
+        );
+        nextIndex += 1;
+      }
+
+      expect(children[nextIndex]?.getAttribute('aria-label')).toBe(
+        `${project.name} links`,
+      );
+      expect(children[nextIndex]?.className).toContain('mt-auto');
+      expect(children[nextIndex]?.className).toContain('border-t');
+      expect(children).toHaveLength(nextIndex + 1);
+    }
   });
 });
