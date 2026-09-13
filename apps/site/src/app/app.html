@@ -7,43 +7,45 @@
   ></div>
 
   <div
-    class="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 sm:px-8 lg:px-12 lg:py-12"
+    class="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col px-6 py-8 sm:px-8 lg:px-12 lg:py-10"
   >
-    <section class="flex-1 py-12 lg:py-20">
-      <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-sky-600">
-        gurezo.net
-      </p>
+    <section class="flex-1 py-10 lg:py-16">
+      <div class="max-w-4xl">
+        <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-sky-600">
+          gurezo.net
+        </p>
 
-      <h1
-        class="max-w-4xl text-5xl font-bold leading-[1.14] tracking-[-0.035em] text-slate-950 sm:text-6xl lg:text-7xl"
-      >
-        Documentation and demos
-        <span class="block">for OSS projects.</span>
-      </h1>
-
-      <p class="mt-8 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
-        This domain hosts open-source documentation, runnable examples, and
-        demo applications by gurezo.
-      </p>
-
-      <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <a
-          href="#projects-heading"
-          class="inline-flex min-h-11 items-center justify-center rounded-full border border-sky-600 bg-sky-600 px-5 text-sm font-bold text-white shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition hover:-translate-y-0.5 hover:border-sky-700 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+        <h1
+          class="max-w-4xl text-5xl font-bold leading-[1.14] tracking-[-0.035em] text-slate-950 sm:text-6xl lg:text-7xl"
         >
-          Browse projects
-        </a>
+          Documentation and demos
+          <span class="block">for OSS projects.</span>
+        </h1>
 
-        <a
-          href="https://lifewood.net/"
-          class="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 bg-white/75 px-5 text-sm font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
-        >
-          about me
-        </a>
+        <p class="mt-8 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
+          This domain hosts open-source documentation, runnable examples, and
+          demo applications by gurezo.
+        </p>
+
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a
+            href="#projects-heading"
+            class="inline-flex min-h-11 items-center justify-center rounded-full border border-sky-600 bg-sky-600 px-5 text-sm font-bold text-white shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition hover:-translate-y-0.5 hover:border-sky-700 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+          >
+            Browse projects
+          </a>
+
+          <a
+            href="https://lifewood.net/"
+            class="inline-flex min-h-11 items-center justify-center rounded-full border border-slate-300 bg-white/75 px-5 text-sm font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-400 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+          >
+            about me
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="py-10 sm:py-14" aria-labelledby="projects-heading">
+    <section class="py-8 sm:py-10" aria-labelledby="projects-heading">
       <div class="mb-8 max-w-3xl">
         <h2
           id="projects-heading"
@@ -57,7 +59,7 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-12">
+      <div class="flex flex-col gap-10">
         @for (section of groupSections; track section.id) {
           <section [attr.aria-labelledby]="section.id + '-heading'">
             <div class="mb-6 max-w-3xl">
@@ -74,7 +76,11 @@
             </div>
 
             <div
-              class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
+              class="grid min-w-0 grid-cols-1 gap-6"
+              [class.md:grid-cols-2]="section.projects.length > 1"
+              [class.xl:grid-cols-3]="section.projects.length > 1"
+              [class.max-w-xl]="section.projects.length <= 1"
+              [class.md:max-w-2xl]="section.projects.length <= 1"
             >
               @for (project of section.projects; track project.id) {
                 <app-project-card [project]="project" />
@@ -106,7 +112,7 @@
     </section>
 
     <footer
-      class="mt-8 flex flex-col gap-4 border-t border-slate-200 py-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between"
+      class="mt-4 flex flex-col gap-4 border-t border-slate-200 py-6 text-sm text-slate-500 sm:mt-6 sm:flex-row sm:items-center sm:justify-between"
     >
       <p class="m-0 flex flex-wrap gap-2">
         <span class="font-semibold text-slate-700">gurezo.net</span>
