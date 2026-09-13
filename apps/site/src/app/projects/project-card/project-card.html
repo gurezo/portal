@@ -1,5 +1,5 @@
 <article
-  class="min-w-0 rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur"
+  class="flex h-full min-w-0 flex-col rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur"
 >
   <div
     class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
@@ -43,7 +43,7 @@
 
   @if (project().links.length) {
     <div
-      class="mt-6 flex min-w-0 flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
+      class="mt-auto flex min-w-0 flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
       [attr.aria-label]="project().name + ' links'"
     >
       @for (link of project().links; track link.url) {

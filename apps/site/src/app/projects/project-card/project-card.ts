@@ -6,7 +6,7 @@ import { categoryLabel, statusLabel } from '../projects.util';
   selector: 'app-project-card',
   templateUrl: './project-card.html',
   host: {
-    class: 'block min-w-0',
+    class: 'block h-full min-w-0',
   },
 })
 export class ProjectCard {
