@@ -70,9 +70,6 @@ describe('App', () => {
     expect(
       librariesCard?.querySelector(`a[href="${githubLink?.url}"]`)?.textContent,
     ).toContain('GitHub');
-    expect(compiled.textContent).not.toContain(
-      webSerialRxjs?.summary ?? 'Documentation and runnable examples',
-    );
   });
 
   it('renders Libraries and CHIRIMEN Tools as separate groups', () => {

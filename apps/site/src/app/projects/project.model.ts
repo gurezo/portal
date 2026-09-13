@@ -26,8 +26,6 @@ export interface OssProject {
   group?: ProjectGroup;
   status?: ProjectStatus;
   description: string;
-  summary?: string;
-  featured?: boolean;
   technologies?: string[];
   links: ProjectLink[];
 }

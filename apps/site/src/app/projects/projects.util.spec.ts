@@ -1,7 +1,6 @@
 import { OssProject } from './project.model';
 import {
   categoryLabel,
-  featuredProject,
   groupLabel,
   projectLink,
   projectsByGroup,
@@ -15,7 +14,6 @@ const projects: OssProject[] = [
     category: 'library',
     group: 'libraries',
     description: 'Library',
-    featured: true,
     links: [
       {
         label: 'Documentation',
@@ -55,10 +53,6 @@ const projects: OssProject[] = [
 ];
 
 describe('projects.util', () => {
-  it('returns the featured project', () => {
-    expect(featuredProject(projects)?.id).toBe('web-serial-rxjs');
-  });
-
   it('groups CHIRIMEN related OSS by chirimen-tools', () => {
     expect(
       projectsByGroup(projects, 'chirimen-tools').map((project) => project.id),
