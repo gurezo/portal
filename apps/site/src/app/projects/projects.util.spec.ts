@@ -5,6 +5,7 @@ import {
   projectLink,
   projectsByGroup,
   statusLabel,
+  visibleProjectStatus,
 } from './projects.util';
 
 const projects: OssProject[] = [
@@ -70,6 +71,17 @@ describe('projects.util', () => {
     expect(categoryLabel('web-app')).toBe('Web Application');
     expect(categoryLabel('data')).toBe('Data Repository');
     expect(statusLabel('active')).toBe('Active');
+    expect(statusLabel('experimental')).toBe('Experimental');
+    expect(statusLabel('maintenance')).toBe('Maintenance');
+    expect(statusLabel('archived')).toBe('Archived');
+  });
+
+  it('hides the default active status and keeps exceptional statuses visible', () => {
+    expect(visibleProjectStatus(undefined)).toBeUndefined();
+    expect(visibleProjectStatus('active')).toBeUndefined();
+    expect(visibleProjectStatus('experimental')).toBe('experimental');
+    expect(visibleProjectStatus('maintenance')).toBe('maintenance');
+    expect(visibleProjectStatus('archived')).toBe('archived');
   });
 
   it('maps project groups to section headings', () => {
