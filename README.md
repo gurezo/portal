@@ -28,6 +28,18 @@ These projects are linked from the portal. Their web apps are not copied into th
 - [`chirimen-device-dashboard`](https://github.com/gurezo/chirimen-device-dashboard) — search and browse CHIRIMEN-supported devices ([Open App](https://chirimen-device-dashboard.web.app/))
 - [`chirimen-certified-devices`](https://github.com/gurezo/chirimen-certified-devices) — data repository for device metadata, examples, images, and schematics. It generates `devices.json` for CHIRIMEN projects.
 
+### Adding a project
+
+Link other applications from the portal. Do not copy their features into this repository. Static documentation imported at deploy time is described under [Deployment](#deployment).
+
+When the public listing changes:
+
+1. Add a value to `ProjectGroup` in `apps/site/src/app/projects/project.model.ts` only when none of the existing groups fit.
+2. Update `PROJECT_GROUP_SECTIONS` and `PROJECTS` in `apps/site/src/app/projects/projects.data.ts`.
+3. Update the site unit tests so the group order, card content, and links match that data.
+4. Update this Published projects list when a project is added, removed, or moved.
+5. Add an external URL only after the destination has been checked. Do not list a URL that returns 404 or redirects to an unintended page.
+
 ## Development
 
 This workspace uses [Nx](https://nx.dev) with pnpm. Node.js 24 is used in CI.
