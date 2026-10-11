@@ -151,9 +151,10 @@ describe('PROJECTS', () => {
 });
 
 describe('PROJECT_GROUP_SECTIONS', () => {
-  it('defines Libraries and CHIRIMEN Tools with headings that match group labels', () => {
+  it('defines Libraries, Developer Tools, and CHIRIMEN Tools with headings that match group labels', () => {
     expect(PROJECT_GROUP_SECTIONS.map((section) => section.id)).toEqual([
       'libraries',
+      'developer-tools',
       'chirimen-tools',
     ]);
 
@@ -168,6 +169,9 @@ describe('PROJECT_GROUP_SECTIONS', () => {
       'Reusable libraries and documentation on this domain.',
     );
     expect(PROJECT_GROUP_SECTIONS[1]?.description).toBe(
+      'Tools that support development workflows.',
+    );
+    expect(PROJECT_GROUP_SECTIONS[2]?.description).toBe(
       'Browser tools and device data.',
     );
   });

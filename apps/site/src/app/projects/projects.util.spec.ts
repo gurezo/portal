@@ -86,6 +86,7 @@ describe('projects.util', () => {
 
   it('maps project groups to section headings', () => {
     expect(groupLabel('libraries')).toBe('Libraries');
+    expect(groupLabel('developer-tools')).toBe('Developer Tools');
     expect(groupLabel('chirimen-tools')).toBe('CHIRIMEN Tools');
   });
 });
