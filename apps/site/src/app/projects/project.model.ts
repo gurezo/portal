@@ -1,6 +1,6 @@
 export type ProjectCategory = 'library' | 'web-app' | 'data' | 'tool';
 
-export type ProjectGroup = 'libraries' | 'chirimen-tools';
+export type ProjectGroup = 'libraries' | 'developer-tools' | 'chirimen-tools';
 
 export type ProjectStatus =
   | 'active'

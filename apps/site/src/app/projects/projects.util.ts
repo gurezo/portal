@@ -23,6 +23,7 @@ const STATUS_LABELS: Record<ProjectStatus, string> = {
 
 const GROUP_LABELS: Record<ProjectGroup, string> = {
   libraries: 'Libraries',
+  'developer-tools': 'Developer Tools',
   'chirimen-tools': 'CHIRIMEN Tools',
 };
 

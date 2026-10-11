@@ -10,6 +10,14 @@ export const PROJECT_GROUP_SECTIONS: ProjectGroupSection[] = [
     emptyDescription: 'Additional OSS libraries can be added here.',
   },
   {
+    id: 'developer-tools',
+    heading: 'Developer Tools',
+    description: 'Tools that support development workflows.',
+    emptyEyebrow: 'More projects',
+    emptyTitle: 'Coming later',
+    emptyDescription: 'Additional developer tools can be added here.',
+  },
+  {
     id: 'chirimen-tools',
     heading: 'CHIRIMEN Tools',
     description: 'Browser tools and device data.',
