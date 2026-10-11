@@ -62,6 +62,23 @@ export const PROJECTS: OssProject[] = [
     ],
   },
   {
+    id: 'mdn-translation-ja-mcp',
+    name: 'mdn-translation-ja-mcp',
+    category: 'tool',
+    group: 'developer-tools',
+    status: 'active',
+    description:
+      'An MCP server that assists Japanese MDN translation, synchronization, and review.',
+    technologies: ['TypeScript', 'MCP', 'MDN'],
+    links: [
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/mdn-translation-ja-mcp',
+        kind: 'github',
+      },
+    ],
+  },
+  {
     id: 'chirimen-lite-console',
     name: 'CHIRIMEN Lite Console',
     category: 'web-app',
