@@ -344,8 +344,12 @@ describe('App', () => {
 
     expect(shell?.className).toContain('max-w-screen-2xl');
     expect(shell?.className).not.toContain('max-w-7xl');
+    expect(hero?.className).toContain('min-w-0');
     expect(hero?.querySelector('.max-w-4xl')).not.toBeNull();
     expect(heading?.className).toContain('max-w-4xl');
+    expect(heading?.className).toContain('break-words');
+    expect(heading?.className).toContain('text-4xl');
+    expect(heading?.className).toContain('sm:text-6xl');
     expect(lead?.className).toContain('max-w-3xl');
 
     for (const grid of [librariesGrid, developerToolsGrid, chirimenGrid]) {
