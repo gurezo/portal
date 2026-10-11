@@ -72,6 +72,11 @@ export const PROJECTS: OssProject[] = [
     technologies: ['TypeScript', 'MCP', 'MDN'],
     links: [
       {
+        label: 'Documentation',
+        url: 'https://gurezo.net/mdn-translation-ja-mcp/',
+        kind: 'docs',
+      },
+      {
         label: 'GitHub',
         url: 'https://github.com/gurezo/mdn-translation-ja-mcp',
         kind: 'github',
