@@ -61,21 +61,56 @@ pnpm nx e2e site-e2e
 - `apps/site` — Angular portal application deployed to [gurezo.net](https://gurezo.net/)
 - `apps/site-e2e` — Playwright tests for the site
 - `scripts/import-web-serial-rxjs-static.sh` — downloads the `web-serial-rxjs` static docs/examples artifact into `firebase-public/web-serial-rxjs/`
+- `scripts/import-mdn-translation-ja-mcp-docs.sh` — checks out the commit in `scripts/mdn-translation-ja-mcp.sha`, builds TypeDoc, and copies `docs/` to `firebase-public/mdn-translation-ja-mcp/`
 - `firebase.json` / `.firebaserc` — Firebase Hosting config for project and target `gurezo-portal`
 
 ## Deployment
 
 The site is served with Firebase Hosting (`gurezo-portal`) at [gurezo.net](https://gurezo.net/).
 
-`web-serial-rxjs` documentation is imported into `firebase-public` at deploy time. CHIRIMEN web apps stay on their own Hosting sites and are linked from the portal.
+`web-serial-rxjs` documentation and the [mdn-translation-ja-mcp](https://github.com/gurezo/mdn-translation-ja-mcp) TypeDoc site are copied into `firebase-public` at deploy time. The MCP docs are published at [https://gurezo.net/mdn-translation-ja-mcp/](https://gurezo.net/mdn-translation-ja-mcp/). CHIRIMEN web apps stay on their own Hosting sites and are linked from the portal.
 
-Local commands:
+`build:firebase:site` deletes `firebase-public` and rebuilds it from the Angular app. Import the static docs only after that step. `mdn-translation-ja-mcp` is not deployed to this Hosting site from its own repository.
+
+### Pin the MCP documentation commit
+
+`scripts/mdn-translation-ja-mcp.sha` holds one 40-character commit SHA. The import script checks out that commit, runs `npm ci`, `npm run docs:build`, and `npm run docs:verify`, then copies `docs/` to `firebase-public/mdn-translation-ja-mcp/`. Replace the SHA and merge to `main` to publish a different documentation revision. Do not point the file at a branch name.
+
+### Local build and preview
 
 ```sh
-pnpm run build:firebase:site   # build the site into firebase-public
-pnpm run build:firebase        # site build plus web-serial-rxjs static import
-pnpm run deploy                # deploy firebase-public to Hosting
-pnpm run deploy:firebase       # build:firebase then deploy
+pnpm run build:firebase:site   # rebuild firebase-public from the Angular site
+pnpm run build:firebase        # site build, then web-serial-rxjs and MCP docs
+pnpm run deploy                # deploy firebase-public to the live channel
+pnpm run deploy:firebase       # build:firebase then deploy live
 ```
 
-On push to `main`, `.github/workflows/firebase-hosting-merge.yml` builds `firebase-public` and deploys it.
+`pnpm run deploy` and `pnpm run deploy:firebase` publish the live site. To check a build without replacing production, deploy a preview channel after `pnpm run build:firebase`:
+
+```sh
+pnpm exec firebase hosting:channel:deploy CHANNEL_ID \
+  --only gurezo-portal \
+  --project gurezo-portal \
+  --expires 7d
+```
+
+`hosting:channel:deploy` adds the `hosting:` prefix to each `--only` value, so pass the target name `gurezo-portal`. `CHANNEL_ID` is a short name such as `mdn-docs`. The command prints a preview URL. On that URL, check `/`, `/web-serial-rxjs/`, and `/mdn-translation-ja-mcp/` (with the trailing slash), plus a nested HTML page, `assets/style.css`, `assets/search.js`, and a missing path.
+
+### Production
+
+A push to `main` runs `.github/workflows/firebase-hosting-merge.yml`. The workflow builds `firebase-public`, imports both static documentation trees, and deploys Hosting channel `live`.
+
+### Rollback
+
+Firebase keeps previous Hosting releases. In the [Firebase console](https://console.firebase.google.com/) open **Hosting**, select site `gurezo-portal`, and roll back from **Release history**.
+
+To copy one channel onto another with the CLI:
+
+```sh
+pnpm exec firebase hosting:clone \
+  gurezo-portal:SOURCE_CHANNEL \
+  gurezo-portal:live \
+  --project gurezo-portal
+```
+
+`hosting:clone` copies the current release of `SOURCE_CHANNEL`. It does not select an older release from history. Use the console to roll back to a previous release. Use `hosting:clone` when a preview channel already has the tree that should become `live`. Either action replaces the whole site, including the Angular app and both documentation trees.
