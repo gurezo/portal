@@ -70,6 +70,7 @@ describe('projects.util', () => {
     expect(categoryLabel('library')).toBe('Library');
     expect(categoryLabel('web-app')).toBe('Web Application');
     expect(categoryLabel('data')).toBe('Data Repository');
+    expect(categoryLabel('tool')).toBe('Tool');
     expect(statusLabel('active')).toBe('Active');
     expect(statusLabel('experimental')).toBe('Experimental');
     expect(statusLabel('maintenance')).toBe('Maintenance');
