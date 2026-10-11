@@ -196,12 +196,16 @@ describe('ProjectCard', () => {
       'An MCP server that assists Japanese MDN translation, synchronization, and review.',
     );
     expect(compiled.textContent).not.toContain('Open App');
-    expect(compiled.textContent).not.toContain('Documentation');
+    expect(compiled.textContent).toContain('Documentation');
     expect(links.map((link) => linkSnapshot(link))).toEqual(
       expectedLinkSnapshots(mdnTranslationJaMcp),
     );
-    expect(links).toHaveLength(1);
+    expect(links).toHaveLength(2);
+    expect(links[0]?.getAttribute('href')).toBe(
+      'https://gurezo.net/mdn-translation-ja-mcp/',
+    );
     expect(links[0]?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(links[1]?.getAttribute('rel')).toBe('noopener noreferrer');
   });
 
   it('hides optional status, technologies, and links when they are absent', () => {
