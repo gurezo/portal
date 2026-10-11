@@ -89,12 +89,12 @@ pnpm run deploy:firebase       # build:firebase then deploy live
 
 ```sh
 pnpm exec firebase hosting:channel:deploy CHANNEL_ID \
-  --only hosting:gurezo-portal \
+  --only gurezo-portal \
   --project gurezo-portal \
   --expires 7d
 ```
 
-`CHANNEL_ID` is a short name such as `mdn-docs`. The command prints a preview URL. On that URL, check `/`, `/web-serial-rxjs/`, and `/mdn-translation-ja-mcp/` (with the trailing slash), plus a nested HTML page, `assets/style.css`, `assets/search.js`, and a missing path.
+`hosting:channel:deploy` adds the `hosting:` prefix to each `--only` value, so pass the target name `gurezo-portal`. `CHANNEL_ID` is a short name such as `mdn-docs`. The command prints a preview URL. On that URL, check `/`, `/web-serial-rxjs/`, and `/mdn-translation-ja-mcp/` (with the trailing slash), plus a nested HTML page, `assets/style.css`, `assets/search.js`, and a missing path.
 
 ### Production
 
