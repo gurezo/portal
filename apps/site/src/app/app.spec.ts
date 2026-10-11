@@ -72,7 +72,7 @@ describe('App', () => {
     ).toContain('GitHub');
   });
 
-  it('renders Libraries and CHIRIMEN Tools as separate groups', () => {
+  it('renders Libraries, Developer Tools, and CHIRIMEN Tools as separate groups', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
 
@@ -80,16 +80,26 @@ describe('App', () => {
     const libraries = compiled.querySelector(
       '[aria-labelledby="libraries-heading"]',
     );
+    const developerTools = compiled.querySelector(
+      '[aria-labelledby="developer-tools-heading"]',
+    );
     const chirimenTools = compiled.querySelector(
       '[aria-labelledby="chirimen-tools-heading"]',
     );
     const librariesHeading = compiled.querySelector('#libraries-heading');
+    const developerToolsHeading = compiled.querySelector(
+      '#developer-tools-heading',
+    );
     const chirimenHeading = compiled.querySelector('#chirimen-tools-heading');
 
     expect(librariesHeading?.textContent?.trim()).toBe('Libraries');
+    expect(developerToolsHeading?.textContent?.trim()).toBe('Developer Tools');
     expect(chirimenHeading?.textContent?.trim()).toBe('CHIRIMEN Tools');
     expect(librariesHeading?.nextElementSibling?.textContent?.trim()).toBe(
       'Reusable libraries and documentation on this domain.',
+    );
+    expect(developerToolsHeading?.nextElementSibling?.textContent?.trim()).toBe(
+      'Tools that support development workflows.',
     );
     expect(chirimenHeading?.nextElementSibling?.textContent?.trim()).toBe(
       'Browser tools and device data.',
@@ -99,6 +109,13 @@ describe('App', () => {
     );
     expect(libraries?.textContent).toContain('web-serial-rxjs');
     expect(libraries?.textContent).not.toContain('Coming later');
+    expect(developerTools?.querySelectorAll('app-project-card')).toHaveLength(
+      0,
+    );
+    expect(developerTools?.textContent).toContain('Coming later');
+    expect(developerTools?.textContent).toContain(
+      'Additional developer tools can be added here.',
+    );
     expect(libraries?.textContent).not.toContain('CHIRIMEN Lite Console');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Device Dashboard');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Certified Devices');
@@ -169,6 +186,7 @@ describe('App', () => {
         },
         { tag: 'H2', text: 'Projects' },
         { tag: 'H3', text: 'Libraries' },
+        { tag: 'H3', text: 'Developer Tools' },
         { tag: 'H3', text: 'CHIRIMEN Tools' },
         { tag: 'H4', text: 'web-serial-rxjs' },
         { tag: 'H4', text: 'CHIRIMEN Lite Console' },
@@ -191,9 +209,17 @@ describe('App', () => {
     expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(4);
     expect(compiled.querySelector('#projects-heading')?.tagName).toBe('H2');
     expect(compiled.querySelector('#libraries-heading')?.tagName).toBe('H3');
+    expect(compiled.querySelector('#developer-tools-heading')?.tagName).toBe(
+      'H3',
+    );
     expect(compiled.querySelector('#chirimen-tools-heading')?.tagName).toBe(
       'H3',
     );
+    expect(
+      Array.from(compiled.querySelectorAll('h3')).map((heading) =>
+        heading.textContent?.trim(),
+      ),
+    ).toEqual(['Libraries', 'Developer Tools', 'CHIRIMEN Tools']);
 
     const projectsHeading = compiled.querySelector('#projects-heading');
     const projectsLead = projectsHeading?.nextElementSibling;
