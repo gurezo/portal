@@ -173,6 +173,37 @@ describe('ProjectCard', () => {
     );
   });
 
+  it('renders mdn-translation-ja-mcp links from project metadata', () => {
+    const mdnTranslationJaMcp = PROJECTS.find(
+      (project) => project.id === 'mdn-translation-ja-mcp',
+    );
+
+    expect(mdnTranslationJaMcp).toBeDefined();
+    if (!mdnTranslationJaMcp) {
+      return;
+    }
+
+    const compiled = render(mdnTranslationJaMcp);
+    const links = Array.from(compiled.querySelectorAll('a'));
+
+    expect(compiled.textContent).toContain('mdn-translation-ja-mcp');
+    expect(compiled.textContent).toContain('Tool');
+    expect(compiled.textContent).not.toContain('Active');
+    expect(compiled.textContent).toContain('TypeScript');
+    expect(compiled.textContent).toContain('MCP');
+    expect(compiled.textContent).toContain('MDN');
+    expect(compiled.textContent).toContain(
+      'An MCP server that assists Japanese MDN translation, synchronization, and review.',
+    );
+    expect(compiled.textContent).not.toContain('Open App');
+    expect(compiled.textContent).not.toContain('Documentation');
+    expect(links.map((link) => linkSnapshot(link))).toEqual(
+      expectedLinkSnapshots(mdnTranslationJaMcp),
+    );
+    expect(links).toHaveLength(1);
+    expect(links[0]?.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+
   it('hides optional status, technologies, and links when they are absent', () => {
     const compiled = render(createProject());
 
@@ -302,7 +333,7 @@ describe('ProjectCard', () => {
   });
 
   it('keeps the same content order for every published project', () => {
-    expect(PROJECTS).toHaveLength(4);
+    expect(PROJECTS).toHaveLength(5);
 
     for (const project of PROJECTS) {
       const compiled = render(project);

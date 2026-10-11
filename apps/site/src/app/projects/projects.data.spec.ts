@@ -15,6 +15,9 @@ describe('PROJECTS', () => {
   const chirimenCertifiedDevices = PROJECTS.find(
     (project) => project.id === 'chirimen-certified-devices',
   );
+  const mdnTranslationJaMcp = PROJECTS.find(
+    (project) => project.id === 'mdn-translation-ja-mcp',
+  );
 
   it('includes web-serial-rxjs with the fields needed to render the portal listing', () => {
     expect(webSerialRxjs).toEqual(
@@ -147,6 +150,48 @@ describe('PROJECTS', () => {
         kind: 'github',
       },
     ]);
+  });
+
+  it('includes mdn-translation-ja-mcp in Developer Tools as a tool', () => {
+    expect(mdnTranslationJaMcp).toEqual(
+      expect.objectContaining<Partial<OssProject>>({
+        id: 'mdn-translation-ja-mcp',
+        name: 'mdn-translation-ja-mcp',
+        category: 'tool',
+        group: 'developer-tools',
+        status: 'active',
+      }),
+    );
+    expect(mdnTranslationJaMcp?.description).toBe(
+      'An MCP server that assists Japanese MDN translation, synchronization, and review.',
+    );
+    expect(mdnTranslationJaMcp?.technologies).toEqual([
+      'TypeScript',
+      'MCP',
+      'MDN',
+    ]);
+  });
+
+  it('exposes only the mdn-translation-ja-mcp GitHub link', () => {
+    expect(mdnTranslationJaMcp?.links).toEqual([
+      {
+        label: 'GitHub',
+        url: 'https://github.com/gurezo/mdn-translation-ja-mcp',
+        kind: 'github',
+      },
+    ]);
+    expect(mdnTranslationJaMcp?.links.map((link) => link.label)).not.toContain(
+      'Open App',
+    );
+    expect(mdnTranslationJaMcp?.links.map((link) => link.label)).not.toContain(
+      'Documentation',
+    );
+    expect(mdnTranslationJaMcp?.links.map((link) => link.kind)).not.toContain(
+      'app',
+    );
+    expect(mdnTranslationJaMcp?.links.map((link) => link.kind)).not.toContain(
+      'docs',
+    );
   });
 });
 

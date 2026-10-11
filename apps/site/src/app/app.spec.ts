@@ -110,12 +110,24 @@ describe('App', () => {
     expect(libraries?.textContent).toContain('web-serial-rxjs');
     expect(libraries?.textContent).not.toContain('Coming later');
     expect(developerTools?.querySelectorAll('app-project-card')).toHaveLength(
-      0,
+      1,
     );
-    expect(developerTools?.textContent).toContain('Coming later');
+    expect(developerTools?.textContent).toContain('mdn-translation-ja-mcp');
     expect(developerTools?.textContent).toContain(
-      'Additional developer tools can be added here.',
+      'An MCP server that assists Japanese MDN translation, synchronization, and review.',
     );
+    expect(developerTools?.textContent).toContain('Tool');
+    expect(developerTools?.textContent).toContain('TypeScript');
+    expect(developerTools?.textContent).toContain('MCP');
+    expect(developerTools?.textContent).toContain('MDN');
+    expect(developerTools?.textContent).not.toContain('Coming later');
+    expect(developerTools?.textContent).not.toContain('Open App');
+    expect(developerTools?.textContent).not.toContain('Documentation');
+    expect(
+      developerTools?.querySelector(
+        'a[href="https://github.com/gurezo/mdn-translation-ja-mcp"]',
+      )?.textContent,
+    ).toContain('GitHub');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Lite Console');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Device Dashboard');
     expect(libraries?.textContent).not.toContain('CHIRIMEN Certified Devices');
@@ -189,6 +201,7 @@ describe('App', () => {
         { tag: 'H3', text: 'Developer Tools' },
         { tag: 'H3', text: 'CHIRIMEN Tools' },
         { tag: 'H4', text: 'web-serial-rxjs' },
+        { tag: 'H4', text: 'mdn-translation-ja-mcp' },
         { tag: 'H4', text: 'CHIRIMEN Lite Console' },
         { tag: 'H4', text: 'CHIRIMEN Device Dashboard' },
         { tag: 'H4', text: 'CHIRIMEN Certified Devices' },
@@ -206,7 +219,7 @@ describe('App', () => {
       headings.filter((heading) => heading.text === 'CHIRIMEN Tools'),
     ).toEqual([{ tag: 'H3', text: 'CHIRIMEN Tools' }]);
     expect(compiled.querySelectorAll('app-project-card h3')).toHaveLength(0);
-    expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(4);
+    expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(5);
     expect(compiled.querySelector('#projects-heading')?.tagName).toBe('H2');
     expect(compiled.querySelector('#libraries-heading')?.tagName).toBe('H3');
     expect(compiled.querySelector('#developer-tools-heading')?.tagName).toBe(
@@ -251,6 +264,7 @@ describe('App', () => {
       'https://github.com/gurezo/chirimen-device-dashboard',
       'https://chirimen-device-dashboard.web.app/',
       'https://github.com/gurezo/chirimen-certified-devices',
+      'https://github.com/gurezo/mdn-translation-ja-mcp',
     ];
 
     expect(docsLink?.url).toBe('https://gurezo.net/web-serial-rxjs/');
@@ -312,6 +326,10 @@ describe('App', () => {
       .querySelector('#libraries-heading')
       ?.closest('section')
       ?.querySelector('.grid');
+    const developerToolsGrid = compiled
+      .querySelector('#developer-tools-heading')
+      ?.closest('section')
+      ?.querySelector('.grid');
     const chirimenGrid = compiled
       .querySelector('#chirimen-tools-heading')
       ?.closest('section')
@@ -324,7 +342,7 @@ describe('App', () => {
     expect(heading?.className).toContain('max-w-4xl');
     expect(lead?.className).toContain('max-w-3xl');
 
-    for (const grid of [librariesGrid, chirimenGrid]) {
+    for (const grid of [librariesGrid, developerToolsGrid, chirimenGrid]) {
       expect(grid?.className).toContain('min-w-0');
       expect(grid?.className).toContain('grid-cols-1');
     }
@@ -333,6 +351,10 @@ describe('App', () => {
     expect(librariesGrid?.className).toContain('md:max-w-2xl');
     expect(librariesGrid?.className).not.toContain('md:grid-cols-2');
     expect(librariesGrid?.className).not.toContain('xl:grid-cols-3');
+    expect(developerToolsGrid?.className).toContain('max-w-xl');
+    expect(developerToolsGrid?.className).toContain('md:max-w-2xl');
+    expect(developerToolsGrid?.className).not.toContain('md:grid-cols-2');
+    expect(developerToolsGrid?.className).not.toContain('xl:grid-cols-3');
     expect(chirimenGrid?.className).not.toContain('max-w-xl');
     expect(chirimenGrid?.className).not.toContain('md:max-w-2xl');
     expect(chirimenGrid?.className).toContain('md:grid-cols-2');
