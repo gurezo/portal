@@ -6,7 +6,7 @@ This repository hosts the Angular site deployed to that domain. External web app
 
 ## Published projects
 
-Projects listed on [gurezo.net](https://gurezo.net/) are grouped as Libraries and CHIRIMEN Tools.
+Projects listed on [gurezo.net](https://gurezo.net/) are grouped, in display order, as Libraries, Developer Tools, and CHIRIMEN Tools.
 
 ### Libraries
 
@@ -14,6 +14,11 @@ Projects listed on [gurezo.net](https://gurezo.net/) are grouped as Libraries an
   - [Documentation](https://gurezo.net/web-serial-rxjs/)
   - [Examples](https://gurezo.net/web-serial-rxjs/examples/)
   - [npm](https://www.npmjs.com/package/@gurezo/web-serial-rxjs)
+
+### Developer Tools
+
+- [`mdn-translation-ja-mcp`](https://github.com/gurezo/mdn-translation-ja-mcp) — an MCP server that assists Japanese MDN translation, synchronization, and review. It is not a browser app. Documentation is hosted on this domain:
+  - [Documentation](https://gurezo.net/mdn-translation-ja-mcp/)
 
 ### CHIRIMEN Tools
 
