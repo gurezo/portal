@@ -62,6 +62,15 @@ jobs:
           rm -rf "${GITHUB_WORKSPACE}/firebase-public/web-serial-rxjs"
           cp -a dist/portal/web-serial-rxjs "${GITHUB_WORKSPACE}/firebase-public/web-serial-rxjs"
 
+      - name: Import mdn-translation-ja-mcp documentation
+        run: bash scripts/import-mdn-translation-ja-mcp-docs.sh
+
+      - name: Verify imported MCP documentation
+        run: |
+          test -f firebase-public/mdn-translation-ja-mcp/index.html
+          test -f firebase-public/mdn-translation-ja-mcp/assets/style.css
+          test -f firebase-public/mdn-translation-ja-mcp/assets/search.js
+
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
