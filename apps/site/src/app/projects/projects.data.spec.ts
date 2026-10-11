@@ -172,8 +172,13 @@ describe('PROJECTS', () => {
     ]);
   });
 
-  it('exposes only the mdn-translation-ja-mcp GitHub link', () => {
+  it('exposes the mdn-translation-ja-mcp Documentation and GitHub links', () => {
     expect(mdnTranslationJaMcp?.links).toEqual([
+      {
+        label: 'Documentation',
+        url: 'https://gurezo.net/mdn-translation-ja-mcp/',
+        kind: 'docs',
+      },
       {
         label: 'GitHub',
         url: 'https://github.com/gurezo/mdn-translation-ja-mcp',
@@ -183,14 +188,8 @@ describe('PROJECTS', () => {
     expect(mdnTranslationJaMcp?.links.map((link) => link.label)).not.toContain(
       'Open App',
     );
-    expect(mdnTranslationJaMcp?.links.map((link) => link.label)).not.toContain(
-      'Documentation',
-    );
     expect(mdnTranslationJaMcp?.links.map((link) => link.kind)).not.toContain(
       'app',
-    );
-    expect(mdnTranslationJaMcp?.links.map((link) => link.kind)).not.toContain(
-      'docs',
     );
   });
 });

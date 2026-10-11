@@ -122,7 +122,12 @@ describe('App', () => {
     expect(developerTools?.textContent).toContain('MDN');
     expect(developerTools?.textContent).not.toContain('Coming later');
     expect(developerTools?.textContent).not.toContain('Open App');
-    expect(developerTools?.textContent).not.toContain('Documentation');
+    expect(developerTools?.textContent).toContain('Documentation');
+    expect(
+      developerTools?.querySelector(
+        'a[href="https://gurezo.net/mdn-translation-ja-mcp/"]',
+      )?.textContent,
+    ).toContain('Documentation');
     expect(
       developerTools?.querySelector(
         'a[href="https://github.com/gurezo/mdn-translation-ja-mcp"]',
@@ -264,6 +269,7 @@ describe('App', () => {
       'https://github.com/gurezo/chirimen-device-dashboard',
       'https://chirimen-device-dashboard.web.app/',
       'https://github.com/gurezo/chirimen-certified-devices',
+      'https://gurezo.net/mdn-translation-ja-mcp/',
       'https://github.com/gurezo/mdn-translation-ja-mcp',
     ];
 
