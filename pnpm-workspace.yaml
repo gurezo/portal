@@ -16,4 +16,7 @@ allowBuilds:
 minimumReleaseAge: 10080
 # レビュー済み lockfile の frozen install では公開日チェックを再適用しない
 # 新規解決（pnpm add / update）では minimumReleaseAge が効く
+minimumReleaseAgeExclude:
+  - '@angular-eslint/*'
+  - angular-eslint
 trustLockfile: true
