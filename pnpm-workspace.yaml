@@ -13,7 +13,10 @@ allowBuilds:
 
 # 悪意のあるリリースは1週間以内に発見され、レジストリから削除される為
 # config = 7 day x 24h x 60 min
-# minimumReleaseAge: 10080
+minimumReleaseAge: 10080
 # レビュー済み lockfile の frozen install では公開日チェックを再適用しない
 # 新規解決（pnpm add / update）では minimumReleaseAge が効く
+minimumReleaseAgeExclude:
+  - '@angular-eslint/*'
+  - angular-eslint
 trustLockfile: true
