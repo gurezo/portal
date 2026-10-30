@@ -194,7 +194,7 @@ describe('App', () => {
     );
 
     expect(compiled.querySelectorAll('h1')).toHaveLength(1);
-    expect(compiled.querySelectorAll('h2')).toHaveLength(1);
+    expect(compiled.querySelectorAll('h2')).toHaveLength(2);
     expect(headings).toEqual(
       expect.arrayContaining([
         {
@@ -202,6 +202,7 @@ describe('App', () => {
           text: 'Documentation and demos for OSS projects.',
         },
         { tag: 'H2', text: 'Projects' },
+        { tag: 'H2', text: 'Get involved' },
         { tag: 'H3', text: 'Libraries' },
         { tag: 'H3', text: 'Developer Tools' },
         { tag: 'H3', text: 'CHIRIMEN Tools' },
@@ -226,6 +227,7 @@ describe('App', () => {
     expect(compiled.querySelectorAll('app-project-card h3')).toHaveLength(0);
     expect(compiled.querySelectorAll('app-project-card h4')).toHaveLength(5);
     expect(compiled.querySelector('#projects-heading')?.tagName).toBe('H2');
+    expect(compiled.querySelector('#get-involved-heading')?.tagName).toBe('H2');
     expect(compiled.querySelector('#libraries-heading')?.tagName).toBe('H3');
     expect(compiled.querySelector('#developer-tools-heading')?.tagName).toBe(
       'H3',
@@ -371,5 +373,49 @@ describe('App', () => {
     expect(chirimenGrid?.className).toContain('xl:grid-cols-3');
     expect(footer?.className).toContain('mt-4');
     expect(footer?.className).not.toContain('mt-8');
+  });
+
+  it('includes Get involved section with contribution links between Projects and Footer', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const getInvolvedSection = compiled.querySelector(
+      '[aria-labelledby="get-involved-heading"]',
+    );
+    const getInvolvedHeading = compiled.querySelector('#get-involved-heading');
+    const issuesLink = compiled.querySelector(
+      'a[href="https://github.com/gurezo/portal/issues"]',
+    );
+    const githubProfileLink = compiled.querySelector(
+      'a[href="https://github.com/gurezo"]',
+    );
+
+    expect(getInvolvedSection).not.toBeNull();
+    expect(getInvolvedHeading?.textContent?.trim()).toBe('Get involved');
+    expect(getInvolvedSection?.textContent).toContain(
+      'Contribute to these projects, report issues, or suggest improvements.',
+    );
+    expect(issuesLink?.textContent?.trim()).toBe('GitHub Issues');
+    expect(issuesLink?.getAttribute('target')).toBe('_blank');
+    expect(issuesLink?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(githubProfileLink?.textContent?.trim()).toBe('GitHub Profile');
+    expect(githubProfileLink?.getAttribute('target')).toBe('_blank');
+    expect(githubProfileLink?.getAttribute('rel')).toBe('noopener noreferrer');
+
+    const sections = Array.from(
+      compiled.querySelectorAll('main > div > section, main > div > footer'),
+    );
+    const projectsIndex = sections.findIndex((section) =>
+      section.querySelector('#projects-heading'),
+    );
+    const getInvolvedIndex = sections.findIndex((section) =>
+      section.querySelector('#get-involved-heading'),
+    );
+    const footerIndex = sections.findIndex((section) => section.tagName === 'FOOTER');
+
+    expect(projectsIndex).toBeGreaterThan(-1);
+    expect(getInvolvedIndex).toBeGreaterThan(projectsIndex);
+    expect(footerIndex).toBeGreaterThan(getInvolvedIndex);
   });
 });
