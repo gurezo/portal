@@ -121,7 +121,7 @@ describe('App', () => {
     expect(developerTools?.textContent).toContain('MCP');
     expect(developerTools?.textContent).toContain('MDN');
     expect(developerTools?.textContent).not.toContain('Coming later');
-    expect(developerTools?.textContent).not.toContain('Open App');
+    expect(developerTools?.textContent).not.toContain('App');
     expect(developerTools?.textContent).toContain('Documentation');
     expect(
       developerTools?.querySelector(
@@ -153,7 +153,7 @@ describe('App', () => {
       chirimenTools?.querySelector(
         'a[href="https://chirimen-lite-console.web.app/"]',
       )?.textContent,
-    ).toContain('Open App');
+    ).toContain('App');
     expect(
       chirimenTools?.querySelector(
         'a[href="https://github.com/gurezo/chirimen-lite-console"]',
@@ -163,7 +163,7 @@ describe('App', () => {
       chirimenTools?.querySelector(
         'a[href="https://chirimen-device-dashboard.web.app/"]',
       )?.textContent,
-    ).toContain('Open App');
+    ).toContain('App');
     expect(
       chirimenTools?.querySelector(
         'a[href="https://github.com/gurezo/chirimen-device-dashboard"]',
