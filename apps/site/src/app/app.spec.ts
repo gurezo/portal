@@ -35,8 +35,8 @@ describe('App', () => {
     expect(hero?.className).not.toContain('lg:grid-cols-');
     expect(browseProjects?.textContent?.trim()).toBe('Browse projects');
     expect(
-      compiled.querySelector('a[href="https://lifewood.net/"]')?.textContent,
-    ).toContain('about me');
+      compiled.querySelector('footer a[href="https://lifewood.net/"]')?.textContent,
+    ).toContain('lifewood.net');
   });
 
   it('renders project metadata instead of hardcoded listing copy', () => {
