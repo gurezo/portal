@@ -2,11 +2,32 @@ import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import { PROJECTS } from './projects/projects.data';
 import { projectLink } from './projects/projects.util';
+import {
+  GithubReleaseSummary,
+  LATEST_RELEASE_LOADER,
+  LatestReleaseLoader,
+} from './updates/github-releases';
+
+const freshRelease: GithubReleaseSummary = {
+  projectName: 'web-serial-rxjs',
+  owner: 'gurezo',
+  repo: 'web-serial-rxjs',
+  name: 'Release v4.2.1',
+  tagName: 'v4.2.1',
+  publishedAt: '2026-10-30T13:08:06Z',
+  htmlUrl: 'https://github.com/gurezo/web-serial-rxjs/releases/tag/v4.2.1',
+};
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [
+        {
+          provide: LATEST_RELEASE_LOADER,
+          useValue: (async () => null) satisfies LatestReleaseLoader,
+        },
+      ],
     }).compileComponents();
   });
 
@@ -63,7 +84,8 @@ describe('App', () => {
     expect(hero?.className).not.toContain('lg:grid-cols-');
     expect(browseProjects?.textContent?.trim()).toBe('Browse projects');
     expect(
-      compiled.querySelector('footer a[href="https://lifewood.net/"]')?.textContent,
+      compiled.querySelector('footer a[href="https://lifewood.net/"]')
+        ?.textContent,
     ).toContain('lifewood.net');
   });
 
@@ -214,12 +236,12 @@ describe('App', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const headings = Array.from(compiled.querySelectorAll('h1, h2, h3, h4')).map(
-      (heading) => ({
-        tag: heading.tagName,
-        text: heading.textContent?.replace(/\s+/g, ' ').trim(),
-      }),
-    );
+    const headings = Array.from(
+      compiled.querySelectorAll('h1, h2, h3, h4'),
+    ).map((heading) => ({
+      tag: heading.tagName,
+      text: heading.textContent?.replace(/\s+/g, ' ').trim(),
+    }));
 
     expect(compiled.querySelectorAll('h1')).toHaveLength(1);
     expect(compiled.querySelectorAll('h2')).toHaveLength(2);
@@ -415,7 +437,7 @@ describe('App', () => {
     const issuesLink = compiled.querySelector(
       'a[href="https://github.com/gurezo/portal/issues"]',
     );
-    const githubProfileLink = compiled.querySelector(
+    const githubProfileLink = getInvolvedSection?.querySelector(
       'a[href="https://github.com/gurezo"]',
     );
 
@@ -440,10 +462,72 @@ describe('App', () => {
     const getInvolvedIndex = sections.findIndex((section) =>
       section.querySelector('#get-involved-heading'),
     );
-    const footerIndex = sections.findIndex((section) => section.tagName === 'FOOTER');
+    const footerIndex = sections.findIndex(
+      (section) => section.tagName === 'FOOTER',
+    );
 
     expect(projectsIndex).toBeGreaterThan(-1);
     expect(getInvolvedIndex).toBeGreaterThan(projectsIndex);
     expect(footerIndex).toBeGreaterThan(getInvolvedIndex);
+  });
+
+  it('shows the latest fresh release between the hero and Projects', async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [App],
+      providers: [
+        {
+          provide: LATEST_RELEASE_LOADER,
+          useValue: (async () => freshRelease) satisfies LatestReleaseLoader,
+        },
+      ],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const hero = compiled.querySelector('section');
+    const band = compiled
+      .querySelector('#whats-new-heading')
+      ?.closest('section');
+    const projects = compiled
+      .querySelector('#projects-heading')
+      ?.closest('section');
+    const link = band?.querySelector('a');
+    const nav = compiled.querySelector('nav[aria-label="Main navigation"]');
+
+    expect(hero).not.toBeNull();
+    expect(band).not.toBeNull();
+    expect(projects).not.toBeNull();
+    expect(hero?.contains(band ?? null)).toBe(false);
+    expect(
+      hero?.compareDocumentPosition(band ?? hero) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      band?.compareDocumentPosition(projects ?? band) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(band?.textContent).toContain("What's new");
+    expect(band?.textContent).toContain('Release v4.2.1');
+    expect(band?.textContent).toContain('web-serial-rxjs');
+    expect(link?.getAttribute('href')).toBe(freshRelease.htmlUrl);
+    expect(nav?.textContent).not.toContain('Updates');
+    expect(nav?.textContent).not.toContain('更新情報');
+  });
+
+  it('hides the band when the latest release is older than 60 days', async () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('#whats-new-heading')).toBeNull();
+    expect(compiled.querySelector('nav')?.textContent).not.toContain('Updates');
   });
 });
