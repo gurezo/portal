@@ -1,0 +1,40 @@
+name: Check external links
+
+on:
+  pull_request:
+    paths:
+      - 'apps/site/src/app/projects/projects.data.ts'
+      - 'apps/site/src/app/app.html'
+      - 'README.md'
+      - 'scripts/check-external-links.mjs'
+      - 'scripts/check-external-links.test.mjs'
+      - '.github/workflows/check-links.yml'
+      - 'package.json'
+  schedule:
+    # Monday 09:00 JST
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout portal
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Test link check classification
+        run: node --test scripts/check-external-links.test.mjs
+
+      - name: Check external links
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/check-external-links.mjs
