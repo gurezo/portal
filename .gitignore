@@ -54,6 +54,3 @@ firebase-public
 .firebase
 .nx/polygraph
 .vitest
-
-# generated at build time
-apps/site/public/rss.xml

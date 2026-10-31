@@ -42,15 +42,6 @@ export const LATEST_RELEASE_LOADER = new InjectionToken<LatestReleaseLoader>(
   },
 );
 
-export type ReleasesLoader = () => Promise<GithubReleaseSummary[]>;
-
-export const RELEASES_LOADER = new InjectionToken<ReleasesLoader>(
-  'RELEASES_LOADER',
-  {
-    factory: () => () => loadPublishedReleases(),
-  },
-);
-
 export function githubReleaseSources(
   projects: readonly OssProject[],
 ): GithubReleaseSource[] {
@@ -76,13 +67,6 @@ export function githubReleaseSources(
   }
 
   return sources;
-}
-
-export function formatReleasePublishedAt(publishedAt: string): string {
-  return new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'medium',
-    timeZone: 'UTC',
-  }).format(new Date(publishedAt));
 }
 
 export function isReleaseFresh(
@@ -116,17 +100,6 @@ export function pickLatestRelease(
   }
 
   return latest;
-}
-
-export function sortReleasesByPublishedAt(
-  releases: readonly GithubReleaseSummary[],
-): GithubReleaseSummary[] {
-  return releases
-    .filter((release) => !Number.isNaN(Date.parse(release.publishedAt)))
-    .sort(
-      (left, right) =>
-        Date.parse(right.publishedAt) - Date.parse(left.publishedAt),
-    );
 }
 
 export function latestFreshRelease(
@@ -166,18 +139,6 @@ export async function loadLatestFreshRelease(
   );
 
   return latestFreshRelease(releases, now);
-}
-
-export async function loadPublishedReleases(
-  projects: readonly OssProject[] = PROJECTS,
-  fetchImpl: typeof fetch = fetch,
-): Promise<GithubReleaseSummary[]> {
-  const releases = await fetchLatestReleases(
-    githubReleaseSources(projects),
-    fetchImpl,
-  );
-
-  return sortReleasesByPublishedAt(releases);
 }
 
 async function fetchLatestRelease(
