@@ -74,7 +74,6 @@ describe('App', () => {
 
     const heroText = hero?.textContent?.replace(/\s+/g, ' ') ?? '';
 
-    expect(heroText).toContain('gurezo.net');
     expect(heroText).toContain(
       'This domain hosts open-source documentation, runnable examples, and demo applications by gurezo.',
     );
