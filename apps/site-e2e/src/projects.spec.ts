@@ -130,6 +130,7 @@ test.describe('Projects', () => {
       { tag: 'H4', text: 'CHIRIMEN Lite Console' },
       { tag: 'H4', text: 'CHIRIMEN Device Dashboard' },
       { tag: 'H4', text: 'CHIRIMEN Certified Devices' },
+      { tag: 'H2', text: 'Get involved' },
     ]);
 
     const developerTools = page.getByRole('region', { name: 'Developer Tools' });
