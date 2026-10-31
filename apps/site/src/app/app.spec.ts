@@ -54,7 +54,7 @@ describe('App', () => {
     expect(logoLink?.textContent?.trim()).toBe('gurezo.net');
     expect(logoLink?.getAttribute('aria-label')).toBe('gurezo.net home');
     expect(projectsLink?.textContent?.trim()).toBe('Projects');
-    expect(githubLink?.textContent?.trim()).toBe('GitHub↗');
+    expect(githubLink?.textContent?.trim()).toBe('GitHub↗\uFE0E');
     expect(githubLink?.getAttribute('target')).toBe('_blank');
     expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
     expect(githubLink?.getAttribute('aria-label')).toBe(
