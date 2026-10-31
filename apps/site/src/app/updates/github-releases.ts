@@ -133,12 +133,16 @@ export async function loadLatestFreshRelease(
   now: Date = new Date(),
   fetchImpl: typeof fetch = fetch,
 ): Promise<GithubReleaseSummary | null> {
-  const releases = await fetchLatestReleases(
-    githubReleaseSources(projects),
-    fetchImpl,
-  );
-
-  return latestFreshRelease(releases, now);
+  const sources = githubReleaseSources(projects);
+  console.log('[loadLatestFreshRelease] Fetching from', sources.length, 'sources');
+  
+  const releases = await fetchLatestReleases(sources, fetchImpl);
+  console.log('[loadLatestFreshRelease] Fetched', releases.length, 'releases');
+  
+  const result = latestFreshRelease(releases, now);
+  console.log('[loadLatestFreshRelease] Latest fresh release:', result?.projectName || 'none');
+  
+  return result;
 }
 
 async function fetchLatestRelease(
@@ -156,6 +160,7 @@ async function fetchLatestRelease(
     });
 
     if (!response.ok) {
+      console.warn(`[fetchLatestRelease] ${source.projectName}: API returned ${response.status}`);
       return null;
     }
 
@@ -163,7 +168,8 @@ async function fetchLatestRelease(
       source,
       (await response.json()) as GithubLatestReleaseResponse,
     );
-  } catch {
+  } catch (error) {
+    console.error(`[fetchLatestRelease] ${source.projectName}: Fetch failed`, error);
     return null;
   }
 }
