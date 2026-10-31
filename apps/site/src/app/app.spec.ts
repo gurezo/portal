@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { FEATURE_FLAGS } from './app.config';
 import { PROJECTS } from './projects/projects.data';
 import { projectLink } from './projects/projects.util';
 import {
@@ -524,5 +525,91 @@ describe('App', () => {
 
     expect(compiled.querySelector('#whats-new-heading')).toBeNull();
     expect(compiled.querySelector('nav')?.textContent).not.toContain('Updates');
+  });
+
+  describe('External link rules and Updates nav state (Issue #83)', () => {
+    it('hides Updates nav when ENABLE_UPDATES_NAV is false', () => {
+      const fixture = TestBed.createComponent(App);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement as HTMLElement;
+      const nav = compiled.querySelector('nav[aria-label="Main navigation"]');
+
+      expect(FEATURE_FLAGS.ENABLE_UPDATES_NAV).toBe(false);
+      expect(nav?.querySelector('a[href="/updates"]')).toBeNull();
+      expect(nav?.textContent).not.toContain('Updates');
+    });
+
+    it('applies consistent external link rules to nav GitHub link', () => {
+      const fixture = TestBed.createComponent(App);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement as HTMLElement;
+      const githubNavLink = compiled.querySelector(
+        'nav[aria-label="Main navigation"] a[href="https://github.com/gurezo"]',
+      );
+
+      expect(githubNavLink?.getAttribute('target')).toBe('_blank');
+      expect(githubNavLink?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(githubNavLink?.getAttribute('aria-label')).toBe(
+        'GitHub (opens in a new tab)',
+      );
+      expect(githubNavLink?.textContent).toContain('GitHub↗');
+      expect(githubNavLink?.textContent).toContain('\uFE0E');
+    });
+
+    it('applies consistent external link rules to footer links', () => {
+      const fixture = TestBed.createComponent(App);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement as HTMLElement;
+      const footerNav = compiled.querySelector('footer nav');
+      const lifewoodLink = footerNav?.querySelector(
+        'a[href="https://lifewood.net/"]',
+      );
+      const githubLink = footerNav?.querySelector(
+        'a[href="https://github.com/gurezo"]',
+      );
+
+      expect(lifewoodLink?.getAttribute('target')).toBe('_blank');
+      expect(lifewoodLink?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(lifewoodLink?.getAttribute('aria-label')).toBe(
+        'lifewood.net (opens in a new tab)',
+      );
+
+      expect(githubLink?.getAttribute('target')).toBe('_blank');
+      expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(githubLink?.getAttribute('aria-label')).toBe(
+        'GitHub (opens in a new tab)',
+      );
+    });
+
+    it('applies consistent external link rules to Get involved section links', () => {
+      const fixture = TestBed.createComponent(App);
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement as HTMLElement;
+      const getInvolvedSection = compiled.querySelector(
+        '[aria-labelledby="get-involved-heading"]',
+      );
+      const issuesLink = getInvolvedSection?.querySelector(
+        'a[href="https://github.com/gurezo/portal/issues"]',
+      );
+      const profileLink = getInvolvedSection?.querySelector(
+        'a[href="https://github.com/gurezo"]',
+      );
+
+      expect(issuesLink?.getAttribute('target')).toBe('_blank');
+      expect(issuesLink?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(issuesLink?.getAttribute('aria-label')).toBe(
+        'GitHub Issues (opens in a new tab)',
+      );
+
+      expect(profileLink?.getAttribute('target')).toBe('_blank');
+      expect(profileLink?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(profileLink?.getAttribute('aria-label')).toBe(
+        'GitHub Profile (opens in a new tab)',
+      );
+    });
   });
 });

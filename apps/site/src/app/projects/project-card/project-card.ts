@@ -20,6 +20,10 @@ export class ProjectCard {
   protected readonly statusLabel = statusLabel;
   protected readonly visibleProjectStatus = visibleProjectStatus;
 
+  /**
+   * Generate accessible aria-label for external project links.
+   * @see docs/EXTERNAL_LINKS_AND_UPDATES_NAV.md
+   */
   protected linkAriaLabel(link: ProjectLink): string {
     return `${this.project().name} ${link.label} (opens in a new tab)`;
   }

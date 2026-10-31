@@ -36,6 +36,15 @@
           Projects
         </a>
 
+        @if (showUpdatesNav) {
+          <a
+            href="/updates"
+            class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] px-2 text-sm font-medium text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-link)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 sm:text-[15px]"
+          >
+            Updates
+          </a>
+        }
+
         <a
           href="https://github.com/gurezo"
           target="_blank"
@@ -161,6 +170,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex min-h-[var(--tap-target-min)] items-center justify-center rounded-[var(--radius-full)] border border-[var(--color-cta-border)] bg-[var(--color-cta-bg)] px-5 text-sm font-bold text-[var(--color-cta-fg)] shadow-[var(--shadow-sm)] transition hover:-translate-y-0.5 hover:border-[var(--color-cta-border-hover)] hover:bg-[var(--color-cta-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          aria-label="GitHub Issues (opens in a new tab)"
         >
           GitHub Issues
         </a>
@@ -170,6 +180,7 @@
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex min-h-[var(--tap-target-min)] items-center justify-center rounded-[var(--radius-full)] border border-[var(--color-border-light)] bg-[var(--color-surface)] px-5 text-sm font-bold text-[var(--color-text)] transition hover:-translate-y-0.5 hover:border-[var(--color-border)] hover:bg-[var(--color-bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          aria-label="GitHub Profile (opens in a new tab)"
         >
           GitHub Profile
         </a>
@@ -188,20 +199,23 @@
       <nav class="flex flex-wrap gap-5" aria-label="Footer links">
         <a
           href="https://lifewood.net/"
+          target="_blank"
+          rel="noopener noreferrer"
           class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] font-bold text-[var(--color-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          aria-label="lifewood.net (opens in a new tab)"
         >
           lifewood.net
         </a>
-<<<<<<< HEAD
 
         <a
           href="https://github.com/gurezo"
+          target="_blank"
+          rel="noopener noreferrer"
           class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] font-bold text-[var(--color-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          aria-label="GitHub (opens in a new tab)"
         >
           GitHub
         </a>
-=======
->>>>>>> f1a4dd8 (feat(site): implement Plan A header + UI/UX refinements (#82))
       </nav>
     </footer>
   </div>

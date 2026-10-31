@@ -19,6 +19,11 @@ export class WhatsNewBand {
     void this.load();
   }
 
+  /**
+   * Generate accessible aria-label for release link.
+   * External link indication per external link rules.
+   * @see docs/EXTERNAL_LINKS_AND_UPDATES_NAV.md
+   */
   protected releaseAriaLabel(release: GithubReleaseSummary): string {
     return `${release.projectName} ${release.name} (opens in a new tab)`;
   }
