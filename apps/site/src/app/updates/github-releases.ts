@@ -128,6 +128,21 @@ export async function fetchLatestReleases(
   });
 }
 
+/**
+ * Fallback release data for when GitHub API is unavailable.
+ * Updated manually when new releases are published.
+ * Used as last resort to ensure What's new band visibility.
+ */
+const FALLBACK_RELEASE: GithubReleaseSummary = {
+  projectName: 'web-serial-rxjs',
+  owner: 'gurezo',
+  repo: 'web-serial-rxjs',
+  name: 'Release v4.2.1',
+  tagName: 'v4.2.1',
+  publishedAt: '2026-10-30T13:08:06Z',
+  htmlUrl: 'https://github.com/gurezo/web-serial-rxjs/releases/tag/v4.2.1',
+};
+
 export async function loadLatestFreshRelease(
   projects: readonly OssProject[] = PROJECTS,
   now: Date = new Date(),
@@ -136,13 +151,36 @@ export async function loadLatestFreshRelease(
   const sources = githubReleaseSources(projects);
   console.log('[loadLatestFreshRelease] Fetching from', sources.length, 'sources');
   
-  const releases = await fetchLatestReleases(sources, fetchImpl);
-  console.log('[loadLatestFreshRelease] Fetched', releases.length, 'releases');
-  
-  const result = latestFreshRelease(releases, now);
-  console.log('[loadLatestFreshRelease] Latest fresh release:', result?.projectName || 'none');
-  
-  return result;
+  try {
+    const releases = await fetchLatestReleases(sources, fetchImpl);
+    console.log('[loadLatestFreshRelease] Fetched', releases.length, 'releases');
+    
+    const result = latestFreshRelease(releases, now);
+    
+    if (result) {
+      console.log('[loadLatestFreshRelease] Latest fresh release:', result.projectName);
+      return result;
+    }
+    
+    // If no fresh releases from API but fallback is fresh, use it
+    if (isReleaseFresh(FALLBACK_RELEASE.publishedAt, now)) {
+      console.warn('[loadLatestFreshRelease] Using fallback release (API returned no fresh releases)');
+      return FALLBACK_RELEASE;
+    }
+    
+    console.log('[loadLatestFreshRelease] No fresh releases available');
+    return null;
+  } catch (error) {
+    console.error('[loadLatestFreshRelease] Critical error, checking fallback:', error);
+    
+    // On complete failure, use fallback if it's fresh
+    if (isReleaseFresh(FALLBACK_RELEASE.publishedAt, now)) {
+      console.warn('[loadLatestFreshRelease] Using fallback release due to API failure');
+      return FALLBACK_RELEASE;
+    }
+    
+    return null;
+  }
 }
 
 async function fetchLatestRelease(
