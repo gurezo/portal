@@ -20,11 +20,22 @@ Components use only these semantic tokens, never direct primitives or Tailwind c
 
 #### Accent Colors (Decoration Only)
 - `--color-accent`: Maps to brand-green-500
-  - **Usage**: Logo accents, decorative underlines, visual flourishes
+  - **Usage**: Logo glasses frame, decorative bars, section underlines, card hover accent, link hover underlines, background radial
+  - **Active locations**:
+    - Header logo: Glasses frame (SVG stroke)
+    - Hero eyebrow: 24×3px bar to the left
+    - Hero h1: Optional 4px underline (text-decoration-color)
+    - Section headings: 3px line under h2, 2px under h3
+    - Project cards: 2px top border on hover, category dots (8px)
+    - Link hover: Underline decoration color
+    - Background: Radial gradient at ~7% opacity
   - **Restriction**: Never use for text (contrast 2.37:1 insufficient)
   
 - `--color-accent-2`: Maps to brand-brown-500
   - **Usage**: Dividers, category dots, secondary decoration
+  - **Active locations**:
+    - Header logo: Glasses bridge/nose pad (SVG stroke)
+    - News band: 8px dot separator before date
   - **Restriction**: Never use for text (contrast 3.10:1 insufficient for text)
 
 #### Text Colors (≥4.5:1 WCAG AA)
@@ -110,6 +121,18 @@ Components use only these semantic tokens, never direct primitives or Tailwind c
 - Insufficient contrast ratios (2.37:1 and 3.10:1)
 - Reserved for decorative purposes only
 - All text uses darker variants with ≥4.5:1 contrast
+
+**Prohibited uses** (Issue #82):
+- ❌ Body text, link text, or any readable content
+- ❌ CTA backgrounds (buttons, badges)
+- ❌ Focus rings (use --color-focus-ring / brand-green-700 instead)
+
+**Permitted uses** (Issue #82 implementation):
+- ✅ Logo decorative elements (glasses frame, bridge)
+- ✅ Decorative bars and underlines (eyebrow bar, section dividers)
+- ✅ Non-text visual accents (dots, rails, borders)
+- ✅ Hover decorations (card top line, link underline color)
+- ✅ Background gradients at low opacity (≤10%)
 
 ### 4. Focus Ring Accessibility
 - All interactive elements use `--color-focus-ring` (brand-green-700)

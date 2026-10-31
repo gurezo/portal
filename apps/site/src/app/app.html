@@ -2,7 +2,8 @@
   class="min-h-screen bg-[var(--color-bg-subtle)] text-[var(--color-text)] selection:bg-[var(--color-selection-bg)] selection:text-[var(--color-selection-fg)]"
 >
   <div
-    class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(21,128,61,0.08),transparent_36rem),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg-subtle)_100%)]"
+    class="pointer-events-none fixed inset-0 -z-10"
+    style="background-image: radial-gradient(circle at top left, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 36rem), linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-subtle) 100%)"
     aria-hidden="true"
   ></div>
 
@@ -12,9 +13,25 @@
     <header class="mb-8 flex items-center justify-between">
       <a
         href="/"
-        class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] font-bold text-[var(--color-text)] transition hover:text-[var(--color-link)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        class="inline-flex min-h-[var(--tap-target-min)] items-center gap-3 rounded-[var(--radius-sm)] font-bold text-[var(--color-text)] transition hover:text-[var(--color-link)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
         aria-label="gurezo.net home"
       >
+        <svg
+          width="32"
+          height="12"
+          viewBox="0 0 32 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <!-- Left lens -->
+          <circle cx="6" cy="6" r="5" stroke="var(--color-accent)" stroke-width="2" fill="none" />
+          <!-- Right lens -->
+          <circle cx="26" cy="6" r="5" stroke="var(--color-accent)" stroke-width="2" fill="none" />
+          <!-- Bridge (nose pad) -->
+          <path d="M 11 6 L 21 6" stroke="var(--color-accent-2)" stroke-width="2" stroke-linecap="round" />
+        </svg>
         <span class="text-lg tracking-tight">gurezo.net</span>
       </a>
 
@@ -39,12 +56,16 @@
     </header>
     <section class="min-w-0 py-10 lg:py-16">
       <div class="max-w-4xl">
-        <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-[var(--color-eyebrow)]">
-          gurezo.net
-        </p>
+        <div class="mb-5 flex items-center gap-3">
+          <span class="h-[3px] w-6 bg-[var(--color-accent)]" aria-hidden="true"></span>
+          <p class="text-sm font-semibold tracking-[0.08em] text-[var(--color-eyebrow)]">
+            gurezo.net
+          </p>
+        </div>
 
         <h1
           class="max-w-4xl break-words text-4xl font-bold leading-[1.14] tracking-[-0.035em] text-[var(--color-text)] sm:text-6xl lg:text-7xl"
+          style="text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 4px; text-underline-offset: 0.15em; text-decoration-skip-ink: none"
         >
           Documentation and demos
           <span class="block">for OSS projects.</span>
@@ -72,7 +93,7 @@
       <div class="mb-8 max-w-3xl">
         <h2
           id="projects-heading"
-          class="text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl"
+          class="relative pb-3 text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-16 after:bg-[var(--color-accent)] after:content-['']"
         >
           Projects
         </h2>
@@ -88,7 +109,7 @@
             <div class="mb-6 max-w-3xl">
               <h3
                 [id]="section.id + '-heading'"
-                class="text-2xl font-semibold tracking-[-0.025em] text-[var(--color-text)]"
+                class="relative pb-3 text-2xl font-semibold tracking-[-0.025em] text-[var(--color-text)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-12 after:bg-[var(--color-accent)] after:content-['']"
               >
                 {{ section.heading }}
               </h3>
@@ -138,7 +159,7 @@
       <div class="mb-6 max-w-3xl">
         <h2
           id="get-involved-heading"
-          class="text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl"
+          class="relative pb-3 text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-16 after:bg-[var(--color-accent)] after:content-['']"
         >
           Get involved
         </h2>
