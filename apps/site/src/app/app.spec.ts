@@ -15,13 +15,41 @@ describe('App', () => {
     expect(fixture.componentInstance['title']).toBe('gurezo portal site');
   });
 
+  it('renders header navigation with Logo, Projects, and GitHub links', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const header = compiled.querySelector('header');
+    const nav = header?.querySelector('nav[aria-label="Main navigation"]');
+    const logoLink = header?.querySelector('a[href="/"]');
+    const projectsLink = nav?.querySelector('a[href="#projects-heading"]');
+    const githubLink = nav?.querySelector(
+      'a[href="https://github.com/gurezo"]',
+    );
+
+    expect(header).not.toBeNull();
+    expect(nav).not.toBeNull();
+    expect(logoLink?.textContent?.trim()).toBe('gurezo.net');
+    expect(logoLink?.getAttribute('aria-label')).toBe('gurezo.net home');
+    expect(projectsLink?.textContent?.trim()).toBe('Projects');
+    expect(githubLink?.textContent?.trim()).toBe('GitHub');
+    expect(githubLink?.getAttribute('target')).toBe('_blank');
+    expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(githubLink?.getAttribute('aria-label')).toBe(
+      'GitHub (opens in a new tab)',
+    );
+    expect(nav?.textContent).not.toContain('Updates');
+    expect(nav?.textContent).not.toContain('更新情報');
+  });
+
   it('describes the portal in Hero and links to Projects', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
     const hero = compiled.querySelector('section');
-    const browseProjects = compiled.querySelector('a[href="#projects-heading"]');
+    const browseProjects = hero?.querySelector('a[href="#projects-heading"]');
 
     const heroText = hero?.textContent?.replace(/\s+/g, ' ') ?? '';
 
