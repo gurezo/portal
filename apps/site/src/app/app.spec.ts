@@ -567,21 +567,13 @@ describe('App', () => {
       const lifewoodLink = footerNav?.querySelector(
         'a[href="https://lifewood.net/"]',
       );
-      const githubLink = footerNav?.querySelector(
-        'a[href="https://github.com/gurezo"]',
-      );
 
       expect(lifewoodLink?.getAttribute('target')).toBe('_blank');
       expect(lifewoodLink?.getAttribute('rel')).toBe('noopener noreferrer');
       expect(lifewoodLink?.getAttribute('aria-label')).toBe(
         'lifewood.net (opens in a new tab)',
       );
-
-      expect(githubLink?.getAttribute('target')).toBe('_blank');
-      expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
-      expect(githubLink?.getAttribute('aria-label')).toBe(
-        'GitHub (opens in a new tab)',
-      );
+      expect(footerNav?.querySelectorAll('a')).toHaveLength(1);
     });
 
     it('applies consistent external link rules to Get involved section links', () => {

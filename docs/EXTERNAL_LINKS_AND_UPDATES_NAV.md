@@ -173,7 +173,7 @@ The What's New Band (rendered by `<app-whats-new-band />`) has **independent** b
 
 ### Source and Behavior (Must Be Preserved)
 
-- **Source:** GitHub Releases API for `gurezo/portal` repository
+- **Source:** GitHub Releases of repositories registered in PROJECTS (latest release across all registered repos; hide when older than 60 days from today)
 - **Display rule:** Show latest release
 - **Hide rule:** Hide band when release is older than 60 days from today
 - **Location:** Below hero, above Projects section
