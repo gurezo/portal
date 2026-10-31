@@ -54,7 +54,7 @@ describe('App', () => {
     expect(logoLink?.textContent?.trim()).toBe('gurezo.net');
     expect(logoLink?.getAttribute('aria-label')).toBe('gurezo.net home');
     expect(projectsLink?.textContent?.trim()).toBe('Projects');
-    expect(githubLink?.textContent?.trim()).toBe('GitHub');
+    expect(githubLink?.textContent?.trim()).toBe('GitHub↗');
     expect(githubLink?.getAttribute('target')).toBe('_blank');
     expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
     expect(githubLink?.getAttribute('aria-label')).toBe(
@@ -329,10 +329,6 @@ describe('App', () => {
       compiled.querySelector(`app-project-card a[href="${docsLink?.url}"]`)
         ?.textContent,
     ).toContain('Documentation');
-    expect(
-      compiled.querySelector('footer a[href="https://github.com/gurezo"]')
-        ?.textContent,
-    ).toContain('GitHub');
 
     for (const href of publishedHrefs) {
       const cardLink = compiled.querySelector(

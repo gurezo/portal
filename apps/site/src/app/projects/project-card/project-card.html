@@ -1,12 +1,12 @@
 <article
-  class="group relative flex h-full min-w-0 flex-col rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-[var(--shadow-xl)] backdrop-blur transition-transform hover:-translate-y-0.5 before:absolute before:left-0 before:right-0 before:top-0 before:h-[2px] before:rounded-t-[var(--radius-xl)] before:bg-[var(--color-accent)] before:opacity-0 before:transition-opacity before:content-[''] hover:before:opacity-100"
+  class="group relative flex h-full min-w-0 flex-col rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-[var(--shadow-xl)] backdrop-blur transition-transform hover:-translate-y-0.5 before:absolute before:left-6 before:right-6 before:top-0 before:h-[2px] before:rounded-t-[var(--radius-xl)] before:bg-[var(--color-accent)] before:opacity-0 before:transition-opacity before:content-[''] hover:before:opacity-100"
 >
   <div
     class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
   >
     <div class="min-w-0">
       <div class="mb-2 flex items-center gap-2">
-        <span class="h-2 w-2 rounded-full bg-[var(--color-accent)]" aria-hidden="true"></span>
+        <span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-accent)]" aria-hidden="true"></span>
         <p class="text-xs font-semibold tracking-[0.12em] text-[var(--color-eyebrow)]">
           {{ categoryLabel(project().category) }}
         </p>

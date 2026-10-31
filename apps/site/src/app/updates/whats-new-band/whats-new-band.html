@@ -21,9 +21,9 @@
           {{ release.name }}
         </p>
 
-        <p class="mt-2 flex items-center gap-2 text-sm leading-6 text-[var(--color-text-subtle)]">
+        <p class="mt-2 flex min-w-0 flex-wrap items-center gap-2 text-sm leading-6 text-[var(--color-text-subtle)]">
           <span>{{ release.projectName }}</span>
-          <span class="h-2 w-2 rounded-full bg-[var(--color-accent-2)]" aria-hidden="true"></span>
+          <span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-accent-2)]" aria-hidden="true"></span>
           <time [attr.datetime]="release.publishedAt">{{
             publishedLabel(release.publishedAt)
           }}</time>
