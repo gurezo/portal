@@ -1,0 +1,48 @@
+<section class="min-w-0 py-10 lg:py-16" aria-labelledby="updates-heading">
+  <div class="max-w-4xl">
+    <h1
+      id="updates-heading"
+      class="max-w-4xl break-words text-4xl font-bold leading-[1.14] tracking-[-0.035em] text-slate-950 sm:text-6xl"
+    >
+      Updates
+    </h1>
+
+    <p class="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+      Latest GitHub releases for projects on this site.
+    </p>
+  </div>
+
+  @if (status() === 'loading') {
+    <p class="mt-8 text-slate-500">Loading updates</p>
+  } @else if (releases().length === 0) {
+    <p class="mt-8 text-slate-500">No releases are available right now.</p>
+  } @else {
+    <ul class="mt-8 flex max-w-4xl list-none flex-col gap-4 p-0">
+      @for (release of releases(); track release.repo + release.tagName) {
+        <li>
+          <a
+            [href]="release.htmlUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            [attr.aria-label]="releaseAriaLabel(release)"
+            class="block min-w-0 break-words rounded-[1.75rem] border border-sky-200 bg-white/85 p-6 shadow-[0_16px_40px_rgba(14,165,233,0.08)] transition hover:-translate-y-0.5 hover:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 sm:p-7"
+          >
+            <p
+              class="text-xl font-semibold tracking-[-0.025em] text-slate-950 sm:text-2xl"
+            >
+              {{ release.name }}
+            </p>
+
+            <p class="mt-2 text-sm leading-6 text-slate-500">
+              <span>{{ release.projectName }}</span>
+              <span aria-hidden="true"> · </span>
+              <time [attr.datetime]="release.publishedAt">{{
+                publishedLabel(release.publishedAt)
+              }}</time>
+            </p>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</section>

@@ -6,7 +6,7 @@
     "build": "nx build site",
     "import:web-serial-rxjs": "bash scripts/import-web-serial-rxjs-static.sh",
     "import:mdn-translation-ja-mcp": "bash scripts/import-mdn-translation-ja-mcp-docs.sh",
-    "build:firebase:site": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/",
+    "build:firebase:site": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/ && mkdir -p firebase-public/updates && cp firebase-public/index.html firebase-public/updates/index.html",
     "build:firebase": "pnpm run build:firebase:site && pnpm run import:web-serial-rxjs && pnpm run import:mdn-translation-ja-mcp",
     "deploy": "firebase deploy --only hosting:gurezo-portal --project gurezo-portal",
     "deploy:firebase": "pnpm run build:firebase && pnpm run deploy",

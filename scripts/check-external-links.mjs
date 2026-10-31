@@ -16,15 +16,19 @@ const USER_AGENT = 'gurezo-portal-link-check';
 export const SOURCE_FILES = [
   'apps/site/src/app/projects/projects.data.ts',
   'apps/site/src/app/app.html',
+  'apps/site/src/app/home/home-page.html',
   'README.md',
 ];
+
+const HTML_HREF = /href="(https:\/\/[^"]+)"/g;
 
 const URL_PATTERNS = new Map([
   [
     'apps/site/src/app/projects/projects.data.ts',
     /url:\s*'(https:\/\/[^']+)'/g,
   ],
-  ['apps/site/src/app/app.html', /href="(https:\/\/[^"]+)"/g],
+  ['apps/site/src/app/app.html', HTML_HREF],
+  ['apps/site/src/app/home/home-page.html', HTML_HREF],
   ['README.md', /\[[^\]]*\]\((https:\/\/[^)\s]+)\)/g],
 ]);
 

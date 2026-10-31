@@ -2,6 +2,7 @@ import { OssProject } from '../projects/project.model';
 import { PROJECTS } from '../projects/projects.data';
 import {
   fetchLatestReleases,
+  formatReleasePublishedAt,
   githubReleaseSources,
   GithubReleaseSource,
   GithubReleaseSummary,
@@ -152,6 +153,12 @@ describe('pickLatestRelease', () => {
 
     expect(pickLatestRelease([invalid, valid])).toBe(valid);
     expect(pickLatestRelease([invalid])).toBeNull();
+  });
+});
+
+describe('formatReleasePublishedAt', () => {
+  it('formats the published date in UTC', () => {
+    expect(formatReleasePublishedAt('2026-10-30T13:08:06Z')).toBe('Oct 30, 2026');
   });
 });
 

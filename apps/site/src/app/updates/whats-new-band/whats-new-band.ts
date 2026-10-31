@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import {
+  formatReleasePublishedAt,
   GithubReleaseSummary,
   LATEST_RELEASE_LOADER,
 } from '../github-releases';
@@ -24,10 +25,7 @@ export class WhatsNewBand {
   }
 
   protected publishedLabel(publishedAt: string): string {
-    return new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'medium',
-      timeZone: 'UTC',
-    }).format(new Date(publishedAt));
+    return formatReleasePublishedAt(publishedAt);
   }
 
   private async load(): Promise<void> {
