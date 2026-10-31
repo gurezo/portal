@@ -1,5 +1,21 @@
 import { OssProject, ProjectGroupSection } from './project.model';
 
+/**
+ * L1 project card link order:
+ * 1. Documentation (docs)
+ * 2. Examples (examples)
+ * 3. App (app)
+ * 4. GitHub (github)
+ * 5. npm (npm)
+ * 6. Data (data)
+ *
+ * Status badge display criteria:
+ * - 'active': hidden (default stable state, no badge shown)
+ * - 'experimental': shown with "Experimental" badge
+ * - 'maintenance': shown with "Maintenance" badge
+ * - 'archived': shown with "Archived" badge
+ */
+
 export const PROJECT_GROUP_SECTIONS: ProjectGroupSection[] = [
   {
     id: 'libraries',
@@ -94,7 +110,7 @@ export const PROJECTS: OssProject[] = [
     technologies: ['Angular', 'Web Serial'],
     links: [
       {
-        label: 'Open App',
+        label: 'App',
         url: 'https://chirimen-lite-console.web.app/',
         kind: 'app',
       },
@@ -115,7 +131,7 @@ export const PROJECTS: OssProject[] = [
     technologies: ['Angular'],
     links: [
       {
-        label: 'Open App',
+        label: 'App',
         url: 'https://chirimen-device-dashboard.web.app/',
         kind: 'app',
       },

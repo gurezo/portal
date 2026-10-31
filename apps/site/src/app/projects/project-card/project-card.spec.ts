@@ -195,7 +195,7 @@ describe('ProjectCard', () => {
     expect(compiled.textContent).toContain(
       'An MCP server that assists Japanese MDN translation, synchronization, and review.',
     );
-    expect(compiled.textContent).not.toContain('Open App');
+    expect(compiled.textContent).not.toContain('App');
     expect(compiled.textContent).toContain('Documentation');
     expect(links.map((link) => linkSnapshot(link))).toEqual(
       expectedLinkSnapshots(mdnTranslationJaMcp),
@@ -230,7 +230,7 @@ describe('ProjectCard', () => {
             kind: 'docs',
           },
           {
-            label: 'Web App',
+            label: 'App',
             url: 'https://chirimen-device-dashboard.web.app/',
             kind: 'app',
           },
@@ -267,7 +267,7 @@ describe('ProjectCard', () => {
     expect(linkRow?.className).toContain('min-w-0');
     expect(compiled.querySelectorAll('a')).toHaveLength(6);
     expect(compiled.textContent).toContain('Documentation');
-    expect(compiled.textContent).toContain('Web App');
+    expect(compiled.textContent).toContain('App');
     expect(compiled.textContent).toContain('GitHub');
     expect(compiled.textContent).toContain('Data');
   });

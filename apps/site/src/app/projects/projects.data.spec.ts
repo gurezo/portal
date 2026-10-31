@@ -83,7 +83,7 @@ describe('PROJECTS', () => {
   it('exposes chirimen-lite-console app and GitHub links', () => {
     expect(chirimenLiteConsole?.links).toEqual([
       {
-        label: 'Open App',
+        label: 'App',
         url: 'https://chirimen-lite-console.web.app/',
         kind: 'app',
       },
@@ -114,7 +114,7 @@ describe('PROJECTS', () => {
   it('exposes chirimen-device-dashboard app and GitHub links', () => {
     expect(chirimenDeviceDashboard?.links).toEqual([
       {
-        label: 'Open App',
+        label: 'App',
         url: 'https://chirimen-device-dashboard.web.app/',
         kind: 'app',
       },
@@ -186,7 +186,7 @@ describe('PROJECTS', () => {
       },
     ]);
     expect(mdnTranslationJaMcp?.links.map((link) => link.label)).not.toContain(
-      'Open App',
+      'App',
     );
     expect(mdnTranslationJaMcp?.links.map((link) => link.kind)).not.toContain(
       'app',
