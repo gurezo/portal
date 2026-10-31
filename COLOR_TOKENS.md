@@ -20,11 +20,22 @@ Components use only these semantic tokens, never direct primitives or Tailwind c
 
 #### Accent Colors (Decoration Only)
 - `--color-accent`: Maps to brand-green-500
-  - **Usage**: Logo accents, decorative underlines, visual flourishes
+  - **Usage**: Logo PNG, decorative underlines, section dividers, card hover accents, link hover decoration, background radial
+  - **Active locations**:
+    - Header logo: PNG face mark (green glasses eyes) at 28×28px
+    - Hero h1: 3px underline (text-decoration-color, full-width)
+    - Section headings: 3px line under h2, 2px under h3
+    - Project cards: 2px top line on hover (inset left-6/right-6), category dots (8px shrink-0)
+    - News band: 4px left rail
+    - Link hover: Underline decoration color
+    - Background: Radial gradient at ~7% opacity
   - **Restriction**: Never use for text (contrast 2.37:1 insufficient)
   
 - `--color-accent-2`: Maps to brand-brown-500
-  - **Usage**: Dividers, category dots, secondary decoration
+  - **Usage**: Logo PNG, secondary decorative accents
+  - **Active locations**:
+    - Header logo: PNG face mark (brown nose/freckles)
+    - News band: 8px dot separator before date (shrink-0)
   - **Restriction**: Never use for text (contrast 3.10:1 insufficient for text)
 
 #### Text Colors (≥4.5:1 WCAG AA)
@@ -110,6 +121,20 @@ Components use only these semantic tokens, never direct primitives or Tailwind c
 - Insufficient contrast ratios (2.37:1 and 3.10:1)
 - Reserved for decorative purposes only
 - All text uses darker variants with ≥4.5:1 contrast
+
+**Prohibited uses** (Issue #82):
+- ❌ Body text, link text, or any readable content
+- ❌ CTA backgrounds (buttons, badges)
+- ❌ Focus rings (use --color-focus-ring / brand-green-700 instead)
+- ❌ Header border/divider (uses --color-border, not accent colors)
+
+**Permitted uses** (Issue #82 implementation):
+- ✅ Logo decorative elements (PNG face mark: green glasses eyes, brown nose/freckles)
+- ✅ Decorative underlines (h1 3px green underline)
+- ✅ Section dividers (h2/h3 green accent lines)
+- ✅ Non-text visual accents (category dots with shrink-0, news rail, date separator dot with shrink-0)
+- ✅ Hover decorations (card top line inset, link underline decoration color)
+- ✅ Background gradients at low opacity (≤10%)
 
 ### 4. Focus Ring Accessibility
 - All interactive elements use `--color-focus-ring` (brand-green-700)

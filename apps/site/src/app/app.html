@@ -2,26 +2,36 @@
   class="min-h-screen bg-[var(--color-bg-subtle)] text-[var(--color-text)] selection:bg-[var(--color-selection-bg)] selection:text-[var(--color-selection-fg)]"
 >
   <div
-    class="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(21,128,61,0.08),transparent_36rem),linear-gradient(180deg,var(--color-bg)_0%,var(--color-bg-subtle)_100%)]"
+    class="pointer-events-none fixed inset-0 -z-10"
+    style="background-image: radial-gradient(circle at top left, color-mix(in srgb, var(--color-accent) 7%, transparent), transparent 36rem), linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-subtle) 100%)"
     aria-hidden="true"
   ></div>
 
   <div
-    class="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col px-6 py-8 sm:px-8 lg:px-12 lg:py-10"
+    class="mx-auto flex min-h-screen w-full max-w-screen-2xl flex-col px-6 sm:px-8 lg:px-12"
   >
-    <header class="mb-8 flex items-center justify-between">
+    <header class="flex h-14 items-center justify-between border-b border-[var(--color-border)] pt-4 sm:h-16 lg:pt-6 mb-6">
       <a
         href="/"
-        class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] font-bold text-[var(--color-text)] transition hover:text-[var(--color-link)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+        class="flex items-center gap-2 rounded-[var(--radius-sm)] font-semibold text-[var(--color-text)] transition hover:text-[var(--color-link)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
         aria-label="gurezo.net home"
       >
-        <span class="text-lg tracking-tight">gurezo.net</span>
+        <img
+          src="/gurezo-logo.png"
+          srcset="/gurezo-logo.png 2x"
+          alt=""
+          width="28"
+          height="28"
+          class="h-7 w-7 shrink-0"
+          aria-hidden="true"
+        />
+        <span class="text-base tracking-tight">gurezo.net</span>
       </a>
 
-      <nav class="flex items-center gap-6" aria-label="Main navigation">
+      <nav class="flex items-center gap-1 sm:gap-4" aria-label="Main navigation">
         <a
           href="#projects-heading"
-          class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] font-bold text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-link)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] px-2 text-sm font-medium text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-link)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 sm:text-[15px]"
         >
           Projects
         </a>
@@ -30,21 +40,18 @@
           href="https://github.com/gurezo"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] font-bold text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-link)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          class="inline-flex min-h-[var(--tap-target-min)] items-center rounded-[var(--radius-sm)] px-2 text-sm font-medium text-[var(--color-text-muted)] underline-offset-4 hover:text-[var(--color-link)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2 sm:text-[15px]"
           aria-label="GitHub (opens in a new tab)"
         >
-          GitHub
+          GitHub<span aria-hidden="true" class="ml-0.5">↗&#xFE0E;</span>
         </a>
       </nav>
     </header>
-    <section class="min-w-0 py-10 lg:py-16">
+    <section class="min-w-0 pt-6 pb-8 lg:pt-8 lg:pb-10">
       <div class="max-w-4xl">
-        <p class="mb-5 text-sm font-semibold tracking-[0.08em] text-[var(--color-eyebrow)]">
-          gurezo.net
-        </p>
-
         <h1
           class="max-w-4xl break-words text-4xl font-bold leading-[1.14] tracking-[-0.035em] text-[var(--color-text)] sm:text-6xl lg:text-7xl"
+          style="text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 3px; text-underline-offset: 0.15em; text-decoration-skip-ink: none"
         >
           Documentation and demos
           <span class="block">for OSS projects.</span>
@@ -55,7 +62,7 @@
           demo applications by gurezo.
         </p>
 
-        <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <div class="mt-10 mb-12 flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:mb-16">
           <a
             href="#projects-heading"
             class="inline-flex min-h-[var(--tap-target-min)] items-center justify-center rounded-[var(--radius-full)] border border-[var(--color-cta-border)] bg-[var(--color-cta-bg)] px-5 text-sm font-bold text-[var(--color-cta-fg)] shadow-[var(--shadow-cta)] transition hover:-translate-y-0.5 hover:border-[var(--color-cta-border-hover)] hover:bg-[var(--color-cta-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
@@ -72,7 +79,7 @@
       <div class="mb-8 max-w-3xl">
         <h2
           id="projects-heading"
-          class="text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl"
+          class="relative pb-3 text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-16 after:bg-[var(--color-accent)] after:content-['']"
         >
           Projects
         </h2>
@@ -88,7 +95,7 @@
             <div class="mb-6 max-w-3xl">
               <h3
                 [id]="section.id + '-heading'"
-                class="text-2xl font-semibold tracking-[-0.025em] text-[var(--color-text)]"
+                class="relative pb-3 text-2xl font-semibold tracking-[-0.025em] text-[var(--color-text)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-12 after:bg-[var(--color-accent)] after:content-['']"
               >
                 {{ section.heading }}
               </h3>
@@ -138,7 +145,7 @@
       <div class="mb-6 max-w-3xl">
         <h2
           id="get-involved-heading"
-          class="text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl"
+          class="relative pb-3 text-3xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-4xl after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-16 after:bg-[var(--color-accent)] after:content-['']"
         >
           Get involved
         </h2>
@@ -185,6 +192,7 @@
         >
           lifewood.net
         </a>
+<<<<<<< HEAD
 
         <a
           href="https://github.com/gurezo"
@@ -192,6 +200,8 @@
         >
           GitHub
         </a>
+=======
+>>>>>>> f1a4dd8 (feat(site): implement Plan A header + UI/UX refinements (#82))
       </nav>
     </footer>
   </div>

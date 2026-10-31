@@ -1,13 +1,16 @@
 <article
-  class="flex h-full min-w-0 flex-col rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-[var(--shadow-xl)] backdrop-blur"
+  class="group relative flex h-full min-w-0 flex-col rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-[var(--shadow-xl)] backdrop-blur transition-transform hover:-translate-y-0.5 before:absolute before:left-6 before:right-6 before:top-0 before:h-[2px] before:rounded-t-[var(--radius-xl)] before:bg-[var(--color-accent)] before:opacity-0 before:transition-opacity before:content-[''] hover:before:opacity-100"
 >
   <div
     class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
   >
     <div class="min-w-0">
-      <p class="mb-2 text-xs font-semibold tracking-[0.12em] text-[var(--color-eyebrow)]">
-        {{ categoryLabel(project().category) }}
-      </p>
+      <div class="mb-2 flex items-center gap-2">
+        <span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-accent)]" aria-hidden="true"></span>
+        <p class="text-xs font-semibold tracking-[0.12em] text-[var(--color-eyebrow)]">
+          {{ categoryLabel(project().category) }}
+        </p>
+      </div>
 
       <h4
         class="break-words text-2xl font-semibold tracking-[-0.025em] text-[var(--color-text)]"
@@ -51,7 +54,7 @@
       @for (link of project().links; track link.url) {
         <a
           [href]="link.url"
-          class="inline-flex min-h-[var(--tap-target-min)] items-center break-words rounded-[var(--radius-sm)] font-bold text-[var(--color-link)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
+          class="inline-flex min-h-[var(--tap-target-min)] items-center break-words rounded-[var(--radius-sm)] font-bold text-[var(--color-link)] underline-offset-4 hover:underline hover:decoration-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-focus-ring)] focus-visible:ring-offset-2"
           target="_blank"
           rel="noopener noreferrer"
           [attr.aria-label]="linkAriaLabel(link)"
