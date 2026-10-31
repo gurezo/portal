@@ -38,7 +38,7 @@ When the public listing changes:
 2. Update `PROJECT_GROUP_SECTIONS` and `PROJECTS` in `apps/site/src/app/projects/projects.data.ts`.
 3. Update the site unit tests so the group order, card content, and links match that data.
 4. Update this Published projects list when a project is added, removed, or moved.
-5. Add an external URL only after the destination has been checked. Do not list a URL that returns 404 or redirects to an unintended page.
+5. Add an external URL only after the destination has been checked. Do not list a URL that returns 404 or redirects to an unintended page. Run `pnpm run check:links` as described in [External link check](#external-link-check).
 
 ## Development
 
@@ -73,10 +73,21 @@ Playwright end-to-end tests:
 pnpm nx e2e site-e2e
 ```
 
+### External link check
+
+`pnpm run check:links` requests the HTTPS URLs in `apps/site/src/app/projects/projects.data.ts`, `apps/site/src/app/app.html`, and this README. A final status in the 200 range passes, including after a redirect. The command does not decide whether that redirect landed on the intended page. Open the page when you add or change a URL.
+
+`pnpm run test:links` runs the offline tests for extraction and status classification.
+
+The command fails when a URL returns 404 or another error. `npmjs.com` is the exception: automated clients often receive 403 or 429 even when the package page exists. Those two statuses are warnings and do not fail the command. An npm 404 still fails. When you add or change an npm URL, open it in a browser.
+
+GitHub Actions runs the same check every Monday at 09:00 JST, on manual dispatch, and on pull requests that change the files above, the checker, or `package.json`. It is not part of the production deploy workflow. In Actions, `GITHUB_TOKEN` is sent only with requests to GitHub.
+
 ## Project structure
 
 - `apps/site` — Angular portal application deployed to [gurezo.net](https://gurezo.net/)
 - `apps/site-e2e` — Playwright tests for the site
+- `scripts/check-external-links.mjs` — checks published HTTPS URLs and warns when npm blocks the client
 - `scripts/import-web-serial-rxjs-static.sh` — downloads the `web-serial-rxjs` static docs/examples artifact into `firebase-public/web-serial-rxjs/`
 - `scripts/import-mdn-translation-ja-mcp-docs.sh` — checks out the commit in `scripts/mdn-translation-ja-mcp.sha`, builds TypeDoc, and copies `docs/` to `firebase-public/mdn-translation-ja-mcp/`
 - `firebase.json` / `.firebaserc` — Firebase Hosting config for project and target `gurezo-portal`

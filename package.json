@@ -9,7 +9,9 @@
     "build:firebase:site": "rm -rf firebase-public && mkdir -p firebase-public && nx build site && cp -R dist/apps/site/browser/. firebase-public/",
     "build:firebase": "pnpm run build:firebase:site && pnpm run import:web-serial-rxjs && pnpm run import:mdn-translation-ja-mcp",
     "deploy": "firebase deploy --only hosting:gurezo-portal --project gurezo-portal",
-    "deploy:firebase": "pnpm run build:firebase && pnpm run deploy"
+    "deploy:firebase": "pnpm run build:firebase && pnpm run deploy",
+    "check:links": "node scripts/check-external-links.mjs",
+    "test:links": "node --test scripts/check-external-links.test.mjs"
   },
   "private": true,
   "packageManager": "pnpm@12.11.2",
