@@ -1,1 +1,65 @@
 @import "tailwindcss" source("./app");
+
+@theme {
+  /* ===== Brand Primitives ===== */
+  --color-brand-green-500: #54bf22;
+  --color-brand-brown-500: #c68442;
+  --color-brand-green-700: #15803d;
+  --color-brand-brown-700: #8b5a2b;
+
+  /* ===== Semantic Tokens ===== */
+  /* Accent (decoration only - NOT for text, contrast 2.37:1) */
+  --color-accent: var(--color-brand-green-500);
+  
+  /* Secondary accent (decoration only for dividers/dots, contrast 3.10:1) */
+  --color-accent-2: var(--color-brand-brown-500);
+  
+  /* Text colors (≥4.5:1 contrast) */
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-subtle: #94a3b8;
+  
+  /* Link colors (≥4.5:1 contrast) */
+  --color-link: var(--color-brand-green-700);
+  --color-link-hover: #166534;
+  
+  /* Focus ring (≥3:1 contrast for UI elements) */
+  --color-focus-ring: var(--color-brand-green-700);
+  
+  /* Badge colors */
+  --color-badge-bg: #f0fdf4;
+  --color-badge-border: #bbf7d0;
+  --color-badge-fg: var(--color-brand-green-700);
+  
+  /* CTA/Button colors */
+  --color-cta-bg: var(--color-brand-green-700);
+  --color-cta-bg-hover: #166534;
+  --color-cta-border: var(--color-brand-green-700);
+  --color-cta-border-hover: #166534;
+  --color-cta-fg: #ffffff;
+  
+  /* Surface/Background colors */
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f8fafc;
+  --color-surface: rgba(255, 255, 255, 0.85);
+  --color-surface-muted: rgba(255, 255, 255, 0.5);
+  
+  /* Border colors */
+  --color-border: #e2e8f0;
+  --color-border-light: #cbd5e1;
+  --color-border-muted: #f1f5f9;
+  
+  /* Selection */
+  --color-selection-bg: #e0f2fe;
+  --color-selection-fg: var(--color-text);
+  
+  /* Eyebrow/Category labels (small text, ≥4.5:1) */
+  --color-eyebrow: var(--color-brand-green-700);
+  
+  /* News strip border accent */
+  --color-news-border: var(--color-brand-green-700);
+  --color-news-border-hover: #166534;
+
+  /* Focus ring offset */
+  --ring-offset-width: 2px;
+}

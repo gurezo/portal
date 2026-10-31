@@ -6,22 +6,22 @@
         target="_blank"
         rel="noopener noreferrer"
         [attr.aria-label]="releaseAriaLabel(release)"
-        class="block min-w-0 break-words rounded-[1.75rem] border border-sky-200 bg-white/85 p-6 shadow-[0_16px_40px_rgba(14,165,233,0.08)] transition hover:-translate-y-0.5 hover:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 sm:p-7"
+        class="block min-w-0 break-words rounded-[1.75rem] border border-[var(--color-news-border)] bg-[var(--color-surface)] p-6 shadow-[0_16px_40px_rgba(21,128,61,0.08)] transition hover:-translate-y-0.5 hover:border-[var(--color-news-border-hover)] focus:outline-none focus:ring-2 focus:ring-[var(--color-focus-ring)] focus:ring-offset-2 sm:p-7"
       >
         <h2
           id="whats-new-heading"
-          class="mb-2 text-xs font-semibold tracking-[0.12em] text-sky-600"
+          class="mb-2 text-xs font-semibold tracking-[0.12em] text-[var(--color-eyebrow)]"
         >
           What's new
         </h2>
 
         <p
-          class="text-xl font-semibold tracking-[-0.025em] text-slate-950 sm:text-2xl"
+          class="text-xl font-semibold tracking-[-0.025em] text-[var(--color-text)] sm:text-2xl"
         >
           {{ release.name }}
         </p>
 
-        <p class="mt-2 text-sm leading-6 text-slate-500">
+        <p class="mt-2 text-sm leading-6 text-[var(--color-text-subtle)]">
           <span>{{ release.projectName }}</span>
           <span aria-hidden="true"> · </span>
           <time [attr.datetime]="release.publishedAt">{{

@@ -355,7 +355,7 @@ describe('App', () => {
     expect(footerLinks.length).toBeGreaterThan(0);
     footerLinks.forEach((link) => {
       expect(link.className).toContain('focus:ring-2');
-      expect(link.className).toContain('focus:ring-sky-400');
+      expect(link.className).toContain('focus:ring-[var(--color-focus-ring)]');
     });
 
     expect(

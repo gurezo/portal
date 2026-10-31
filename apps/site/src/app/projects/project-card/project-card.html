@@ -1,16 +1,16 @@
 <article
-  class="flex h-full min-w-0 flex-col rounded-[1.75rem] border border-slate-200 bg-white/85 p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur"
+  class="flex h-full min-w-0 flex-col rounded-[1.75rem] border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-[0_24px_64px_rgba(15,23,42,0.08)] backdrop-blur"
 >
   <div
     class="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
   >
     <div class="min-w-0">
-      <p class="mb-2 text-xs font-semibold tracking-[0.12em] text-sky-600">
+      <p class="mb-2 text-xs font-semibold tracking-[0.12em] text-[var(--color-eyebrow)]">
         {{ categoryLabel(project().category) }}
       </p>
 
       <h4
-        class="break-words text-2xl font-semibold tracking-[-0.025em] text-slate-950"
+        class="break-words text-2xl font-semibold tracking-[-0.025em] text-[var(--color-text)]"
       >
         {{ project().name }}
       </h4>
@@ -18,14 +18,14 @@
 
     @if (visibleProjectStatus(project().status); as status) {
       <span
-        class="inline-flex min-h-7 w-fit shrink-0 items-center rounded-full border border-sky-200 bg-sky-50 px-3 text-xs font-bold text-sky-700"
+        class="inline-flex min-h-7 w-fit shrink-0 items-center rounded-full border border-[var(--color-badge-border)] bg-[var(--color-badge-bg)] px-3 text-xs font-bold text-[var(--color-badge-fg)]"
       >
         {{ statusLabel(status) }}
       </span>
     }
   </div>
 
-  <p class="mt-5 max-w-2xl break-words leading-7 text-slate-600">
+  <p class="mt-5 max-w-2xl break-words leading-7 text-[var(--color-text-muted)]">
     {{ project().description }}
   </p>
 
@@ -34,7 +34,7 @@
       <ul class="flex flex-wrap gap-2" aria-label="Technologies">
         @for (technology of project().technologies; track technology) {
           <li
-            class="rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-700"
+            class="rounded-full bg-[var(--color-border-muted)] px-3 py-1.5 text-xs font-bold text-[var(--color-text-muted)]"
           >
             {{ technology }}
           </li>
@@ -45,13 +45,13 @@
 
   @if (project().links.length) {
     <div
-      class="mt-auto flex min-w-0 flex-wrap gap-x-5 gap-y-3 border-t border-slate-200 pt-5"
+      class="mt-auto flex min-w-0 flex-wrap gap-x-5 gap-y-3 border-t border-[var(--color-border)] pt-5"
       [attr.aria-label]="project().name + ' links'"
     >
       @for (link of project().links; track link.url) {
         <a
           [href]="link.url"
-          class="break-words rounded-sm font-bold text-sky-700 underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2"
+          class="break-words rounded-sm font-bold text-[var(--color-link)] underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--color-focus-ring)] focus:ring-offset-2"
           target="_blank"
           rel="noopener noreferrer"
           [attr.aria-label]="linkAriaLabel(link)"
