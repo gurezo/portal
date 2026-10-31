@@ -86,6 +86,10 @@ test.describe('Updates', () => {
     await expect(link).toHaveAttribute('href', latestReleaseUrl);
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(updates.getByRole('link', { name: 'RSS' })).toHaveAttribute(
+      'href',
+      '/rss.xml',
+    );
     await expect(navigation).not.toContainText('Updates');
     await expect(navigation).not.toContainText('更新情報');
   });
@@ -111,6 +115,12 @@ test.describe('Updates', () => {
     await expect(
       updates.getByText('No releases are available right now.'),
     ).toBeVisible();
-    await expect(updates.getByRole('link')).toHaveCount(0);
+    await expect(updates.getByRole('link', { name: 'RSS' })).toHaveAttribute(
+      'href',
+      '/rss.xml',
+    );
+    await expect(
+      updates.getByRole('link', { name: /opens in a new tab/ }),
+    ).toHaveCount(0);
   });
 });

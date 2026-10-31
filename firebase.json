@@ -9,6 +9,17 @@
     ],
     "cleanUrls": false,
     "trailingSlash": true,
+    "headers": [
+      {
+        "source": "/rss.xml",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/rss+xml; charset=utf-8"
+          }
+        ]
+      }
+    ],
     "redirects": [
       {
         "source": "/web-serial-rxjs/guide/index.html",

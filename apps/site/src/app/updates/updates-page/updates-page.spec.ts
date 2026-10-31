@@ -68,7 +68,7 @@ describe('UpdatesPage', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const links = Array.from(compiled.querySelectorAll('a'));
+    const links = Array.from(compiled.querySelectorAll('ul a'));
 
     expect(compiled.querySelector('#updates-heading')?.textContent?.trim()).toBe(
       'Updates',
@@ -88,6 +88,9 @@ describe('UpdatesPage', () => {
     expect(compiled.querySelector('time')?.textContent?.trim()).toBe(
       'Oct 30, 2026',
     );
+    expect(compiled.querySelector('a[href="/rss.xml"]')?.textContent?.trim()).toBe(
+      'RSS',
+    );
     expect(compiled.textContent).toContain('Jan 1, 2020');
     expect(compiled.textContent).toContain('Older release');
     expect(compiled.textContent).not.toContain('更新情報');
@@ -104,7 +107,10 @@ describe('UpdatesPage', () => {
     expect(compiled.textContent).toContain(
       'No releases are available right now.',
     );
-    expect(compiled.querySelector('a')).toBeNull();
+    expect(compiled.querySelector('a[href="/rss.xml"]')?.textContent?.trim()).toBe(
+      'RSS',
+    );
+    expect(compiled.querySelector('ul a')).toBeNull();
     expect(compiled.textContent).not.toContain('Loading updates');
   });
 
