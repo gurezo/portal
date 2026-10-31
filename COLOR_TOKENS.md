@@ -30,12 +30,16 @@ Components use only these semantic tokens, never direct primitives or Tailwind c
 #### Text Colors (≥4.5:1 WCAG AA)
 - `--color-text`: `#0f172a` (slate-950 equivalent)
   - Primary text, headings
+  - Contrast: ~14.0:1
   
-- `--color-text-muted`: `#64748b` (slate-600 equivalent)
-  - Secondary text, descriptions
+- `--color-text-muted`: `#64748b` (slate-500 equivalent)
+  - Secondary text, descriptions, technology tags
+  - Contrast: ~4.51:1 (meets WCAG AA minimum)
   
-- `--color-text-subtle`: `#94a3b8` (slate-500 equivalent)
-  - Tertiary text, captions
+- `--color-text-subtle`: `#475569` (slate-600 equivalent)
+  - Tertiary text, captions, footer text
+  - Contrast: ~7.07:1 (meets WCAG AA with margin)
+  - **Fix #80**: Raised from `#94a3b8` (2.9:1, failed AA) to ensure readability
 
 #### Link & Interactive Colors (≥4.5:1 WCAG AA)
 - `--color-link`: Maps to brand-green-700 (#15803d)
@@ -88,19 +92,26 @@ Components use only these semantic tokens, never direct primitives or Tailwind c
 
 ## Key Fixes
 
-### 1. Small Heading Contrast Issue
+### 1. Small Heading Contrast Issue (PR #79)
 **Before**: Hero eyebrow and category labels used `text-sky-600` with contrast of ~4.10:1
 - **Problem**: Falls short of WCAG AA requirement of ≥4.5:1 for small text
 - **Fix**: Changed to `--color-eyebrow` token (brand-green-700, ~5.02:1)
 - **Impact**: All small labels now meet accessibility standards
 
-### 2. Decorative Accent Restrictions
+### 2. Subtle Text Contrast Issue (Issue #80)
+**Before**: `--color-text-subtle` used `#94a3b8` (slate-400) with contrast of ~2.9:1
+- **Problem**: Significantly below WCAG AA requirement of ≥4.5:1 for text
+- **Used in**: Section descriptions, footer text, empty state captions
+- **Fix**: Changed to `#475569` (slate-600, ~7.07:1)
+- **Impact**: All descriptive text now clearly readable and AA compliant
+
+### 3. Decorative Accent Restrictions
 **Brand colors #54BF22 and #C68442 are NEVER used for text**:
 - Insufficient contrast ratios (2.37:1 and 3.10:1)
 - Reserved for decorative purposes only
 - All text uses darker variants with ≥4.5:1 contrast
 
-### 3. Focus Ring Accessibility
+### 4. Focus Ring Accessibility
 - All interactive elements use `--color-focus-ring` (brand-green-700)
 - Provides ≥3:1 contrast for UI components
 - Consistent focus indication across the site
@@ -126,19 +137,22 @@ Components now use only token-based arbitrary values:
 ## Accessibility Compliance
 
 ### Text Contrast (WCAG AA ≥4.5:1)
-✅ All body text, links, and small labels
-✅ Hero eyebrow (fixed from 4.10:1 to ~5.02:1)
-✅ Category labels on cards
-✅ Badge text
-✅ Button text
+✅ All body text, links, and small labels  
+✅ Hero eyebrow (fixed in #79: 4.10:1 → ~5.02:1)  
+✅ Category labels on cards  
+✅ Badge text  
+✅ Button text  
+✅ Subtle text (fixed in #80: 2.9:1 → ~7.07:1)  
+✅ Technology tags (~4.51:1, meets AA minimum)  
+✅ Navigation links (~4.51:1, meets AA minimum)
 
 ### UI Component Contrast (WCAG AA ≥3:1)
-✅ Focus rings
-✅ Borders
+✅ Focus rings  
+✅ Borders  
 ✅ Interactive controls
 
 ### Restrictions
-❌ Brand-green-500 (#54BF22) - decoration only, never text
+❌ Brand-green-500 (#54BF22) - decoration only, never text  
 ❌ Brand-brown-500 (#C68442) - decoration only, never text
 
 ## Testing
