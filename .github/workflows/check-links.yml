@@ -5,6 +5,7 @@ on:
     paths:
       - 'apps/site/src/app/projects/projects.data.ts'
       - 'apps/site/src/app/app.html'
+      - 'apps/site/src/app/home/home-page.html'
       - 'README.md'
       - 'scripts/check-external-links.mjs'
       - 'scripts/check-external-links.test.mjs'

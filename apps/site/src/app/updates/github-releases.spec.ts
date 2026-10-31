@@ -2,14 +2,17 @@ import { OssProject } from '../projects/project.model';
 import { PROJECTS } from '../projects/projects.data';
 import {
   fetchLatestReleases,
+  formatReleasePublishedAt,
   githubReleaseSources,
   GithubReleaseSource,
   GithubReleaseSummary,
   isReleaseFresh,
   latestFreshRelease,
   loadLatestFreshRelease,
+  loadPublishedReleases,
   pickLatestRelease,
   RELEASE_FRESH_DAYS,
+  sortReleasesByPublishedAt,
 } from './github-releases';
 
 const publishedAt = '2026-08-01T00:00:00.000Z';
@@ -153,6 +156,33 @@ describe('pickLatestRelease', () => {
   });
 });
 
+describe('formatReleasePublishedAt', () => {
+  it('formats the published date in UTC', () => {
+    expect(formatReleasePublishedAt('2026-10-30T13:08:06Z')).toBe('Oct 30, 2026');
+  });
+});
+
+describe('sortReleasesByPublishedAt', () => {
+  it('orders releases from newest to oldest and drops invalid dates', () => {
+    const older = release({ publishedAt: '2026-07-01T00:00:00.000Z' });
+    const newer = release({
+      repo: 'mdn-translation-ja-mcp',
+      name: 'Newer',
+      publishedAt,
+    });
+    const sameTime = release({
+      repo: 'chirimen-lite-console',
+      name: 'Same time',
+      publishedAt,
+    });
+    const invalid = release({ publishedAt: 'not-a-date' });
+
+    expect(
+      sortReleasesByPublishedAt([older, invalid, newer, sameTime]),
+    ).toEqual([newer, sameTime, older]);
+  });
+});
+
 describe('latestFreshRelease', () => {
   it('returns the newest release when it is still within 60 days', () => {
     const fresh = release();
@@ -259,6 +289,56 @@ describe('fetchLatestReleases', () => {
         name: 'v1.0.0',
       }),
     ]);
+  });
+});
+
+describe('loadPublishedReleases', () => {
+  it('keeps a release older than 60 days and sorts newest first', async () => {
+    const fetchImpl: typeof fetch = async (input) => {
+      const url = String(input);
+      if (url.includes('web-serial-rxjs')) {
+        return jsonResponse({
+          name: 'Older',
+          tag_name: 'v1.0.0',
+          published_at: '2020-01-01T00:00:00.000Z',
+          html_url:
+            'https://github.com/gurezo/web-serial-rxjs/releases/tag/v1.0.0',
+        });
+      }
+
+      if (url.includes('mdn-translation-ja-mcp')) {
+        return jsonResponse({
+          name: 'Newer',
+          tag_name: 'v2.0.0',
+          published_at: publishedAt,
+          html_url:
+            'https://github.com/gurezo/mdn-translation-ja-mcp/releases/tag/v2.0.0',
+        });
+      }
+
+      return jsonResponse({ message: 'Not Found' }, 404);
+    };
+
+    await expect(loadPublishedReleases(projects, fetchImpl)).resolves.toEqual([
+      expect.objectContaining({
+        projectName: 'mdn-translation-ja-mcp',
+        name: 'Newer',
+      }),
+      expect.objectContaining({
+        projectName: 'web-serial-rxjs',
+        name: 'Older',
+      }),
+    ]);
+  });
+
+  it('returns an empty list when every repository fails', async () => {
+    const fetchImpl: typeof fetch = async () => {
+      throw new Error('offline');
+    };
+
+    await expect(loadPublishedReleases(projects, fetchImpl)).resolves.toEqual(
+      [],
+    );
   });
 });
 

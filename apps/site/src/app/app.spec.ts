@@ -1,11 +1,15 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
 import { App } from './app';
+import { appRoutes } from './app.routes';
 import { PROJECTS } from './projects/projects.data';
 import { projectLink } from './projects/projects.util';
 import {
   GithubReleaseSummary,
   LATEST_RELEASE_LOADER,
   LatestReleaseLoader,
+  RELEASES_LOADER,
 } from './updates/github-releases';
 
 const freshRelease: GithubReleaseSummary = {
@@ -18,17 +22,38 @@ const freshRelease: GithubReleaseSummary = {
   htmlUrl: 'https://github.com/gurezo/web-serial-rxjs/releases/tag/v4.2.1',
 };
 
+async function configureApp(loader: LatestReleaseLoader) {
+  TestBed.resetTestingModule();
+  await TestBed.configureTestingModule({
+    imports: [App],
+    providers: [
+      provideRouter(appRoutes),
+      provideLocationMocks(),
+      {
+        provide: LATEST_RELEASE_LOADER,
+        useValue: loader,
+      },
+      {
+        provide: RELEASES_LOADER,
+        useValue: async () => [],
+      },
+    ],
+  }).compileComponents();
+}
+
+async function renderApp() {
+  const fixture = TestBed.createComponent(App);
+  const router = TestBed.inject(Router);
+  fixture.detectChanges();
+  await router.navigateByUrl('/');
+  await fixture.whenStable();
+  fixture.detectChanges();
+  return fixture.nativeElement as HTMLElement;
+}
+
 describe('App', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-      providers: [
-        {
-          provide: LATEST_RELEASE_LOADER,
-          useValue: (async () => null) satisfies LatestReleaseLoader,
-        },
-      ],
-    }).compileComponents();
+    await configureApp(async () => null);
   });
 
   it('should have the configured title', () => {
@@ -44,7 +69,8 @@ describe('App', () => {
     const header = compiled.querySelector('header');
     const nav = header?.querySelector('nav[aria-label="Main navigation"]');
     const logoLink = header?.querySelector('a[href="/"]');
-    const projectsLink = nav?.querySelector('a[href="#projects-heading"]');
+    const projectsLink = nav?.querySelector('a[href="/#projects-heading"]');
+    const updatesLink = nav?.querySelector('a[href="/updates"]');
     const githubLink = nav?.querySelector(
       'a[href="https://github.com/gurezo"]',
     );
@@ -54,23 +80,24 @@ describe('App', () => {
     expect(logoLink?.textContent?.trim()).toBe('gurezo.net');
     expect(logoLink?.getAttribute('aria-label')).toBe('gurezo.net home');
     expect(projectsLink?.textContent?.trim()).toBe('Projects');
+    expect(updatesLink?.textContent?.trim()).toBe('Updates');
+    expect(updatesLink?.getAttribute('aria-current')).toBeNull();
     expect(githubLink?.textContent?.trim()).toBe('GitHub');
     expect(githubLink?.getAttribute('target')).toBe('_blank');
     expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
     expect(githubLink?.getAttribute('aria-label')).toBe(
       'GitHub (opens in a new tab)',
     );
-    expect(nav?.textContent).not.toContain('Updates');
+    expect(nav?.textContent).toContain('Updates');
     expect(nav?.textContent).not.toContain('更新情報');
   });
 
-  it('describes the portal in Hero and links to Projects', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('describes the portal in Hero and links to Projects', async () => {
+    const compiled = await renderApp();
     const hero = compiled.querySelector('section');
-    const browseProjects = hero?.querySelector('a[href="#projects-heading"]');
+    const browseProjects = hero?.querySelector(
+      'a[href="/#projects-heading"]',
+    );
 
     const heroText = hero?.textContent?.replace(/\s+/g, ' ') ?? '';
 
@@ -89,11 +116,8 @@ describe('App', () => {
     ).toContain('lifewood.net');
   });
 
-  it('renders project metadata instead of hardcoded listing copy', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('renders project metadata instead of hardcoded listing copy', async () => {
+    const compiled = await renderApp();
     const webSerialRxjs = PROJECTS.find(
       (project) => project.id === 'web-serial-rxjs',
     );
@@ -122,11 +146,8 @@ describe('App', () => {
     ).toContain('GitHub');
   });
 
-  it('renders Libraries, Developer Tools, and CHIRIMEN Tools as separate groups', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('renders Libraries, Developer Tools, and CHIRIMEN Tools as separate groups', async () => {
+    const compiled = await renderApp();
     const libraries = compiled.querySelector(
       '[aria-labelledby="libraries-heading"]',
     );
@@ -231,11 +252,8 @@ describe('App', () => {
     ).toBeNull();
   });
 
-  it('keeps a heading hierarchy of one h1, group h3s, and card h4s', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('keeps a heading hierarchy of one h1, group h3s, and card h4s', async () => {
+    const compiled = await renderApp();
     const headings = Array.from(
       compiled.querySelectorAll('h1, h2, h3, h4'),
     ).map((heading) => ({
@@ -300,11 +318,8 @@ describe('App', () => {
     expect(projectsLead?.textContent).not.toMatch(/CHIRIMEN/i);
   });
 
-  it('exposes published project links with unique labels and visible focus', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('exposes published project links with unique labels and visible focus', async () => {
+    const compiled = await renderApp();
     const webSerialRxjs = PROJECTS.find(
       (project) => project.id === 'web-serial-rxjs',
     );
@@ -371,11 +386,8 @@ describe('App', () => {
     ).toContain('min-w-0');
   });
 
-  it('keeps Hero readable width while Projects uses a wider responsive grid', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('keeps Hero readable width while Projects uses a wider responsive grid', async () => {
+    const compiled = await renderApp();
     const shell = compiled.querySelector('main > div:not([aria-hidden])');
     const hero = compiled.querySelector('section');
     const heading = hero?.querySelector('h1');
@@ -425,11 +437,8 @@ describe('App', () => {
     expect(footer?.className).not.toContain('mt-8');
   });
 
-  it('includes Get involved section with contribution links between Projects and Footer', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('includes Get involved section with contribution links between Projects and Footer', async () => {
+    const compiled = await renderApp();
     const getInvolvedSection = compiled.querySelector(
       '[aria-labelledby="get-involved-heading"]',
     );
@@ -453,42 +462,30 @@ describe('App', () => {
     expect(githubProfileLink?.getAttribute('target')).toBe('_blank');
     expect(githubProfileLink?.getAttribute('rel')).toBe('noopener noreferrer');
 
-    const sections = Array.from(
-      compiled.querySelectorAll('main > div > section, main > div > footer'),
-    );
-    const projectsIndex = sections.findIndex((section) =>
-      section.querySelector('#projects-heading'),
-    );
-    const getInvolvedIndex = sections.findIndex((section) =>
-      section.querySelector('#get-involved-heading'),
-    );
-    const footerIndex = sections.findIndex(
-      (section) => section.tagName === 'FOOTER',
-    );
+    const projects = compiled
+      .querySelector('#projects-heading')
+      ?.closest('section');
+    const getInvolved = compiled
+      .querySelector('#get-involved-heading')
+      ?.closest('section');
+    const footer = compiled.querySelector('footer');
 
-    expect(projectsIndex).toBeGreaterThan(-1);
-    expect(getInvolvedIndex).toBeGreaterThan(projectsIndex);
-    expect(footerIndex).toBeGreaterThan(getInvolvedIndex);
+    expect(projects).not.toBeNull();
+    expect(getInvolved).not.toBeNull();
+    expect(footer).not.toBeNull();
+    expect(
+      projects?.compareDocumentPosition(getInvolved ?? projects) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      getInvolved?.compareDocumentPosition(footer ?? getInvolved) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 
   it('shows the latest fresh release between the hero and Projects', async () => {
-    TestBed.resetTestingModule();
-    await TestBed.configureTestingModule({
-      imports: [App],
-      providers: [
-        {
-          provide: LATEST_RELEASE_LOADER,
-          useValue: (async () => freshRelease) satisfies LatestReleaseLoader,
-        },
-      ],
-    }).compileComponents();
-
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    await fixture.whenStable();
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+    await configureApp(async () => freshRelease);
+    const compiled = await renderApp();
     const hero = compiled.querySelector('section');
     const band = compiled
       .querySelector('#whats-new-heading')
@@ -515,19 +512,40 @@ describe('App', () => {
     expect(band?.textContent).toContain('Release v4.2.1');
     expect(band?.textContent).toContain('web-serial-rxjs');
     expect(link?.getAttribute('href')).toBe(freshRelease.htmlUrl);
-    expect(nav?.textContent).not.toContain('Updates');
+    expect(nav?.querySelector('a[href="/updates"]')?.textContent?.trim()).toBe(
+      'Updates',
+    );
     expect(nav?.textContent).not.toContain('更新情報');
   });
 
   it('hides the band when the latest release is older than 60 days', async () => {
+    const compiled = await renderApp();
+
+    expect(compiled.querySelector('#whats-new-heading')).toBeNull();
+    expect(
+      compiled.querySelector('nav a[href="/updates"]')?.textContent?.trim(),
+    ).toBe('Updates');
+    expect(compiled.querySelector('nav')?.textContent).not.toContain('更新情報');
+  });
+
+  it('marks Updates as the current page', async () => {
     const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
     fixture.detectChanges();
+    await router.navigateByUrl('/updates');
     await fixture.whenStable();
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
+    const updates = compiled.querySelector(
+      'nav[aria-label="Main navigation"] a[href="/updates"]',
+    );
 
-    expect(compiled.querySelector('#whats-new-heading')).toBeNull();
-    expect(compiled.querySelector('nav')?.textContent).not.toContain('Updates');
+    expect(updates?.getAttribute('aria-current')).toBe('page');
+    expect(
+      compiled
+        .querySelector('nav[aria-label="Main navigation"] a[href="/#projects-heading"]')
+        ?.getAttribute('aria-current'),
+    ).toBeNull();
   });
 });

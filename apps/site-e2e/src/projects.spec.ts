@@ -303,7 +303,13 @@ test.describe("What's new", () => {
     await expect(link).toHaveAttribute('href', latestReleaseUrl);
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(navigation).not.toContainText('Updates');
+    await expect(navigation.getByRole('link', { name: 'Updates' })).toHaveAttribute(
+      'href',
+      '/updates',
+    );
+    await expect(
+      navigation.getByRole('link', { name: 'Updates' }),
+    ).not.toHaveAttribute('aria-current');
     await expect(navigation).not.toContainText('更新情報');
 
     const order = await page.evaluate(() => {
@@ -345,8 +351,13 @@ test.describe("What's new", () => {
       0,
     );
     await expect(
+      page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', {
+        name: 'Updates',
+      }),
+    ).toHaveAttribute('href', '/updates');
+    await expect(
       page.getByRole('navigation', { name: 'Main navigation' }),
-    ).not.toContainText('Updates');
+    ).not.toContainText('更新情報');
     await expect(
       page.getByRole('heading', { level: 2, name: 'Projects' }),
     ).toBeVisible();
