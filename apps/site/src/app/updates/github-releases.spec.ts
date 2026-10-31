@@ -263,13 +263,27 @@ describe('fetchLatestReleases', () => {
 });
 
 describe('loadLatestFreshRelease', () => {
-  it('returns null when every repository fails', async () => {
+  it('returns fallback when API fails but fallback is fresh', async () => {
     const fetchImpl: typeof fetch = async () => {
       throw new Error('offline');
     };
 
+    // Use current time so fallback (2026-10-30) is fresh
+    const currentDate = new Date('2026-10-31');
+    const result = await loadLatestFreshRelease(projects, currentDate, fetchImpl);
+    expect(result).not.toBeNull();
+    expect(result?.projectName).toBe('web-serial-rxjs');
+  });
+
+  it('returns null when API fails and fallback is stale', async () => {
+    const fetchImpl: typeof fetch = async () => {
+      throw new Error('offline');
+    };
+
+    // Use date far in future so fallback is stale (>60 days old)
+    const farFuture = new Date('2027-01-01');
     await expect(
-      loadLatestFreshRelease(projects, exactly60DaysLater, fetchImpl),
+      loadLatestFreshRelease(projects, farFuture, fetchImpl),
     ).resolves.toBeNull();
   });
 

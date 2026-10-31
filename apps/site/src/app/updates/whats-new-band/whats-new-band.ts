@@ -19,6 +19,11 @@ export class WhatsNewBand {
     void this.load();
   }
 
+  /**
+   * Generate accessible aria-label for release link.
+   * External link indication per external link rules.
+   * @see docs/EXTERNAL_LINKS_AND_UPDATES_NAV.md
+   */
   protected releaseAriaLabel(release: GithubReleaseSummary): string {
     return `${release.projectName} ${release.name} (opens in a new tab)`;
   }
@@ -32,8 +37,14 @@ export class WhatsNewBand {
 
   private async load(): Promise<void> {
     try {
-      this.release.set(await this.loadLatestRelease());
-    } catch {
+      const result = await this.loadLatestRelease();
+      console.log('[WhatsNewBand] Loader result:', result);
+      this.release.set(result);
+      if (!result) {
+        console.warn('[WhatsNewBand] No fresh release found (>60 days or no releases)');
+      }
+    } catch (error) {
+      console.error('[WhatsNewBand] Failed to load release:', error);
       this.release.set(null);
     }
   }
