@@ -162,10 +162,61 @@ All tests pass:
 - Visual regression: Maintains existing layout, updates colors only
 - Accessibility: Improved contrast ratios across the board
 
+## Spacing, Radius, Shadow & Interactive Tokens (Track B)
+
+### Spacing Tokens
+Consistent spacing scale for margins, padding, and gaps:
+- `--spacing-xs`: 0.5rem (8px) - tight gaps
+- `--spacing-sm`: 0.75rem (12px) - small spacing
+- `--spacing-md`: 1rem (16px) - base spacing
+- `--spacing-lg`: 1.5rem (24px) - comfortable spacing
+- `--spacing-xl`: 2rem (32px) - large spacing
+- `--spacing-2xl`: 2.5rem (40px) - extra large spacing
+- `--spacing-3xl`: 3rem (48px) - section spacing
+
+### Radius Tokens
+Unified border-radius values for consistent component styling:
+- `--radius-sm`: 0.125rem (2px) - small elements (links, focus rings)
+- `--radius-md`: 0.5rem (8px) - buttons, badges
+- `--radius-lg`: 1rem (16px) - cards (alternative)
+- `--radius-xl`: 1.75rem (28px) - primary card borders
+- `--radius-full`: 9999px - fully rounded (pills, CTAs)
+
+### Shadow Tokens
+Layered elevation system for depth hierarchy:
+- `--shadow-sm`: 0 1px 2px rgba(15, 23, 42, 0.04) - subtle elevation
+- `--shadow-md`: 0 4px 12px rgba(15, 23, 42, 0.06) - moderate elevation
+- `--shadow-lg`: 0 16px 40px rgba(21, 128, 61, 0.08) - news strip card
+- `--shadow-xl`: 0 24px 64px rgba(15, 23, 42, 0.08) - project cards
+- `--shadow-cta`: 0 16px 36px rgba(21, 128, 61, 0.18) - hero CTA emphasis
+
+### Interactive Tokens
+Accessibility-focused interaction targets:
+- `--tap-target-min`: 2.75rem (44px) - minimum touch/tap target (WCAG 2.5.5 Level AAA)
+
+### Focus-Visible Implementation
+All interactive elements now use `:focus-visible` instead of `:focus`:
+- Shows focus ring only for keyboard navigation
+- Avoids visual noise on mouse/touch interactions
+- Consistent 2px ring with 2px offset across all focusable elements
+- Uses `--color-focus-ring` (brand-green-700) for accessibility
+
+### Navigation & Tap Targets
+Header and footer navigation links meet WCAG AAA tap target sizing:
+- All nav links: `min-h-[var(--tap-target-min)]` (≥44px)
+- CTAs and buttons: `min-h-[var(--tap-target-min)]` (≥44px)
+- Adequate horizontal padding for comfortable interaction
+
+### Heading Hierarchy Fixes
+- **What's new section**: Changed h2 from `text-xs` label style to `text-2xl` heading style
+- **Groups**: Use h3 (existing, maintained)
+- **Cards**: Use h4 (existing, maintained)
+- Clear visual hierarchy maintained across all zones
+
 ## Out of Scope (Future Work)
 The following were explicitly excluded from this implementation:
 - Dark mode
-- Typography/spacing adjustments (Track B)
-- Tap target sizing
-- Layout/navigation redesign
-- /updates page changes
+- Brand accent placement (Track C)
+- External link rules / Updates navigation (Track D)
+- Full typography/font changes
+- Layout/navigation redesign beyond tap targets

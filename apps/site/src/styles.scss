@@ -62,4 +62,30 @@
 
   /* Focus ring offset */
   --ring-offset-width: 2px;
+
+  /* ===== Spacing Tokens ===== */
+  --spacing-xs: 0.5rem;   /* 8px - tight gaps */
+  --spacing-sm: 0.75rem;  /* 12px - small spacing */
+  --spacing-md: 1rem;     /* 16px - base spacing */
+  --spacing-lg: 1.5rem;   /* 24px - comfortable spacing */
+  --spacing-xl: 2rem;     /* 32px - large spacing */
+  --spacing-2xl: 2.5rem;  /* 40px - extra large spacing */
+  --spacing-3xl: 3rem;    /* 48px - section spacing */
+
+  /* ===== Radius Tokens ===== */
+  --radius-sm: 0.125rem;     /* 2px - small elements */
+  --radius-md: 0.5rem;       /* 8px - buttons, badges */
+  --radius-lg: 1rem;         /* 16px - cards */
+  --radius-xl: 1.75rem;      /* 28px - card borders */
+  --radius-full: 9999px;     /* full rounded */
+
+  /* ===== Shadow Tokens ===== */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 16px 40px rgba(21, 128, 61, 0.08);
+  --shadow-xl: 0 24px 64px rgba(15, 23, 42, 0.08);
+  --shadow-cta: 0 16px 36px rgba(21, 128, 61, 0.18);
+
+  /* ===== Interactive Tokens ===== */
+  --tap-target-min: 2.75rem; /* 44px - minimum tap target */
 }

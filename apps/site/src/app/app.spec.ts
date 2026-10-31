@@ -343,7 +343,7 @@ describe('App', () => {
       expect(cardLink).not.toBeNull();
       expect(cardLink?.getAttribute('target')).toBe('_blank');
       expect(cardLink?.getAttribute('rel')).toBe('noopener noreferrer');
-      expect(cardLink?.className).toContain('focus:ring-2');
+      expect(cardLink?.className).toContain('focus-visible:ring-2');
       expect(cardLink?.className).toContain('break-words');
       expect(cardLink?.getAttribute('aria-label')).toMatch(
         / \(opens in a new tab\)$/,
@@ -354,8 +354,8 @@ describe('App', () => {
 
     expect(footerLinks.length).toBeGreaterThan(0);
     footerLinks.forEach((link) => {
-      expect(link.className).toContain('focus:ring-2');
-      expect(link.className).toContain('focus:ring-[var(--color-focus-ring)]');
+      expect(link.className).toContain('focus-visible:ring-2');
+      expect(link.className).toContain('focus-visible:ring-[var(--color-focus-ring)]');
     });
 
     expect(

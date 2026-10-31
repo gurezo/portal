@@ -303,8 +303,8 @@ describe('ProjectCard', () => {
     expect(compiled.querySelector('h3')).toBeNull();
     expect(description?.className).toContain('break-words');
     expect(link?.className).toContain('break-words');
-    expect(link?.className).toContain('focus:ring-2');
-    expect(link?.className).toContain('focus:ring-[var(--color-focus-ring)]');
+    expect(link?.className).toContain('focus-visible:ring-2');
+    expect(link?.className).toContain('focus-visible:ring-[var(--color-focus-ring)]');
     expect(link?.getAttribute('aria-label')).toBe(
       'VeryLongProjectNameWithoutSpacesThatMustWrap GitHub (opens in a new tab)',
     );
