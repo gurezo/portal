@@ -6,18 +6,9 @@
   "sourceRoot": "apps/site/src",
   "tags": [],
   "targets": {
-    "generate-rss": {
-      "executor": "nx:run-commands",
-      "cache": false,
-      "outputs": ["{workspaceRoot}/apps/site/public/rss.xml"],
-      "options": {
-        "command": "pnpm exec tsx scripts/generate-rss.ts"
-      }
-    },
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
-      "dependsOn": ["^build", "generate-rss"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/site",
@@ -58,7 +49,6 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
-      "dependsOn": ["generate-rss"],
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
