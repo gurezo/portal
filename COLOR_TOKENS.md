@@ -208,7 +208,9 @@ Header and footer navigation links meet WCAG AAA tap target sizing:
 - Adequate horizontal padding for comfortable interaction
 
 ### Heading Hierarchy Fixes
-- **What's new section**: Changed h2 from `text-xs` label style to `text-2xl` heading style
+- **What's new section**: Changed h2 from `text-xs` label style to `text-lg` heading style
+  - Creates visual hierarchy: h2 (18px) vs release name (24px on desktop)
+  - Prevents size collision between heading and content on PC
 - **Groups**: Use h3 (existing, maintained)
 - **Cards**: Use h4 (existing, maintained)
 - Clear visual hierarchy maintained across all zones

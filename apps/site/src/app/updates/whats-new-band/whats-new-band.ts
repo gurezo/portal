@@ -8,7 +8,7 @@ import {
   selector: 'app-whats-new-band',
   templateUrl: './whats-new-band.html',
   host: {
-    class: 'block min-w-0',
+    class: 'block',
   },
 })
 export class WhatsNewBand {
