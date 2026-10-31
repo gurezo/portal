@@ -164,15 +164,20 @@ All tests pass:
 
 ## Spacing, Radius, Shadow & Interactive Tokens (Track B)
 
+### Container Tokens
+Max-width values for content containers (used by `max-w-*` utilities):
+- `--container-xl`: 36rem (576px) - single column layout
+- `--container-2xl`: 42rem (672px) - narrow content
+- `--container-3xl`: 48rem (768px) - readable prose width
+- `--container-4xl`: 56rem (896px) - standard content
+- `--container-7xl`: 80rem (1280px) - wide content
+
 ### Spacing Tokens
 Consistent spacing scale for margins, padding, and gaps:
 - `--spacing-xs`: 0.5rem (8px) - tight gaps
 - `--spacing-sm`: 0.75rem (12px) - small spacing
 - `--spacing-md`: 1rem (16px) - base spacing
 - `--spacing-lg`: 1.5rem (24px) - comfortable spacing
-- `--spacing-xl`: 2rem (32px) - large spacing
-- `--spacing-2xl`: 2.5rem (40px) - extra large spacing
-- `--spacing-3xl`: 3rem (48px) - section spacing
 
 ### Radius Tokens
 Unified border-radius values for consistent component styling:
