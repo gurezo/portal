@@ -9,6 +9,7 @@ import {
   GithubReleaseSummary,
   LATEST_RELEASE_LOADER,
   LatestReleaseLoader,
+  RELEASES_LOADER,
 } from './updates/github-releases';
 
 const freshRelease: GithubReleaseSummary = {
@@ -31,6 +32,10 @@ async function configureApp(loader: LatestReleaseLoader) {
       {
         provide: LATEST_RELEASE_LOADER,
         useValue: loader,
+      },
+      {
+        provide: RELEASES_LOADER,
+        useValue: async () => [],
       },
     ],
   }).compileComponents();
@@ -64,7 +69,8 @@ describe('App', () => {
     const header = compiled.querySelector('header');
     const nav = header?.querySelector('nav[aria-label="Main navigation"]');
     const logoLink = header?.querySelector('a[href="/"]');
-    const projectsLink = nav?.querySelector('a[href="#projects-heading"]');
+    const projectsLink = nav?.querySelector('a[href="/#projects-heading"]');
+    const updatesLink = nav?.querySelector('a[href="/updates"]');
     const githubLink = nav?.querySelector(
       'a[href="https://github.com/gurezo"]',
     );
@@ -74,20 +80,24 @@ describe('App', () => {
     expect(logoLink?.textContent?.trim()).toBe('gurezo.net');
     expect(logoLink?.getAttribute('aria-label')).toBe('gurezo.net home');
     expect(projectsLink?.textContent?.trim()).toBe('Projects');
+    expect(updatesLink?.textContent?.trim()).toBe('Updates');
+    expect(updatesLink?.getAttribute('aria-current')).toBeNull();
     expect(githubLink?.textContent?.trim()).toBe('GitHub');
     expect(githubLink?.getAttribute('target')).toBe('_blank');
     expect(githubLink?.getAttribute('rel')).toBe('noopener noreferrer');
     expect(githubLink?.getAttribute('aria-label')).toBe(
       'GitHub (opens in a new tab)',
     );
-    expect(nav?.textContent).not.toContain('Updates');
+    expect(nav?.textContent).toContain('Updates');
     expect(nav?.textContent).not.toContain('更新情報');
   });
 
   it('describes the portal in Hero and links to Projects', async () => {
     const compiled = await renderApp();
     const hero = compiled.querySelector('section');
-    const browseProjects = hero?.querySelector('a[href="#projects-heading"]');
+    const browseProjects = hero?.querySelector(
+      'a[href="/#projects-heading"]',
+    );
 
     const heroText = hero?.textContent?.replace(/\s+/g, ' ') ?? '';
 
@@ -502,7 +512,9 @@ describe('App', () => {
     expect(band?.textContent).toContain('Release v4.2.1');
     expect(band?.textContent).toContain('web-serial-rxjs');
     expect(link?.getAttribute('href')).toBe(freshRelease.htmlUrl);
-    expect(nav?.textContent).not.toContain('Updates');
+    expect(nav?.querySelector('a[href="/updates"]')?.textContent?.trim()).toBe(
+      'Updates',
+    );
     expect(nav?.textContent).not.toContain('更新情報');
   });
 
@@ -510,6 +522,30 @@ describe('App', () => {
     const compiled = await renderApp();
 
     expect(compiled.querySelector('#whats-new-heading')).toBeNull();
-    expect(compiled.querySelector('nav')?.textContent).not.toContain('Updates');
+    expect(
+      compiled.querySelector('nav a[href="/updates"]')?.textContent?.trim(),
+    ).toBe('Updates');
+    expect(compiled.querySelector('nav')?.textContent).not.toContain('更新情報');
+  });
+
+  it('marks Updates as the current page', async () => {
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    fixture.detectChanges();
+    await router.navigateByUrl('/updates');
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const updates = compiled.querySelector(
+      'nav[aria-label="Main navigation"] a[href="/updates"]',
+    );
+
+    expect(updates?.getAttribute('aria-current')).toBe('page');
+    expect(
+      compiled
+        .querySelector('nav[aria-label="Main navigation"] a[href="/#projects-heading"]')
+        ?.getAttribute('aria-current'),
+    ).toBeNull();
   });
 });

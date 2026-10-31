@@ -90,7 +90,14 @@ test.describe('Updates', () => {
       'href',
       '/rss.xml',
     );
-    await expect(navigation).not.toContainText('Updates');
+    await expect(navigation.getByRole('link', { name: 'Updates' })).toHaveAttribute(
+      'href',
+      '/updates',
+    );
+    await expect(navigation.getByRole('link', { name: 'Updates' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
     await expect(navigation).not.toContainText('更新情報');
   });
 
