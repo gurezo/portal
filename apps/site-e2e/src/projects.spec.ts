@@ -39,7 +39,7 @@ const publishedLinks = [
   },
   {
     region: 'CHIRIMEN Tools',
-    name: 'CHIRIMEN Lite Console Open App (opens in a new tab)',
+    name: 'CHIRIMEN Lite Console App (opens in a new tab)',
     href: 'https://chirimen-lite-console.web.app/',
   },
   {
@@ -49,7 +49,7 @@ const publishedLinks = [
   },
   {
     region: 'CHIRIMEN Tools',
-    name: 'CHIRIMEN Device Dashboard Open App (opens in a new tab)',
+    name: 'CHIRIMEN Device Dashboard App (opens in a new tab)',
     href: 'https://chirimen-device-dashboard.web.app/',
   },
   {
@@ -69,12 +69,69 @@ async function expectNoHorizontalOverflow(page: Page) {
     const root = document.documentElement;
     return root.scrollWidth - root.clientWidth;
   });
-  const cardOverflows = await page.locator('app-project-card').evaluateAll(
-    (cards) => cards.map((card) => card.scrollWidth - card.clientWidth),
-  );
+  const cardOverflows = await page
+    .locator('app-project-card')
+    .evaluateAll((cards) =>
+      cards.map((card) => card.scrollWidth - card.clientWidth),
+    );
 
   expect(pageOverflow).toBeLessThanOrEqual(1);
   expect(Math.max(...cardOverflows)).toBeLessThanOrEqual(1);
+}
+
+const releaseRepos = [
+  'web-serial-rxjs',
+  'mdn-translation-ja-mcp',
+  'chirimen-lite-console',
+  'chirimen-device-dashboard',
+  'chirimen-certified-devices',
+] as const;
+
+const latestReleaseUrl =
+  'https://github.com/gurezo/web-serial-rxjs/releases/tag/v4.2.1';
+
+async function mockLatestReleases(page: Page, publishedAt: string) {
+  await page.route(
+    '**/api.github.com/repos/gurezo/*/releases/latest',
+    async (route) => {
+      const url = route.request().url();
+
+      if (!url.includes('/gurezo/web-serial-rxjs/releases/latest')) {
+        await route.fulfill({
+          status: 404,
+          contentType: 'application/json',
+          body: JSON.stringify({ message: 'Not Found' }),
+        });
+        return;
+      }
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          name: 'Release v4.2.1',
+          tag_name: 'v4.2.1',
+          published_at: publishedAt,
+          html_url: latestReleaseUrl,
+          draft: false,
+          prerelease: false,
+        }),
+      });
+    },
+  );
+}
+
+async function openHome(page: Page) {
+  const releasesLoaded = Promise.all(
+    releaseRepos.map((repo) =>
+      page.waitForResponse((response) =>
+        response.url().includes(`/repos/gurezo/${repo}/releases/latest`),
+      ),
+    ),
+  );
+
+  await page.goto('/');
+  await releasesLoaded;
 }
 
 async function focusFirstProjectLink(page: Page, browserName: string) {
@@ -100,6 +157,10 @@ async function focusFirstProjectLink(page: Page, browserName: string) {
 }
 
 test.describe('Projects', () => {
+  test.beforeEach(async ({ page }) => {
+    await mockLatestReleases(page, '2000-01-01T00:00:00.000Z');
+  });
+
   test('shows three groups and the MCP card links', async ({ page }) => {
     await page.goto('/');
 
@@ -133,7 +194,9 @@ test.describe('Projects', () => {
       { tag: 'H2', text: 'Get involved' },
     ]);
 
-    const developerTools = page.getByRole('region', { name: 'Developer Tools' });
+    const developerTools = page.getByRole('region', {
+      name: 'Developer Tools',
+    });
 
     await expect(
       developerTools.getByRole('heading', {
@@ -144,10 +207,18 @@ test.describe('Projects', () => {
     await expect(developerTools).toContainText(
       'An MCP server that assists Japanese MDN translation, synchronization, and review.',
     );
-    await expect(developerTools.getByText('Tool', { exact: true })).toBeVisible();
-    await expect(developerTools.getByText('TypeScript', { exact: true })).toBeVisible();
-    await expect(developerTools.getByText('MCP', { exact: true })).toBeVisible();
-    await expect(developerTools.getByText('MDN', { exact: true })).toBeVisible();
+    await expect(
+      developerTools.getByText('Tool', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      developerTools.getByText('TypeScript', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      developerTools.getByText('MCP', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      developerTools.getByText('MDN', { exact: true }),
+    ).toBeVisible();
     await expect(developerTools).not.toContainText('Coming later');
     await expect(developerTools).not.toContainText('Open App');
 
@@ -206,5 +277,78 @@ test.describe('Projects', () => {
       focus?.boxShadow !== 'none' ||
         (focus?.outlineStyle !== 'none' && (focus?.outlineWidth ?? 0) > 0),
     ).toBe(true);
+  });
+});
+
+test.describe("What's new", () => {
+  test('shows the latest release between the hero and Projects', async ({
+    page,
+  }) => {
+    await mockLatestReleases(page, new Date().toISOString());
+    await openHome(page);
+
+    const band = page.getByRole('region', { name: "What's new" });
+    const link = band.getByRole('link', {
+      name: 'web-serial-rxjs Release v4.2.1 (opens in a new tab)',
+    });
+    const navigation = page.getByRole('navigation', {
+      name: 'Main navigation',
+    });
+
+    await expect(
+      band.getByRole('heading', { level: 2, name: "What's new" }),
+    ).toBeVisible();
+    await expect(band).toContainText('Release v4.2.1');
+    await expect(band).toContainText('web-serial-rxjs');
+    await expect(link).toHaveAttribute('href', latestReleaseUrl);
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(navigation).not.toContainText('Updates');
+    await expect(navigation).not.toContainText('更新情報');
+
+    const order = await page.evaluate(() => {
+      const hero = document.querySelector('h1')?.closest('section');
+      const bandSection = document
+        .querySelector('#whats-new-heading')
+        ?.closest('section');
+      const projects = document
+        .querySelector('#projects-heading')
+        ?.closest('section');
+
+      if (!hero || !bandSection || !projects) {
+        return false;
+      }
+
+      const follows = Node.DOCUMENT_POSITION_FOLLOWING;
+
+      return (
+        !hero.contains(bandSection) &&
+        Boolean(hero.compareDocumentPosition(bandSection) & follows) &&
+        Boolean(bandSection.compareDocumentPosition(projects) & follows)
+      );
+    });
+
+    expect(order).toBe(true);
+  });
+
+  test('hides the band when the latest release is older than 60 days', async ({
+    page,
+  }) => {
+    const publishedAt = new Date(
+      Date.now() - 61 * 24 * 60 * 60 * 1000,
+    ).toISOString();
+
+    await mockLatestReleases(page, publishedAt);
+    await openHome(page);
+
+    await expect(page.getByRole('heading', { name: "What's new" })).toHaveCount(
+      0,
+    );
+    await expect(
+      page.getByRole('navigation', { name: 'Main navigation' }),
+    ).not.toContainText('Updates');
+    await expect(
+      page.getByRole('heading', { level: 2, name: 'Projects' }),
+    ).toBeVisible();
   });
 });
