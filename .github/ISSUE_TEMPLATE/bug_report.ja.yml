@@ -1,0 +1,97 @@
+name: 🐛 バグ報告
+description: portal の不具合報告
+title: '[Bug]: '
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ありがとうございます！再現可能な情報があると調査が速くなります。
+
+        このリポジトリの Issue は portal サイト（表示、ナビゲーション、プロジェクト一覧、スタイル、Firebase Hosting）が対象です。
+        リンク先プロジェクトの不具合は、各リポジトリへお願いします。
+
+        - [web-serial-rxjs](https://github.com/gurezo/web-serial-rxjs)
+        - [chirimen-lite-console](https://github.com/gurezo/chirimen-lite-console)
+        - [chirimen-device-dashboard](https://github.com/gurezo/chirimen-device-dashboard)
+        - [chirimen-certified-devices](https://github.com/gurezo/chirimen-certified-devices)
+        - [mdn-translation-ja-mcp](https://github.com/gurezo/mdn-translation-ja-mcp)
+
+  - type: input
+    id: page_url
+    attributes:
+      label: 対象ページの URL
+      description: '例: https://gurezo.net/ またはローカルの URL'
+      placeholder: 'https://gurezo.net/'
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: ブラウザ / バージョン
+      description: '例: Chrome 120 / Edge 120 / Safari 18'
+      placeholder: 'Chrome xx / Edge xx / Safari xx'
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: 'macOS / Windows / Linux'
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: 開発環境（ローカルで再現する場合）
+      description: '例: Node 24.x, pnpm 12.x, Nx 23.x。公開サイトのみの場合は空で構いません'
+      placeholder: 'Node x.x / pnpm x.x / Nx x.x'
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 何が起きましたか？
+      description: 実際に起きたこと（エラー内容や挙動）
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 再現手順（番号付きで）
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待される動作
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: ログ / エラースタック
+      description: コンソールログ、スタックトレース、スクリーンショット（あれば）を貼ってください
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: チェックリスト
+      options:
+        - label: README の公開プロジェクトと開発手順を確認しました
+          required: false
