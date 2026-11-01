@@ -180,7 +180,7 @@ The What's New Band (rendered by `<app-whats-new-band />`) has **independent** b
 
 ### Implementation
 
-Component: `apps/site/src/app/updates/whats-new-band/whats-new-band.ts`
+Component: `apps/site/src/app/updates/whats-new-band/whats-new-band.component.ts`
 
 Logic: Uses `github-releases.ts` service to fetch latest release, computes age, conditionally renders.
 

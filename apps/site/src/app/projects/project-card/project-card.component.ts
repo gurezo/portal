@@ -8,12 +8,12 @@ import {
 
 @Component({
   selector: 'app-project-card',
-  templateUrl: './project-card.html',
+  templateUrl: './project-card.component.html',
   host: {
     class: 'block h-full min-w-0',
   },
 })
-export class ProjectCard {
+export class ProjectCardComponent {
   readonly project = input.required<OssProject>();
 
   protected readonly categoryLabel = categoryLabel;

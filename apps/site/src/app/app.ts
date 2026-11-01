@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { PROJECTS, PROJECT_GROUP_SECTIONS } from './projects/projects.data';
-import { ProjectCard } from './projects/project-card/project-card';
+import { ProjectCardComponent } from './projects/project-card/project-card.component';
 import { projectsByGroup } from './projects/projects.util';
-import { WhatsNewBand } from './updates/whats-new-band/whats-new-band';
+import { WhatsNewBandComponent } from './updates/whats-new-band/whats-new-band.component';
 import { FEATURE_FLAGS } from './app.config';
 
 @Component({
   selector: 'app-root',
-  imports: [ProjectCard, WhatsNewBand],
+  imports: [ProjectCardComponent, WhatsNewBandComponent],
   templateUrl: './app.html',
 })
 export class App {
