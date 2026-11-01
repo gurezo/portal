@@ -54,3 +54,4 @@ firebase-public
 .firebase
 .nx/polygraph
 .vitest
+.tmp
