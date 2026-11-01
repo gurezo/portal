@@ -1,0 +1,55 @@
+name: ✨ 機能要望
+description: 機能追加・改善の提案
+title: '[Feature]: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提案ありがとうございます！「何の課題を解決したいか → どうしたいか」を書いてもらえると助かります。
+
+        このリポジトリの Issue は portal サイト（表示、ナビゲーション、プロジェクト一覧、スタイル、Firebase Hosting）の機能改善が対象です。
+        リンク先プロジェクトの機能要望は、各リポジトリへお願いします。
+
+        - [web-serial-rxjs](https://github.com/gurezo/web-serial-rxjs)
+        - [chirimen-lite-console](https://github.com/gurezo/chirimen-lite-console)
+        - [chirimen-device-dashboard](https://github.com/gurezo/chirimen-device-dashboard)
+        - [chirimen-certified-devices](https://github.com/gurezo/chirimen-certified-devices)
+        - [mdn-translation-ja-mcp](https://github.com/gurezo/mdn-translation-ja-mcp)
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 課題 / 背景
+      description: 解決したい課題・背景（なぜ必要か）
+      placeholder: '今は〜が分かりにくい / 〜へたどり着けない、など'
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案する解決策
+      description: どういう表示・導線になってほしいか
+      placeholder: |
+        例:
+        - プロジェクト一覧に ○○ の説明を出したい
+        - トップから ○○ へ直接移動できるようにしたい
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 検討した代替案
+      description: 他の代替案（回避策）があれば
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 追加情報
+      description: 参考リンク、ユースケース、画面イメージなど
+    validations:
+      required: false
