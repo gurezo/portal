@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OssProject } from '../project.model';
 import { PROJECTS } from '../projects.data';
 import { categoryLabel } from '../projects.util';
-import { ProjectCard } from './project-card';
+import { ProjectCardComponent } from './project-card.component';
 
 function createProject(overrides: Partial<OssProject> = {}): OssProject {
   return {
@@ -35,15 +35,15 @@ function expectedLinkSnapshots(project: OssProject) {
   }));
 }
 
-describe('ProjectCard', () => {
-  let fixture: ComponentFixture<ProjectCard>;
+describe('ProjectCardComponent', () => {
+  let fixture: ComponentFixture<ProjectCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectCard],
+      imports: [ProjectCardComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProjectCard);
+    fixture = TestBed.createComponent(ProjectCardComponent);
   });
 
   function render(project: OssProject): HTMLElement {
