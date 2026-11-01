@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gurezo.net updates</title>
+    <link>https://gurezo.net/updates</link>
+    <description>Latest GitHub releases for projects on gurezo.net.</description>
+    <atom:link href="https://gurezo.net/rss.xml" rel="self" type="application/rss+xml"/>
+
+  </channel>
+</rss>
