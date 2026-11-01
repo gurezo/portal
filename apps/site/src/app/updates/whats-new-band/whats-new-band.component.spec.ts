@@ -4,7 +4,7 @@ import {
   LATEST_RELEASE_LOADER,
   LatestReleaseLoader,
 } from '../github-releases';
-import { WhatsNewBand } from './whats-new-band';
+import { WhatsNewBandComponent } from './whats-new-band.component';
 
 const freshRelease: GithubReleaseSummary = {
   projectName: 'web-serial-rxjs',
@@ -19,18 +19,18 @@ const freshRelease: GithubReleaseSummary = {
 async function createBand(loader: LatestReleaseLoader) {
   TestBed.resetTestingModule();
   await TestBed.configureTestingModule({
-    imports: [WhatsNewBand],
+    imports: [WhatsNewBandComponent],
     providers: [{ provide: LATEST_RELEASE_LOADER, useValue: loader }],
   }).compileComponents();
 
-  const fixture = TestBed.createComponent(WhatsNewBand);
+  const fixture = TestBed.createComponent(WhatsNewBandComponent);
   fixture.detectChanges();
   await fixture.whenStable();
   fixture.detectChanges();
   return fixture;
 }
 
-describe('WhatsNewBand', () => {
+describe('WhatsNewBandComponent', () => {
   it('renders the latest release name, project, date, and link', async () => {
     const fixture = await createBand(async () => freshRelease);
     const compiled = fixture.nativeElement as HTMLElement;
